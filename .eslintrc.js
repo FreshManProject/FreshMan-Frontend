@@ -76,6 +76,7 @@ module.exports = {
         'import/no-extraneous-dependencies': 0,
         'no-shadow': 0,
         'jsx-a11y/no-noninteractive-element-interactions': 0,
+        'react/require-default-props': 'off',
     },
     settings: {
         'import/resolver': {
