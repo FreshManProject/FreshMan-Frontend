@@ -10,7 +10,9 @@ const root = ReactDOM.createRoot(
 root.render(
     <React.StrictMode>
         <QueryProvider>
-            <App />
+            <div className="m-auto box-border max-w-[600px] items-center justify-center">
+                <App />
+            </div>
         </QueryProvider>
     </React.StrictMode>,
 );
