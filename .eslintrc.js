@@ -33,6 +33,7 @@ module.exports = {
             2,
             { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
         ],
+        'react/no-array-index-key': 'off',
         // 화살표 함수의 파라미터가 하나일때 괄호 생략
         'arrow-parens': ['warn', 'as-needed'],
         // 사용하지 않는 변수가 있을 때 발생하는 경고 비활성화
@@ -80,8 +81,10 @@ module.exports = {
     },
     settings: {
         'import/resolver': {
+            typescript: {},
             node: {
                 extensions: ['.js', '.jsx', '.ts', '.tsx'],
+                moduleDirectory: ['node_modules', './src/'],
             },
         },
     },
