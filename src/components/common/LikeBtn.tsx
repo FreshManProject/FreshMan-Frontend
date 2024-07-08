@@ -1,31 +1,27 @@
+import React, { memo } from 'react';
 import { PiHeart, PiHeartFill } from 'react-icons/pi';
 
 interface ILikeBtnProps {
     size?: 'm' | 'lg';
+    isClicked: boolean;
     handleClickLike: () => void;
-    isClick: boolean;
 }
 
-const LikeBtn = ({ size, isClick, handleClickLike }: ILikeBtnProps) => {
+const LikeBtn = ({ size, isClicked, handleClickLike }: ILikeBtnProps) => {
     const btnSize = {
         m: 'h-6 w-6',
         lg: '',
     };
 
     return (
-        <button
-            type="button"
-            aria-label="찜"
-            className="p-1"
-            onClick={handleClickLike}
-        >
-            {isClick ? (
+        <button onClick={handleClickLike} type="button">
+            {isClicked ? (
                 <PiHeartFill
                     className={`text-pointRed ${size ? btnSize[size] : btnSize.m}`}
                 />
             ) : (
                 <PiHeart
-                    className={`text-gray300 ${size ? btnSize[size] : btnSize.m}`}
+                    className={`text-pointRed ${size ? btnSize[size] : btnSize.m}`}
                 />
             )}
         </button>
