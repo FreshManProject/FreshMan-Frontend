@@ -20,7 +20,6 @@ module.exports = {
     ],
     // [rules] 상세 규칙
     rules: {
-        '@typescript-eslint/no-unused-vars': 'off',
         // var 금지
         'no-var': 'warn',
         // 일치 연산자 사용 필수

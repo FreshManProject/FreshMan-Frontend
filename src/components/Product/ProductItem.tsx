@@ -1,16 +1,12 @@
-import React, { memo } from 'react';
-import { Link } from 'react-router-dom';
+import { memo } from 'react';
 import { LikeBtn } from '../common';
 
 interface IProductItemProps {
-    id: number;
     handleClickLike: () => void;
     isClicked: boolean;
 }
 
-const ProductItem = ({ id, isClicked, handleClickLike }: IProductItemProps) => {
-    console.log(`ProductItem ${id} rendered`);
-
+const ProductItem = ({ isClicked, handleClickLike }: IProductItemProps) => {
     return (
         <li className="basis-6/12">
             <div>
@@ -20,7 +16,7 @@ const ProductItem = ({ id, isClicked, handleClickLike }: IProductItemProps) => {
                 />
             </div>
             <div className="px-2.5">
-                <div className="flex items-center justify-between">
+                <div className="mb-1 flex items-center justify-between">
                     <span className="text-body4_b">stussy</span>
                     <LikeBtn
                         isClicked={isClicked}

@@ -45,8 +45,9 @@ module.exports = {
                 body5_b: ['0.625rem', { fontWeight: '700' }],
             },
             colors: {
-                border: 'hsl(var(--border))',
+                border: 'var(--radius)',
                 input: 'hsl(var(--input))',
+                bk: 'var(--bk)',
                 gray300: 'var(--gray300)',
                 gray400: 'var(--gray400)',
                 pointRed: 'var(--pointRed)',

@@ -1,4 +1,3 @@
-import React, { memo } from 'react';
 import { PiHeart, PiHeartFill } from 'react-icons/pi';
 
 interface ILikeBtnProps {
@@ -21,7 +20,7 @@ const LikeBtn = ({ size, isClicked, handleClickLike }: ILikeBtnProps) => {
                 />
             ) : (
                 <PiHeart
-                    className={`text-pointRed ${size ? btnSize[size] : btnSize.m}`}
+                    className={`text-gray300 ${size ? btnSize[size] : btnSize.m}`}
                 />
             )}
         </button>
