@@ -1,5 +1,5 @@
-import RegisterPage from './pages/RegisterPage';
+import Router from './Router';
 
 export default function App() {
-    return <RegisterPage />;
+    return <Router />;
 }
