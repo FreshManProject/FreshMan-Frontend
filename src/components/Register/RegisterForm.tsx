@@ -3,14 +3,15 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import {
     RegisterUserFormData,
     registerUserSchema,
-} from '../types/Validation/yupRegister';
-import { Input } from '../components/ui/input';
+} from '../../types/Validation/yupRegister';
+import { Input } from '../../components/ui/input';
 import DaumPostCode from 'react-daum-postcode';
-import { Button } from '../components/ui/button';
+import { Button } from '../../components/ui/button';
 import { useRef, useState } from 'react';
 import { Sheet, SheetRef } from 'react-modal-sheet';
+import { useNavigate } from 'react-router-dom';
 
-export default function RegisterPage() {
+export default function RegisterForm() {
     const [showDaumPostCodeModal, setShowDaumPostCodeModal] =
         useState<boolean>(false);
     const {
@@ -20,24 +21,31 @@ export default function RegisterPage() {
         watch,
         formState: { errors },
     } = useForm<RegisterUserFormData>({
-        mode: 'onChange',
+        mode: 'onSubmit',
         reValidateMode: 'onSubmit',
-        defaultValues: { name: '', phone: '', address: ' ', addressDetail: '' },
+        defaultValues: { name: '', phone: '', address: '', addressDetail: '' },
         resolver: yupResolver(registerUserSchema),
     });
+    const navigate = useNavigate();
 
-    const phoneValue = watch('phone');
-    const handleDaumAddress = () => {
+    const watchName = watch('name');
+    const watchPhone = watch('phone');
+    const watchAddress = watch('address');
+    const watchAddressDetail = watch('addressDetail');
+
+    const btnActive =
+        watchName && watchPhone && watchAddress && watchAddressDetail;
+
+    const handleDaumAddress = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
         setShowDaumPostCodeModal(!showDaumPostCodeModal);
     };
 
     const ref = useRef<SheetRef>();
 
     const onSubmit = (data: RegisterUserFormData) => {
-        console.log('이름 : ', data.name);
-        console.log('연락처 : ', data.phone);
-        console.log('주소 : ', data.address);
-        console.log('상세주소 : ', data.addressDetail);
+        //backend 통신 코드
+        navigate('/register/success');
     };
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -54,10 +62,11 @@ export default function RegisterPage() {
                     id="name"
                     type="text"
                     placeholder="이름 입력"
+                    className="rounded-none"
                     {...register('name')}
                 />
                 {errors.name && (
-                    <p className="text-black">{errors.name.message}</p>
+                    <p className="text-pointRed">{errors.name.message}</p>
                 )}
             </div>
             <div className="mb-5 mt-5">
@@ -68,11 +77,11 @@ export default function RegisterPage() {
                     id="phone"
                     type="tel"
                     placeholder="숫자만 입력"
-                    value={phoneValue}
+                    className="rounded-none"
                     {...register('phone')}
                 />
                 {errors.phone && (
-                    <p className="text-black">{errors.phone.message}</p>
+                    <p className="text-pointRed">{errors.phone.message}</p>
                 )}
             </div>
             <div className="mb-5 mt-5">
@@ -84,17 +93,18 @@ export default function RegisterPage() {
                         id="address"
                         type="text"
                         placeholder="건물, 지번 또는 도로명 검색"
+                        className="rounded-none"
                         {...register('address')}
                     />
                     <Button
-                        className="ml-2 rounded-xl bg-black text-white hover:bg-white hover:text-black"
-                        onClick={() => handleDaumAddress()}
+                        className="ml-3 rounded-xl bg-black text-white hover:bg-white hover:text-black"
+                        onClick={handleDaumAddress}
                     >
                         우편번호
                     </Button>
                 </div>
                 {errors.address && (
-                    <p className="text-black">{errors.address.message}</p>
+                    <p className="text-pointRed">{errors.address.message}</p>
                 )}
             </div>
             <Sheet
@@ -107,7 +117,9 @@ export default function RegisterPage() {
                     <Sheet.Content>
                         <DaumPostCode
                             onComplete={(data) => {
-                                setValue('address', data.address);
+                                setValue('address', data.address, {
+                                    shouldValidate: false,
+                                });
                                 setShowDaumPostCodeModal(false);
                             }}
                         />
@@ -122,14 +134,22 @@ export default function RegisterPage() {
                     id="addressDetail"
                     type="text"
                     placeholder="상세주소"
+                    className="rounded-none"
                     {...register('addressDetail')}
                 />
                 {errors.addressDetail && (
-                    <p className="text-black">{errors.addressDetail.message}</p>
+                    <p className="text-pointRed">
+                        {errors.addressDetail.message}
+                    </p>
                 )}
             </div>
-            <div className="flex w-full items-center justify-center rounded-xl bg-black text-white">
-                <Button type="submit">다음</Button>
+            <div>
+                <Button
+                    type="submit"
+                    className={`absolute bottom-8 flex w-full max-w-[600px] items-center justify-center rounded-xl py-4 text-white hover:bg-gray-200 ${btnActive ? 'bg-black' : 'pointer-events-none bg-gray-200'}`}
+                >
+                    다음
+                </Button>
             </div>
         </form>
     );

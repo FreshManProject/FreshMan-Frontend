@@ -10,7 +10,7 @@ export const registerUserSchema = yup.object().shape({
     phone: yup
         .string()
         .required('전화번호를 입력해주세요.')
-        .matches(/^\d{2,3}-\d{3,4}-\d{4}$/, '전화번호 형식에 맞지 않습니다.'),
+        .matches(/^\d{11}$/, '전화번호 형식에 맞지 않습니다.'),
     address: yup.string().required('주소를 입력해주세요.'),
     addressDetail: yup.string().required('상세주소를 입력해주세요.'),
 });
