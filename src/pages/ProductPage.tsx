@@ -1,19 +1,19 @@
 import { FilterContainer } from '@/components/FixedFilter';
 import { ProductList } from '@/components/Product';
 import { BottomSheet } from '@/components/common';
-import useIsOpenBottomSheet from '@/hooks/BottomSheet/useIsOpenBottomSheet';
+import useBottomSheetStore from '@/store/useBottomSheetStore';
 
 export default function ProductPage() {
-    const { isOpenBottomSheet, setIsOpenBottomSheet } = useIsOpenBottomSheet();
+    const { setIsOpen, isOpen } = useBottomSheetStore();
 
     const handleClick = () => {
-        setIsOpenBottomSheet((prev) => !prev);
-        console.log(isOpenBottomSheet, '프로덕트');
+        setIsOpen(true);
+        // console.log(isOpenBottomSheet, '프로덕트');
     };
 
     return (
         <div>
-            <BottomSheet isOpen={isOpenBottomSheet}>{'ddddd'}</BottomSheet>
+            <BottomSheet isOpen={isOpen}>{'ddddd'}</BottomSheet>
             {/* <TopHeader>ddd</TopHeader> */}
             <FilterContainer />
             <ProductList />
