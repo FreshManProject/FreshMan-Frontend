@@ -10,6 +10,10 @@ body {
     line-height: 1.5;
 }
 
+body.body-hidden {
+    overflow: hidden;
+}
+
 :root {
     --bk: #242424;
     --gray200: #e8e8e8;

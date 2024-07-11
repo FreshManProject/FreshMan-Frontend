@@ -4,16 +4,15 @@ import { BottomSheet } from '@/components/common';
 import useBottomSheetStore from '@/store/useBottomSheetStore';
 
 export default function ProductPage() {
-    const { setIsOpen, isOpen } = useBottomSheetStore();
+    const { setIsOpenBottomSheet, isOpen } = useBottomSheetStore();
 
     const handleClick = () => {
-        setIsOpen(true);
-        // console.log(isOpenBottomSheet, '프로덕트');
+        setIsOpenBottomSheet(true);
     };
 
     return (
         <div>
-            <BottomSheet isOpen={isOpen}>{'ddddd'}</BottomSheet>
+            <BottomSheet isOpen={isOpen.bottomSheet}>{'ddddd'}</BottomSheet>
             {/* <TopHeader>ddd</TopHeader> */}
             <FilterContainer />
             <ProductList />

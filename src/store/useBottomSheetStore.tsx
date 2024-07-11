@@ -1,16 +1,33 @@
 import { create } from 'zustand';
 
 interface IBottomSheetState {
-    isOpen: boolean;
-    setIsOpen: (value: boolean) => void;
+    isOpen: {
+        bg: boolean;
+        bottomSheet: boolean;
+    };
+    setIsOpenBottomSheet: (value: boolean) => void;
+    setIsOpenBg: (value: boolean) => void;
 }
 
 function bottomSheetStore() {
     return create<IBottomSheetState>((set) => ({
-        isOpen: false,
-        setIsOpen: (value: boolean) =>
-            set(() => ({
-                isOpen: value,
+        isOpen: {
+            bg: false,
+            bottomSheet: false,
+        },
+        setIsOpenBottomSheet: (value: boolean) =>
+            set((state) => ({
+                isOpen: {
+                    ...state.isOpen,
+                    bottomSheet: value,
+                },
+            })),
+        setIsOpenBg: (value: boolean) =>
+            set((state) => ({
+                isOpen: {
+                    ...state.isOpen,
+                    bg: value,
+                },
             })),
     }));
 }

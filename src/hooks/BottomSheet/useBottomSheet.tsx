@@ -2,7 +2,8 @@ import useBottomSheetStore from '@/store/useBottomSheetStore';
 import { PanInfo, useAnimationControls } from 'framer-motion';
 
 const useBottomSheet = () => {
-    const { setIsOpen } = useBottomSheetStore();
+    const { setIsOpenBottomSheet } = useBottomSheetStore();
+    const { body } = document;
 
     const controls = useAnimationControls();
     const onDragEnd = (
@@ -13,20 +14,24 @@ const useBottomSheet = () => {
             info?.point.y > 20 || (info?.point.y >= 0 && info.point.y > 45);
 
         if (isClose) {
-            setIsOpen(false);
+            body.classList.remove('body-hidden');
+            setIsOpenBottomSheet(false);
             controls.start('hidden');
         } else {
-            setIsOpen(true);
+            body.classList.add('body-hidden');
+            setIsOpenBottomSheet(true);
             controls.start('visible');
         }
     };
 
     const handleCloseBottomSheet = () => {
         controls.start('hidden');
+        body.classList.remove('body-hidden');
     };
 
     const handleOpenBottomSheet = () => {
         controls.start('visible');
+        body.classList.add('body-hidden');
     };
 
     return {
