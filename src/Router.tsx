@@ -1,11 +1,11 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import ProductPage from './pages/ProductPage';
+import RegisterPage from './pages/Register/RegisterPage';
 
 export default function Router() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path={'/'} element={<ProductPage />} />
+                <Route path={'/'} element={<RegisterPage />} />
             </Routes>
         </BrowserRouter>
     );
