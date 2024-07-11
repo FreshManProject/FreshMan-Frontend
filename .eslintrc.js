@@ -12,6 +12,8 @@ module.exports = {
     extends: [
         'airbnb',
         'airbnb/hooks',
+        'eslint:recommended',
+        'plugin:react/recommended',
         'plugin:import/errors',
         'plugin:import/warnings',
         'plugin:prettier/recommended',
@@ -54,8 +56,10 @@ module.exports = {
         'prettier/prettier': ['error', { endOfLine: 'auto' }],
         // [error] Function component is not a function declaration
         'react/function-component-definition': [
-            2,
-            { namedComponents: ['arrow-function', 'function-declaration'] },
+            'error',
+            {
+                namedComponents: 'function-declaration',
+            },
         ],
         'react/react-in-jsx-scope': 0,
         'react/prefer-stateless-function': 0,

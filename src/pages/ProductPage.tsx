@@ -3,7 +3,7 @@ import { ProductList } from '@/components/Product';
 import { BottomSheet } from '@/components/common';
 import useIsOpenBottomSheet from '@/hooks/BottomSheet/useIsOpenBottomSheet';
 
-const ProductPage = () => {
+export default function ProductPage() {
     const { isOpenBottomSheet, setIsOpenBottomSheet } = useIsOpenBottomSheet();
 
     const handleClick = () => {
@@ -13,15 +13,13 @@ const ProductPage = () => {
 
     return (
         <div>
-            <BottomSheet isOpen={isOpenBottomSheet}>ddddd</BottomSheet>
+            <BottomSheet isOpen={isOpenBottomSheet}>{'ddddd'}</BottomSheet>
             {/* <TopHeader>ddd</TopHeader> */}
             <FilterContainer />
             <ProductList />
-            <button type="button" onClick={handleClick}>
-                여기를 클릭
+            <button type={'button'} onClick={handleClick}>
+                {'여기를 클릭'}
             </button>
         </div>
     );
-};
-
-export default ProductPage;
+}

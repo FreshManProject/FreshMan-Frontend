@@ -7,7 +7,7 @@ interface IBottomSheetProps {
     children: ReactNode;
 }
 
-const BottomSheet = ({ children, isOpen }: IBottomSheetProps) => {
+export default function BottomSheet({ children, isOpen }: IBottomSheetProps) {
     const { onDragEnd, controls, handleOpenBottomSheet } = useBottomSheet();
 
     useEffect(() => {
@@ -16,9 +16,11 @@ const BottomSheet = ({ children, isOpen }: IBottomSheetProps) => {
 
     return (
         <motion.div
-            className="top-20vh fixed left-0 right-0 top-[20vh] z-10 h-screen rounded-l-lg rounded-r-lg bg-white"
-            drag="y"
-            initial="hidden"
+            className={
+                'top-20vh fixed left-0 right-0 top-[20vh] z-10 h-screen rounded-l-lg rounded-r-lg bg-white'
+            }
+            drag={'y'}
+            initial={'hidden'}
             onDragEnd={onDragEnd}
             animate={controls!}
             transition={{
@@ -34,11 +36,9 @@ const BottomSheet = ({ children, isOpen }: IBottomSheetProps) => {
             dragElastic={0.2}
         >
             <div>
-                <span className="m-auto block h-1 w-8 rounded bg-gray400" />
+                <span className={'m-auto block h-1 w-8 rounded bg-gray400'} />
                 <div>{children}</div>
             </div>
         </motion.div>
     );
-};
-
-export default BottomSheet;
+}
