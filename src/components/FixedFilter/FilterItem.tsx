@@ -1,4 +1,4 @@
-import { GrayBorderButton } from '../common';
+import { GrayBorderButton } from '../common/Button';
 
 export default function FilterItem() {
     return (
