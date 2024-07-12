@@ -4,16 +4,16 @@ interface IGrayBorderButtonProps {
     children: string;
 }
 
-const GrayBorderButton = ({ children }: IGrayBorderButtonProps) => {
+export default function GrayBorderButton({ children }: IGrayBorderButtonProps) {
     return (
         <button
-            type="button"
-            className="border-gray200 flex items-center justify-center gap-1 rounded-lg border px-3 py-1 text-body1"
+            type={'button'}
+            className={
+                'border-gray200 flex items-center justify-center gap-1 rounded-lg border px-3 py-1 text-body1'
+            }
         >
             {children}
-            <IoIosArrowDown color="text-bk" />
+            <IoIosArrowDown color={'text-bk'} />
         </button>
     );
-};
-
-export default GrayBorderButton;
+}

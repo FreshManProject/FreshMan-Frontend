@@ -1,11 +1,9 @@
 import { GrayBorderButton } from '../common';
 
-const FilterItem = () => {
+export default function FilterItem() {
     return (
         <li>
-            <GrayBorderButton>베이스</GrayBorderButton>
+            <GrayBorderButton>{'베이스'}</GrayBorderButton>
         </li>
     );
-};
-
-export default FilterItem;
+}

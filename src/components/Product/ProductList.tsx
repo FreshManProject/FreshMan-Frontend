@@ -10,7 +10,7 @@ const test = [
     { id: 242 },
 ];
 
-const ProductList = () => {
+export default function ProductList() {
     const [isClick, setIsClick] = useState<boolean[]>(
         Array(test.length).fill(false),
     );
@@ -24,7 +24,7 @@ const ProductList = () => {
     }, []);
 
     return (
-        <ul className="flex flex-wrap gap-y-10">
+        <ul className={'flex flex-wrap gap-y-10'}>
             {test.map((item, idx) => (
                 <ProductItem
                     key={item.id}
@@ -34,6 +34,4 @@ const ProductList = () => {
             ))}
         </ul>
     );
-};
-
-export default ProductList;
+}

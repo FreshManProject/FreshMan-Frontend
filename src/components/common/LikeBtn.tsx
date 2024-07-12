@@ -6,14 +6,18 @@ interface ILikeBtnProps {
     handleClickLike: () => void;
 }
 
-const LikeBtn = ({ size, isClicked, handleClickLike }: ILikeBtnProps) => {
+export default function LikeBtn({
+    size,
+    isClicked,
+    handleClickLike,
+}: ILikeBtnProps) {
     const btnSize = {
         m: 'h-6 w-6',
         lg: '',
     };
 
     return (
-        <button onClick={handleClickLike} type="button">
+        <button onClick={handleClickLike} type={'button'}>
             {isClicked ? (
                 <PiHeartFill
                     className={`text-pointRed ${size ? btnSize[size] : btnSize.m}`}
@@ -25,6 +29,4 @@ const LikeBtn = ({ size, isClicked, handleClickLike }: ILikeBtnProps) => {
             )}
         </button>
     );
-};
-
-export default LikeBtn;
+}
