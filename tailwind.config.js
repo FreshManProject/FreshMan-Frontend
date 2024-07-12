@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
@@ -48,6 +49,7 @@ module.exports = {
                 border: 'var(--radius)',
                 input: 'hsl(var(--input))',
                 bk: 'var(--bk)',
+                gray100: 'var(--gray100)',
                 gray300: 'var(--gray300)',
                 gray400: 'var(--gray400)',
                 pointRed: 'var(--pointRed)',
@@ -77,5 +79,6 @@ module.exports = {
             },
         },
     },
+    // eslint-disable-next-line global-require
     plugins: [require('tailwindcss-animate')],
 };

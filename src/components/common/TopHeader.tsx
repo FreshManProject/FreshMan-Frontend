@@ -2,7 +2,7 @@ import { HiOutlineShoppingBag } from 'react-icons/hi';
 import { IoArrowBackOutline } from 'react-icons/io5';
 
 interface ITopHeaderProps {
-    children: string;
+    children?: string;
 }
 
 export default function TopHeader({ children }: ITopHeaderProps) {
