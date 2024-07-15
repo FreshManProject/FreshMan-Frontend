@@ -30,7 +30,7 @@ module.exports = {
                 title3: ['1.125rem', {}],
                 subTitle: ['1.375rem', {}],
                 body1: ['1rem', {}],
-                body2: ['1rem', {}],
+                body2: ['0.875rem', {}],
                 body3: ['0.75rem', {}],
                 body4: ['0.6875rem', {}],
                 body5: ['0.625rem', {}],
@@ -40,7 +40,7 @@ module.exports = {
                 title3_b: ['1.125rem', { fontWeight: '700' }],
                 subTitle_b: ['1.375rem', { fontWeight: '700' }],
                 body1_b: ['1rem', { fontWeight: '700' }],
-                body2_b: ['1rem', { fontWeight: '700' }],
+                body2_b: ['0.875rem', { fontWeight: '700' }],
                 body3_b: ['0.75rem', { fontWeight: '700' }],
                 body4_b: ['0.6875rem', { fontWeight: '700' }],
                 body5_b: ['0.625rem', { fontWeight: '700' }],
@@ -54,14 +54,20 @@ module.exports = {
                 gray400: 'var(--gray400)',
                 pointRed: 'var(--pointRed)',
                 primary: {
-                    DEFAULT: 'hsl(var(--pointRed))',
-                    foreground: 'hsl(var(--primary-foreground))',
+                    DEFAULT: 'var(--primary)',
+                    review: 'var(--review)',
                 },
             },
             borderRadius: {
                 lg: 'var(--radius)',
                 md: 'calc(var(--radius) - 2px)',
                 sm: 'calc(var(--radius) - 4px)',
+            },
+            gridTemplateColumns: {
+                header: '2rem 1fr 4rem',
+            },
+            boxShadow: {
+                top: '-3px -17px 42px -7px rgba(184,184,184,0.24);',
             },
             keyframes: {
                 'accordion-down': {
