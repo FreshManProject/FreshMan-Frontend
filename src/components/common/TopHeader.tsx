@@ -10,7 +10,7 @@ export default function TopHeader({ children }: ITopHeaderProps) {
         <header
             id={'header'}
             className={
-                'grid-cols-header sticky top-0 z-20 grid items-center bg-white px-2 py-2'
+                'sticky top-0 z-20 grid grid-cols-header items-center bg-white px-2 py-2'
             }
         >
             <button
