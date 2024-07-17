@@ -1,7 +1,7 @@
 import { ReactNode, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import useBottomSheet from '@/hooks/BottomSheet/useBottomSheet';
-import useBottomSheetStore from '@/store/useBottomSheetStore';
+import { useBottomSheetStore } from '@/store/useBottomSheetStore';
 
 interface IBottomSheetProps {
     isOpen: boolean;
@@ -20,7 +20,7 @@ export default function BottomSheet({ children, isOpen }: IBottomSheetProps) {
             handleOpenBottomSheet();
             setIsOpenBg(true);
         }
-    }, [isOpen]);
+    }, [isOpen, handleOpenBottomSheet, setIsOpenBg]);
 
     return (
         <div

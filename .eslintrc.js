@@ -36,8 +36,6 @@ module.exports = {
             { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
         ],
         'react/no-array-index-key': 'off',
-        // 화살표 함수의 파라미터가 하나일때 괄호 생략
-        'arrow-parens': ['warn', 'as-needed'],
         // 사용하지 않는 변수가 있을 때 발생하는 경고 비활성화
         'no-unused-vars': ['off'],
         // 콘솔 사용 시 발생하는 경고 비활성화
@@ -67,13 +65,13 @@ module.exports = {
         'no-nested-ternary': 0,
         // [error] Curly braces are unnecessary here
         'react/jsx-curly-brace-presence': [
-            'warn',
-            { props: 'always', children: 'always' },
+            0,
+            { props: 'never', children: 'never' },
         ],
         // 파일의 경로가 틀렸는지 확인하는 옵션 false
         'import/no-unresolved': ['error', { caseSensitive: false }],
         // props spreading 허용하지 않는 경고 표시
-        'react/jsx-props-no-spreading': [1, { custom: 'ignore' }],
+        'react/jsx-props-no-spreading': 'off',
         'linebreak-style': 0,
         'import/extensions': 0,
         'no-use-before-define': 0,

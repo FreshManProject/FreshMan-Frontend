@@ -1,4 +1,4 @@
-import useBottomSheetStore from '@/store/useBottomSheetStore';
+import { useBottomSheetStore } from '@/store/useBottomSheetStore';
 import { PanInfo, useAnimationControls } from 'framer-motion';
 
 const useBottomSheet = () => {
