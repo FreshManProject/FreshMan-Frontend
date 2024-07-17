@@ -1,9 +1,9 @@
-import { GrayBorderButton } from '../common/Button';
+import { GrayBorderToggleButton } from '../common/Button';
 
 export default function FilterItem() {
     return (
         <li>
-            <GrayBorderButton>{'베이스'}</GrayBorderButton>
+            <GrayBorderToggleButton>{'베이스'}</GrayBorderToggleButton>
         </li>
     );
 }

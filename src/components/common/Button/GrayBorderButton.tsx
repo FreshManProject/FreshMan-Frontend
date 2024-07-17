@@ -1,7 +1,5 @@
-import { IoIosArrowDown } from 'react-icons/io';
-
 interface IGrayBorderButtonProps {
-    children: string;
+    children: React.ReactNode;
 }
 
 export default function GrayBorderButton({ children }: IGrayBorderButtonProps) {
@@ -9,11 +7,10 @@ export default function GrayBorderButton({ children }: IGrayBorderButtonProps) {
         <button
             type={'button'}
             className={
-                'border-gray200 flex items-center justify-center gap-1 rounded-lg border px-3 py-1 text-body1'
+                'border-gray200 flex h-[3.75rem] items-center justify-center rounded-lg border px-3 py-1 text-title3_b text-bk'
             }
         >
             {children}
-            <IoIosArrowDown color={'text-bk'} />
         </button>
     );
 }

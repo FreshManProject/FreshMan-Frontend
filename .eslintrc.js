@@ -22,6 +22,13 @@ module.exports = {
     ],
     // [rules] 상세 규칙
     rules: {
+        'no-unused-vars': 'off',
+        '@typescript-eslint/no-unused-vars': [
+            'error',
+            {
+                // argsIgnorePattern: '^_',
+            },
+        ],
         // var 금지
         'no-var': 'warn',
         // 일치 연산자 사용 필수
@@ -37,7 +44,7 @@ module.exports = {
         ],
         'react/no-array-index-key': 'off',
         // 사용하지 않는 변수가 있을 때 발생하는 경고 비활성화
-        'no-unused-vars': ['off'],
+        // 'no-unused-vars': ['off'],
         // 콘솔 사용 시 발생하는 경고 비활성화
         'no-console': ['off'],
         // export문이 하나일 때 default export 사용 권장 경고 비활성화

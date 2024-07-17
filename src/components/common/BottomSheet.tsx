@@ -24,7 +24,7 @@ export default function BottomSheet({ children, isOpen }: IBottomSheetProps) {
 
     return (
         <div
-            className={`${bottomSheet && 'fixed left-0 top-0 z-10 h-screen w-screen bg-black bg-opacity-30'}`}
+            className={`${bottomSheet && 'fixed left-0 top-0 z-50 h-screen w-screen bg-black bg-opacity-30'}`}
         >
             <motion.div
                 className={

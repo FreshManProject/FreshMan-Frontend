@@ -7,7 +7,7 @@ const useBottomSheet = () => {
 
     const controls = useAnimationControls();
     const onDragEnd = (
-        e: MouseEvent | TouchEvent | PointerEvent,
+        _: MouseEvent | TouchEvent | PointerEvent,
         info: PanInfo,
     ) => {
         const isClose =
