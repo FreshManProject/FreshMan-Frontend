@@ -1,5 +1,6 @@
 import { ProductImgSlider } from '@/components/Product';
 import ProductBuyBtn from '@/components/Product/ProductBuyBtn';
+import { TabAndContent } from '@/components/Product/ProductDetail';
 import { FaStar } from 'react-icons/fa6';
 
 export default function ProductDetailPage() {
@@ -7,7 +8,7 @@ export default function ProductDetailPage() {
         <>
             <section>
                 <ProductImgSlider />
-                <div className={'px-2.5'}>
+                <div className={'px-2.5 pb-10'}>
                     <div className={'mb-2 flex items-center justify-between'}>
                         <span className={'text-body2'}>{'stussy'}</span>
                     </div>
@@ -47,7 +48,7 @@ export default function ProductDetailPage() {
                     </div>
                 </div>
             </section>
-
+            <TabAndContent />
             <ProductBuyBtn />
         </>
     );
