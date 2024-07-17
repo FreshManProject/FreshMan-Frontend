@@ -1,4 +1,4 @@
-import useBottomSheetStore from '@/store/useBottomSheetStore';
+import { useBottomSheetStore } from '@/store/useBottomSheetStore';
 import { LikeBtn } from '../common';
 import { PrimaryBkButton } from '../common/Button';
 import ProductOption from './ProductOption';
