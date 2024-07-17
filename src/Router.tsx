@@ -1,9 +1,10 @@
 import { createBrowserRouter } from 'react-router-dom';
 import GlobalError from './GlobalError';
-import ProductPage from './pages/ProductPage';
+import ProductPage from './pages/Product/ProductPage';
 import RegisterPage from './pages/Register/RegisterPage';
 import RegisterSuccessPage from './pages/Register/RegisterSuccessPage';
-import { LayoutWithNav } from './components/common/Layout';
+import { LayoutWithNav, LayoutWithOutNav } from './components/common/Layout';
+import ProductDetailPage from './pages/Product/ProductDetailPage';
 
 export default function Router() {
     return createBrowserRouter([
@@ -12,7 +13,7 @@ export default function Router() {
             element: <RegisterPage />,
             children: [
                 {
-                    path: 'suscess',
+                    path: 'success',
                     element: <RegisterSuccessPage />,
                 },
             ],
@@ -24,6 +25,15 @@ export default function Router() {
                 {
                     path: '',
                     element: <ProductPage />,
+                },
+            ],
+        },
+        {
+            element: <LayoutWithOutNav />,
+            children: [
+                {
+                    path: '/products/:id',
+                    element: <ProductDetailPage />,
                 },
             ],
         },

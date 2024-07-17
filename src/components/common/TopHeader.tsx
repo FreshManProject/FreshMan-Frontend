@@ -7,7 +7,12 @@ interface ITopHeaderProps {
 
 export default function TopHeader({ children }: ITopHeaderProps) {
     return (
-        <header className={'flex items-center px-2'}>
+        <header
+            id={'header'}
+            className={
+                'sticky top-0 z-20 grid grid-cols-header items-center bg-white px-2 py-2'
+            }
+        >
             <button
                 type={'button'}
                 className={'flex h-8 w-8 items-center justify-center'}
@@ -15,8 +20,10 @@ export default function TopHeader({ children }: ITopHeaderProps) {
                 <IoArrowBackOutline className={'h-2/3 w-2/3'} />
                 <span className={'sr-only'}>{'뒤로가기'}</span>
             </button>
-            <h1 className={'font-sans text-title3_b'}>{children}</h1>
-            <div>
+            <h1 className={'text-center font-sans text-title3_b'}>
+                {children}
+            </h1>
+            <div className={'flex justify-end'}>
                 <button
                     type={'button'}
                     className={

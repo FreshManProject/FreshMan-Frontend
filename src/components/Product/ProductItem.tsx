@@ -1,33 +1,31 @@
-import { memo } from 'react';
+import { Link } from 'react-router-dom';
 import { LikeBtn } from '../common';
 
 interface IProductItemProps {
-    handleClickLike: () => void;
-    isClicked: boolean;
+    id: number;
 }
 
-function ProductItem({ isClicked, handleClickLike }: IProductItemProps) {
+export default function ProductItem({ id }: IProductItemProps) {
     return (
         <li className={'basis-6/12'}>
-            <div>
+            <Link to={`/products/${id}`}>
                 <img
                     src={
                         'https://sitem.ssgcdn.com/68/30/98/spclprc/1000282983068_sp.jpg'
                     }
                     alt={'TEST 이미지'}
                 />
-            </div>
+            </Link>
             <div className={'px-2.5'}>
                 <div className={'mb-1 flex items-center justify-between'}>
                     <span className={'text-body4_b'}>{'stussy'}</span>
-                    <LikeBtn
-                        isClicked={isClicked}
-                        handleClickLike={handleClickLike}
-                    />
+                    <LikeBtn />
                 </div>
-                <p className={'line-clamp-2 text-body2 leading-tight'}>
-                    {'Stussy World Tour T-Shirt White 2024'}
-                </p>
+                <Link to={`/products/${id}`}>
+                    <p className={'line-clamp-2 text-body2 leading-tight'}>
+                        {'Stussy World Tour T-Shirt White 2024'}
+                    </p>
+                </Link>
                 <div className={'mt-3'}>
                     <del className={'block text-body4 text-gray-400'}>
                         {'304,000원'}
@@ -44,7 +42,7 @@ function ProductItem({ isClicked, handleClickLike }: IProductItemProps) {
     );
 }
 
-export default memo(
-    ProductItem,
-    (prevProps, nextProps) => prevProps.isClicked === nextProps.isClicked,
-);
+// export default memo(
+//     ProductItem,
+//     (prevProps, nextProps) => prevProps.isClicked === nextProps.isClicked,
+// );
