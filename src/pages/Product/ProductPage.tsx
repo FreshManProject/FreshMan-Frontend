@@ -1,7 +1,7 @@
 import { FilterContainer } from '@/components/FixedFilter';
 import { ProductList } from '@/components/Product';
-import { BottomSheet } from '@/components/common';
-import useBottomSheetStore from '@/store/useBottomSheetStore';
+import { BottomSheet, TopHeader } from '@/components/common';
+import { useBottomSheetStore } from '@/store/useBottomSheetStore';
 
 export default function ProductPage() {
     const { setIsOpenBottomSheet, isOpen } = useBottomSheetStore();
@@ -12,6 +12,7 @@ export default function ProductPage() {
 
     return (
         <div>
+            <TopHeader title="베이스" />
             <BottomSheet isOpen={isOpen.bottomSheet}>{'ddddd'}</BottomSheet>
             {/* <TopHeader>ddd</TopHeader> */}
             <FilterContainer />

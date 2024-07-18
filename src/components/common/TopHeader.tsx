@@ -1,29 +1,26 @@
 import { HiOutlineShoppingBag } from 'react-icons/hi';
 import { IoArrowBackOutline } from 'react-icons/io5';
+import { useNavigate } from 'react-router-dom';
 
 interface ITopHeaderProps {
-    children?: string;
+    backUrl?: string;
+    title?: string;
 }
 
-export default function TopHeader({ children }: ITopHeaderProps) {
+export default function TopHeader({ backUrl, title }: ITopHeaderProps) {
+    const navigate = useNavigate();
     return (
-        <header
-            id={'header'}
-            className={
-                'sticky top-0 z-20 grid grid-cols-header items-center bg-white px-2 py-2'
-            }
-        >
-            <button
-                type={'button'}
-                className={'flex h-8 w-8 items-center justify-center'}
-            >
-                <IoArrowBackOutline className={'h-2/3 w-2/3'} />
-                <span className={'sr-only'}>{'뒤로가기'}</span>
-            </button>
-            <h1 className={'text-center font-sans text-title3_b'}>
-                {children}
-            </h1>
-            <div className={'flex justify-end'}>
+        <div className="mt-5 flex h-10 flex-row justify-between border-b border-gray-100">
+            {backUrl ? (
+                <IoArrowBackOutline
+                    size={24}
+                    onClick={() => navigate(backUrl)}
+                />
+            ) : (
+                <div />
+            )}
+            {title ? <p className="text-xl font-semibold">{title}</p> : <div />}
+            <div>
                 <button
                     type={'button'}
                     className={
@@ -40,6 +37,6 @@ export default function TopHeader({ children }: ITopHeaderProps) {
                     </span>
                 </button>
             </div>
-        </header>
+        </div>
     );
 }
