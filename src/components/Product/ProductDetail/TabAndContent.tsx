@@ -1,3 +1,4 @@
+import { ReviewInProduct } from '@/components/Review';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 export default function TabAndContent() {
@@ -18,7 +19,7 @@ export default function TabAndContent() {
                     value={'productReview'}
                     className={'!text-body2_b data-[state=active]:text-bk'}
                 >
-                    {'리뷰(111)'}
+                    리뷰
                 </TabsTrigger>
                 <TabsTrigger
                     value={'productQna'}
@@ -28,7 +29,9 @@ export default function TabAndContent() {
                 </TabsTrigger>
             </TabsList>
             <TabsContent value={'productInfo'}>{'상품 상세'}</TabsContent>
-            <TabsContent value={'productReview'}>{'리뷰'}</TabsContent>
+            <TabsContent value={'productReview'}>
+                <ReviewInProduct />
+            </TabsContent>
             <TabsContent value={'productQna'}>{'문의'}</TabsContent>
         </Tabs>
     );
