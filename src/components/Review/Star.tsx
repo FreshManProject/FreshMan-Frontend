@@ -11,7 +11,6 @@ export default function Star({ w, h, readonly, rate }: IStarProps) {
     const [rating, setRating] = useState(rate || 0);
 
     const handleClickStar = (index: number) => {
-        console.log(index, rating);
         if (!readonly) {
             setRating(index + 1);
         }
