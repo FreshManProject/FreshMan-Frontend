@@ -1,4 +1,4 @@
-interface registerUser {
+interface User {
     name: string;
     phone: string;
     address: string;
