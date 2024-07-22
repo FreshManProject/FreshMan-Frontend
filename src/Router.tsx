@@ -10,12 +10,28 @@ import EditInformationPage from './pages/MyPage/EditInformationPage';
 import EditAddressPage from './pages/MyPage/EditAddressPage';
 import SearchPage from './pages/Search/SearchPage';
 import ProductDetailPage from './pages/Product/ProductDetailPage';
+import SocialLoginPage from './pages/Login/SocialLoginPage';
+import KakaoSocialLoginPage from './pages/Login/KakaoSocialLoginPage';
+import NaverSocialLoginPage from './pages/Login/NaverSocialLoginPage';
+import MyLikePage from './pages/MyPage/MyLikePage';
 
 export default function Router() {
     return createBrowserRouter([
         {
             path: '/register',
             element: <RegisterPage />,
+        },
+        {
+            path: '/login',
+            element: <SocialLoginPage />,
+        },
+        {
+            path: '/login/oauth2/code/kakao',
+            element: <KakaoSocialLoginPage />,
+        },
+        {
+            path: '/login/oauth2/code/naver',
+            element: <NaverSocialLoginPage />,
         },
         {
             path: '/register/success',
@@ -43,6 +59,10 @@ export default function Router() {
         {
             path: 'mypage/address',
             element: <EditAddressPage />,
+        },
+        {
+            path: 'mypage/like',
+            element: <MyLikePage />,
         },
         {
             path: '/search',

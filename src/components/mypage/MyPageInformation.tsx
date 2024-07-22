@@ -75,7 +75,12 @@ export default function MyPageInformation() {
                 <div className="flex flex-col items-center justify-center">
                     <GoHeartFill size={30} />
                     <p>찜</p>
-                    <Button className="text-[#7BDFF2]">{user.heart}</Button>
+                    <Button
+                        className="text-[#7BDFF2]"
+                        onClick={() => navigate('/mypage/like')}
+                    >
+                        {user.heart}
+                    </Button>
                 </div>
             </div>
             <div className="border-b-[1px] border-b-gray-100" />

@@ -26,6 +26,40 @@ const handlers = [
             option: ['전체', '베이스', '향수', '립스틱'],
         });
     }),
+    http.get('/likes?orderby=latest', () => {
+        return HttpResponse.json({
+            data: [
+                {
+                    image: 'https://sitem.ssgcdn.com/68/30/98/spclprc/1000282983068_sp.jpg',
+                    name: 'Stussy',
+                    description: 'Stussy World Tour T-Shirt White 2024',
+                    price: '99,000',
+                    discountRate: 0,
+                },
+                {
+                    image: 'https://sitem.ssgcdn.com/68/30/98/spclprc/1000282983068_sp.jpg',
+                    name: 'Stussy',
+                    description: 'Stussy World Tour T-Shirt White 2024',
+                    price: '99,000',
+                    discountRate: 0,
+                },
+                {
+                    image: 'https://sitem.ssgcdn.com/68/30/98/spclprc/1000282983068_sp.jpg',
+                    name: 'Stussy',
+                    description: 'Stussy World Tour T-Shirt White 2024',
+                    price: '99,000',
+                    discountRate: 0,
+                },
+                {
+                    image: 'https://sitem.ssgcdn.com/68/30/98/spclprc/1000282983068_sp.jpg',
+                    name: 'Stussy',
+                    description: 'Stussy World Tour T-Shirt White 2024',
+                    price: '99,000',
+                    discountRate: 0,
+                },
+            ],
+        });
+    }),
 ];
 
 export default handlers;
