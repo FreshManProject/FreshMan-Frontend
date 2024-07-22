@@ -5,7 +5,7 @@ import { FaStar } from 'react-icons/fa6';
 
 export default function ProductDetailPage() {
     return (
-        <>
+        <div className="pb-28">
             <section>
                 <ProductImgSlider />
                 <div className={'px-2.5 pb-10'}>
@@ -50,6 +50,6 @@ export default function ProductDetailPage() {
             </section>
             <TabAndContent />
             <ProductBuyBtn />
-        </>
+        </div>
     );
 }
