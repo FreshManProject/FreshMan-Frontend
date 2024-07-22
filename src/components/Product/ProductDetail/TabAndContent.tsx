@@ -1,5 +1,6 @@
 import { ProductReviewScore, ReviewList } from '@/components/Review';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { QnABtn, QnAList } from '@/components/QnA';
 import TabAndContentLayout from './TabAndContentLayout';
 
 export default function TabAndContent() {
@@ -43,7 +44,13 @@ export default function TabAndContent() {
                     subTitle="리뷰"
                 />
             </TabsContent>
-            <TabsContent value={'productQna'} />
+            <TabsContent value={'productQna'}>
+                <TabAndContentLayout
+                    topComponent={<QnABtn />}
+                    bottomComponent={<QnAList />}
+                    subTitle="문의"
+                />
+            </TabsContent>
         </Tabs>
     );
 }

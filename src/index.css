@@ -14,6 +14,16 @@ body.body-hidden {
     overflow: hidden;
 }
 
+.ellipsis-1 {
+    overflow: hidden;
+    white-space: normal;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    word-break: keep-all;
+}
+
 :root {
     --bk: #242424;
     --primary: #72f0ec;
