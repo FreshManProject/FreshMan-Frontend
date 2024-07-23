@@ -8,13 +8,12 @@ assignees:
 body:
     - type: markdown
       attributes:
-          value: |
-              ✅ 구현할 내용을 입력해주세요
+          value: ✅ 구현할 내용을 입력해주세요
     - type: checkboxes
       id: terms
       attributes:
           label: 체크 항목 리스트
           description:
           options:
-              - label: ''
+              - label: '체크 항목 작성'
                 required: true
