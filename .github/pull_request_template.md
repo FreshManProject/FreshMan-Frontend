@@ -1,5 +1,5 @@
-‼️ TITLE: [] PR TITLE
-‼️ CHECK: label, Reviewer, Assigness 등록
+-   TITLE 양식: [label] PR 내용
+-   CHECK 사항: label, Reviewer, Assigness 등록
 
 <br/>
 
@@ -19,4 +19,4 @@
 
 <br/>
 
-## 이미지 첨부
+## 이미지 첨부(있을 시)
