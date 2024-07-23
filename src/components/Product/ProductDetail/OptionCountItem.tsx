@@ -44,7 +44,7 @@ export default function OptionCountItem({
     };
 
     return (
-        <li className={'border-gray200 overflow-hidden border-b pb-6 pt-3'}>
+        <li className={'overflow-hidden border-b border-gray200 pb-6 pt-3'}>
             <div className={'flex items-baseline justify-between'}>
                 <p className={'text-body2'}>{name}</p>
                 <Button type={'button'} className={'translate-x-2'}>

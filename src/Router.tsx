@@ -15,11 +15,16 @@ export default function Router() {
     return createBrowserRouter([
         {
             path: '/register',
-            element: <RegisterPage />,
-        },
-        {
-            path: '/register/success',
-            element: <RegisterSuccessPage />,
+            children: [
+                {
+                    path: '',
+                    element: <RegisterPage />,
+                },
+                {
+                    path: 'success',
+                    element: <RegisterSuccessPage />,
+                },
+            ],
         },
         {
             path: '/categories',
