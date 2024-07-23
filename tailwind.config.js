@@ -50,6 +50,7 @@ module.exports = {
                 input: 'hsl(var(--input))',
                 bk: 'var(--bk)',
                 gray100: 'var(--gray100)',
+                gray200: 'var(--gray200)',
                 gray300: 'var(--gray300)',
                 gray400: 'var(--gray400)',
                 pointRed: 'var(--pointRed)',

@@ -18,10 +18,6 @@ import MyLikePage from './pages/MyPage/MyLikePage';
 export default function Router() {
     return createBrowserRouter([
         {
-            path: '/register',
-            element: <RegisterPage />,
-        },
-        {
             path: '/login',
             element: <SocialLoginPage />,
         },
@@ -36,6 +32,16 @@ export default function Router() {
         {
             path: '/register/success',
             element: <RegisterSuccessPage />,
+            children: [
+                {
+                    path: '',
+                    element: <RegisterPage />,
+                },
+                {
+                    path: 'success',
+                    element: <RegisterSuccessPage />,
+                },
+            ],
         },
         {
             path: '/categories',

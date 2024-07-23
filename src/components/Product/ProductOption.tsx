@@ -41,7 +41,7 @@ export default function ProductOption({ isOpen }: IProductOptionProps) {
                 <Select onValueChange={handleChangeOption}>
                     <SelectTrigger
                         className={
-                            'border-gray200 h-12 w-full bg-white text-gray400'
+                            'h-12 w-full border-gray200 bg-white text-gray400'
                         }
                     >
                         <SelectValue placeholder={'옵션을 선택해주세요.'} />
@@ -69,7 +69,7 @@ export default function ProductOption({ isOpen }: IProductOptionProps) {
             {/* 하단 버튼 & 구매수량 */}
             <div
                 className={
-                    'border-gray200 fixed bottom-0 left-0 w-full border-t bg-white px-4 pb-4 pt-6'
+                    'fixed bottom-0 left-0 w-full border-t border-gray200 bg-white px-4 pb-4 pt-6'
                 }
             >
                 <dl className={'mb-3 flex justify-between'}>
