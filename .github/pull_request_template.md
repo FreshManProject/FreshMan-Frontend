@@ -1,12 +1,5 @@
----
-name: PR report
-about: 기본 PR 양식 <- 이것으로 사용합니다.
-title: '[] PR TITLE'
-labels: ''
-assignees: ''
----
-
-‼️ label, Reviewer, Assigness 등록
+‼️ TITLE: [] PR TITLE
+‼️ CHECK: label, Reviewer, Assigness 등록
 
 <br/>
 
