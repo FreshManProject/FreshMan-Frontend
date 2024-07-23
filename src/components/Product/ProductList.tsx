@@ -1,3 +1,4 @@
+import useGetProductList from '@/hooks/query/product/useGetProductList';
 import ProductItem from './ProductItem';
 
 const test = [
@@ -10,6 +11,8 @@ const test = [
 ];
 
 export default function ProductList() {
+    const { productList } = useGetProductList({ categorySeq: 2 });
+    console.log(productList);
     return (
         <ul className={'flex flex-wrap gap-y-10'}>
             {test.map((item) => (

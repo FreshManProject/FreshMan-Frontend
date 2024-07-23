@@ -1,8 +1,13 @@
 import { GrayBorderToggleButton } from '../common/Button';
 
-export default function FilterItem() {
+interface IFilterItemProps {
+    onIsActiveBottomSheet: () => void;
+}
+export default function FilterItem({
+    onIsActiveBottomSheet,
+}: IFilterItemProps) {
     return (
-        <li>
+        <li onClick={onIsActiveBottomSheet} onKeyDown={onIsActiveBottomSheet}>
             <GrayBorderToggleButton>{'베이스'}</GrayBorderToggleButton>
         </li>
     );
