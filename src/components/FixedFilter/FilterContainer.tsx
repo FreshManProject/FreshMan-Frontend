@@ -6,7 +6,7 @@ import FilterBottomSheet, {
 } from './FilterBottomSheet';
 
 export default function FilterContainer() {
-    const [isOpen, setIsOpen] = useState(false);
+    const [isOpenFilter, setIsOpenFilter] = useState(false);
     const categoryList = [
         {
             id: 1,
@@ -16,11 +16,17 @@ export default function FilterContainer() {
             id: 2,
             name: '가격',
             component: (
-                <FilterBottomSheetRoot onOpenChange={(open) => setIsOpen(open)}>
+                <FilterBottomSheetRoot
+                    open={isOpenFilter}
+                    onOpenChange={(open) => setIsOpenFilter(open)}
+                >
                     <FilterBottomSheetTrigger>
                         <GrayBorderToggleButton>가격</GrayBorderToggleButton>
                     </FilterBottomSheetTrigger>
-                    <FilterBottomSheet isOpen={isOpen} />
+                    <FilterBottomSheet
+                        isOpenFilter={isOpenFilter}
+                        setIsOpenFilter={setIsOpenFilter}
+                    />
                 </FilterBottomSheetRoot>
             ),
         },

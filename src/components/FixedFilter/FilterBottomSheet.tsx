@@ -1,7 +1,7 @@
 import useGetProductList from '@/hooks/query/product/useGetProductList';
 import { Slider } from '@/components/ui/slider';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
     Drawer,
     DrawerContent,
@@ -10,26 +10,35 @@ import {
     DrawerPortal,
 } from '@/components/ui/drawer';
 
+import { formatNumber } from '@/util/formatData';
 import { GrayBorderButton, PrimaryBkButton } from '../common/Button';
 
 interface IFilterBottomSheetProps {
-    isOpen: boolean;
+    isOpenFilter: boolean;
+    setIsOpenFilter: (value: boolean) => void;
 }
 
-export default function FilterBottomSheet({ isOpen }: IFilterBottomSheetProps) {
+export default function FilterBottomSheet({
+    isOpenFilter,
+    setIsOpenFilter,
+}: IFilterBottomSheetProps) {
     const navigate = useNavigate();
+    const { id } = useParams();
     const [range, setRange] = useState([1000, 10000000]);
     const [price, setPrice] = useState([1000, 10000000]);
 
     const { productList } = useGetProductList(
-        { categorySeq: 0, lowPrice: price[0], highPrice: price[1] },
-        isOpen,
+        { categorySeq: Number(id), lowPrice: price[0], highPrice: price[1] },
+        isOpenFilter,
     );
     const handleChangePrice = (value: number[]) => {
         setRange(value);
     };
     const handleClickGotoProduct = () => {
-        navigate('');
+        setIsOpenFilter(false);
+        navigate(
+            `/categories/${id}?lowPrice=${price[0]}&highPrice=${price[1]}`,
+        );
     };
     const handleChangeEnd = (value: number[]) => {
         setPrice(value);
@@ -38,10 +47,10 @@ export default function FilterBottomSheet({ isOpen }: IFilterBottomSheetProps) {
     return (
         <DrawerPortal>
             <DrawerContent className="bg-white px-4">
-                <div className="pt-8">
+                <div className="py-8">
                     <h3 className="text-title3_b">가격</h3>
                     <em className="flex justify-center py-8 text-title3_b not-italic">
-                        {range[0]} ~ {range[1]}
+                        {formatNumber(range[0])}원 ~ {formatNumber(range[1])}원
                     </em>
                     <Slider
                         defaultValue={[1000, 1000000]}
@@ -53,7 +62,7 @@ export default function FilterBottomSheet({ isOpen }: IFilterBottomSheetProps) {
                         onValueChange={handleChangePrice}
                     />
                 </div>
-                <DrawerFooter className="flex w-full flex-row gap-2 bg-white p-10 px-4 [&>button:last-child]:flex-1">
+                <DrawerFooter className="flex w-full flex-row gap-2 bg-white p-10 px-0 [&>button:last-child]:flex-1">
                     <GrayBorderButton>초기화</GrayBorderButton>
                     <PrimaryBkButton handleClick={handleClickGotoProduct}>
                         {productList?.count} 상품보기

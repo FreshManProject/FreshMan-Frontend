@@ -1,8 +1,16 @@
 import useGetProductList from '@/hooks/query/product/useGetProductList';
+import { useParams, useSearchParams } from 'react-router-dom';
 import ProductItem from './ProductItem';
 
 export default function ProductList() {
-    const { productList } = useGetProductList({ categorySeq: 2 });
+    const { id } = useParams();
+    const [searchParams] = useSearchParams();
+    const lowPrice = Number(searchParams.get('lowPrice'));
+    const highPrice = Number(searchParams.get('highPrice'));
+    const { productList } = useGetProductList(
+        { categorySeq: Number(id), lowPrice, highPrice },
+        true,
+    );
 
     return (
         <ul className={'flex flex-wrap gap-y-10'}>
