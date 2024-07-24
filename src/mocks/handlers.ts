@@ -1,4 +1,5 @@
 import { rest } from 'msw';
+import { dummyPorudctList } from './data';
 
 const handlers = [
     rest.get('/api/users', (req, res, ctx) => {
@@ -34,33 +35,29 @@ const handlers = [
         );
     }),
     rest.get('/products', (req, res, ctx) => {
-        // const url = new URL(request.url);
-        // const categorySeq = url.searchParams.get('categorySeq');
-        // if (!categorySeq) {
-        //     return new HttpResponse(null, { status: 404 });
-        // }
+        const low = req.url.searchParams.get('lowPrice');
+        const high = req.url.searchParams.get('highPrice');
+        // low 이하 ~ hight 이하
+        const calculateList = dummyPorudctList.filter(
+            (item) => item.price >= Number(low) && item.price <= Number(high),
+        );
+        if (low && high) {
+            return res(
+                ctx.json({
+                    status: 200,
+                    message: 'success',
+                    list: calculateList,
+                    count: calculateList.length,
+                }),
+            );
+        }
 
         return res(
             ctx.json({
                 status: 200,
                 message: 'success',
-                list: [
-                    {
-                        productSeq: 8,
-                        name: '테스트 상품 7',
-                        price: 9900,
-                        brand: '뉴발란스',
-                        image: '',
-                    },
-                    {
-                        productSeq: 7,
-                        name: '테스트 상품 6',
-                        price: 7000,
-                        brand: '나이키',
-                        image: '',
-                    },
-                ],
-                count: 2,
+                list: dummyPorudctList,
+                count: dummyPorudctList.length,
             }),
         );
     }),

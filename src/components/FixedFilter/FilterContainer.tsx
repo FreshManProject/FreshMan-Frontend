@@ -1,27 +1,37 @@
-import { BottomSheet } from '@/components/common';
-import { useBottomSheetStore } from '@/store/useBottomSheetStore';
-import FilterList from './FilterList';
-import { Price } from '../Product/Filter';
-import { GrayBorderButton, PrimaryBkButton } from '../common/Button';
+import { useState } from 'react';
+import { GrayBorderToggleButton } from '../common/Button';
+import FilterBottomSheet, {
+    FilterBottomSheetRoot,
+    FilterBottomSheetTrigger,
+} from './FilterBottomSheet';
 
 export default function FilterContainer() {
-    const { isOpen } = useBottomSheetStore();
-    const handleClickGotoProduct = () => {};
+    const [isOpen, setIsOpen] = useState(false);
+    const categoryList = [
+        {
+            id: 1,
+            name: '인기순',
+        },
+        {
+            id: 2,
+            name: '가격',
+            component: (
+                <FilterBottomSheetRoot onOpenChange={(open) => setIsOpen(open)}>
+                    <FilterBottomSheetTrigger>
+                        <GrayBorderToggleButton>가격</GrayBorderToggleButton>
+                    </FilterBottomSheetTrigger>
+                    <FilterBottomSheet isOpen={isOpen} />
+                </FilterBottomSheetRoot>
+            ),
+        },
+    ];
     return (
-        <>
-            <div className={`sticky top-0 z-[21] bg-white p-4`}>
-                <FilterList />
-            </div>
-            <BottomSheet isOpen={isOpen.bottomSheet}>
-                <h3 className="text-title3_b">가격</h3>
-                <Price />
-                <div className="fixed bottom-0 left-0 flex w-full gap-2 bg-white p-10 px-4 [&>button:last-child]:flex-1">
-                    <GrayBorderButton>초기화</GrayBorderButton>
-                    <PrimaryBkButton handleClick={handleClickGotoProduct}>
-                        상품보기
-                    </PrimaryBkButton>
-                </div>
-            </BottomSheet>
-        </>
+        <div className={`sticky top-0 z-[21] bg-white p-4`}>
+            <ul className={'flex gap-2.5'}>
+                {categoryList.map((item) => (
+                    <li key={item.id}>{item.component}</li>
+                ))}
+            </ul>
+        </div>
     );
 }

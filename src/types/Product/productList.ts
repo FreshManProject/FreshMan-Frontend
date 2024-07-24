@@ -4,3 +4,16 @@ export interface productListParamsType {
     highPrice?: number;
     sort?: string;
 }
+
+export interface productListType {
+    list: productItemType[];
+    count: number;
+}
+
+export interface productItemType {
+    productSeq: number;
+    name: string;
+    price: number;
+    brand: string;
+    image: string;
+}
