@@ -10,6 +10,7 @@ export async function getProductList(
     // categorySeq: number, lowPrice?: number, highPrice?: number, sort?: string
     // TODO: baseURL 바꿔야함
     const url = new URL(`/products`, 'http://localhost:3000');
+
     Object.entries(params).forEach(([key, value]) => {
         if (value) {
             url.searchParams.append(key, value.toString());

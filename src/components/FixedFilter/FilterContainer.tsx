@@ -1,31 +1,44 @@
 import { useState } from 'react';
-import { GrayBorderToggleButton } from '../common/Button';
-import FilterBottomSheet, {
-    FilterBottomSheetRoot,
-    FilterBottomSheetTrigger,
-} from './FilterBottomSheet';
+import { filterStateType } from '@/types/Product/productList';
+import FilterBottomSheet, { FilterBottomSheetRoot } from './FilterBottomSheet';
+import SortBottomSheetContent from './SortBottomSheetContent';
 
 export default function FilterContainer() {
-    const [isOpenFilter, setIsOpenFilter] = useState(false);
+    const [filters, setFilters] = useState<filterStateType>({
+        price: false,
+        sort: false,
+    });
+    const toggleFilter = (filterName: 'sort' | 'price', open: boolean) => {
+        setFilters((prevFilter) => ({
+            ...prevFilter,
+            [filterName]: open,
+        }));
+    };
+
     const categoryList = [
         {
             id: 1,
-            name: '인기순',
+            name: '최신순',
+            component: (
+                <FilterBottomSheetRoot
+                    open={filters.sort}
+                    onOpenChange={(open) => toggleFilter('sort', open)}
+                >
+                    <SortBottomSheetContent toggleFilter={toggleFilter} />
+                </FilterBottomSheetRoot>
+            ),
         },
         {
             id: 2,
             name: '가격',
             component: (
                 <FilterBottomSheetRoot
-                    open={isOpenFilter}
-                    onOpenChange={(open) => setIsOpenFilter(open)}
+                    open={filters.price}
+                    onOpenChange={(open) => toggleFilter('price', open)}
                 >
-                    <FilterBottomSheetTrigger>
-                        <GrayBorderToggleButton>가격</GrayBorderToggleButton>
-                    </FilterBottomSheetTrigger>
                     <FilterBottomSheet
-                        isOpenFilter={isOpenFilter}
-                        setIsOpenFilter={setIsOpenFilter}
+                        isOpenFilter={filters.price}
+                        toggleFilter={toggleFilter}
                     />
                 </FilterBottomSheetRoot>
             ),

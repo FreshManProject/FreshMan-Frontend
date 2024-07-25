@@ -7,8 +7,9 @@ export default function ProductList() {
     const [searchParams] = useSearchParams();
     const lowPrice = Number(searchParams.get('lowPrice'));
     const highPrice = Number(searchParams.get('highPrice'));
+    const sort = searchParams.get('sort') ?? 'newest';
     const { productList } = useGetProductList(
-        { categorySeq: Number(id), lowPrice, highPrice },
+        { categorySeq: Number(id), lowPrice, highPrice, sort },
         true,
     );
 
