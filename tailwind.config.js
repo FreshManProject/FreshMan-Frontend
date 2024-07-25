@@ -54,6 +54,7 @@ module.exports = {
                 gray300: 'var(--gray300)',
                 gray400: 'var(--gray400)',
                 pointRed: 'var(--pointRed)',
+                muted: 'hsl(var(--muted))',
                 primary: {
                     DEFAULT: 'var(--primary)',
                     review: 'var(--review)',

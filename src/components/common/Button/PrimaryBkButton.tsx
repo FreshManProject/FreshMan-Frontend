@@ -1,5 +1,7 @@
+import React from 'react';
+
 interface IPrimaryBkButtonProps {
-    children: string;
+    children: React.ReactNode;
     primary?: boolean;
     handleClick: () => void;
 }

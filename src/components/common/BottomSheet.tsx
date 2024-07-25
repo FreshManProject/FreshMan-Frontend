@@ -18,7 +18,7 @@ export default function BottomSheet({ children, isOpen }: IBottomSheetProps) {
     useEffect(() => {
         if (isOpen) {
             handleOpenBottomSheet();
-            setIsOpenBg(true);
+            // setIsOpenBg(true);
         }
     }, [isOpen, handleOpenBottomSheet, setIsOpenBg]);
 
