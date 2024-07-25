@@ -18,7 +18,7 @@ export default function FilterContainer() {
     const categoryList = [
         {
             id: 1,
-            name: '최신순',
+            // name: '최신순',
             component: (
                 <FilterBottomSheetRoot
                     open={filters.sort}
