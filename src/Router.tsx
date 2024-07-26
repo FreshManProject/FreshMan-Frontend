@@ -43,7 +43,7 @@ export default function Router() {
             element: <LayoutWithNav />,
             children: [
                 {
-                    path: '',
+                    path: ':id',
                     element: <ProductPage />,
                 },
             ],
