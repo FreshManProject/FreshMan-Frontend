@@ -1,5 +1,4 @@
 import { createBrowserRouter } from 'react-router-dom';
-import GlobalError from './GlobalError';
 import ProductPage from './pages/Product/ProductPage';
 import RegisterPage from './pages/Register/RegisterPage';
 import RegisterSuccessPage from './pages/Register/RegisterSuccessPage';
@@ -14,6 +13,8 @@ import SocialLoginPage from './pages/Login/SocialLoginPage';
 import KakaoSocialLoginPage from './pages/Login/KakaoSocialLoginPage';
 import NaverSocialLoginPage from './pages/Login/NaverSocialLoginPage';
 import MyLikePage from './pages/MyPage/MyLikePage';
+import InquiryPage from './pages/Contact/InquiryPage';
+import InquiryListPage from './pages/Contact/InquiryListPage';
 
 export default function Router() {
     return createBrowserRouter([
@@ -30,21 +31,15 @@ export default function Router() {
             element: <NaverSocialLoginPage />,
         },
         {
-            path: '/register/success',
-            element: <RegisterSuccessPage />,
-            children: [
-                {
-                    path: '',
-                    element: <RegisterPage />,
-                },
-                {
-                    path: 'success',
-                    element: <RegisterSuccessPage />,
-                },
-            ],
+            path: '/register',
+            element: <RegisterPage />,
         },
         {
-            path: '/categories',
+            path: '/register/success',
+            element: <RegisterSuccessPage />,
+        },
+        {
+            path: '/',
             element: <LayoutWithNav />,
             children: [
                 {
@@ -84,8 +79,12 @@ export default function Router() {
             ],
         },
         {
-            path: '/*',
-            element: <GlobalError />,
+            path: '/inquiry',
+            element: <InquiryPage />,
+        },
+        {
+            path: '/inquiry/list',
+            element: <InquiryListPage />,
         },
     ]);
 }
