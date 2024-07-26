@@ -1,3 +1,5 @@
+export type filterType = 'price' | 'sort';
+
 export interface productListParamsType {
     categorySeq: number;
     lowPrice?: number;
@@ -16,4 +18,9 @@ export interface productItemType {
     price: number;
     brand: string;
     image: string;
+}
+export interface filterStateType {
+    price: boolean;
+    sort: boolean;
+    [key: string]: boolean;
 }
