@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { Sheet, SheetRef } from 'react-modal-sheet';
 import DaumPostCode from 'react-daum-postcode';
 import { TopHeader } from '@/components/common';
+import SubmitButton from '../common/Button/SubmitButton';
 
 interface IEditAddress {
     address: string;
@@ -32,7 +33,7 @@ export default function EditAddressForm() {
     const watchAddress = watch('address');
     const watchAddressDetail = watch('addressDetail');
 
-    const btnActive = watchAddress && watchAddressDetail;
+    const btnActive = !!(watchAddress && watchAddressDetail);
 
     const onSubmit = (data: IEditAddress) => {
         console.log(data.addressDetail);
@@ -92,16 +93,8 @@ export default function EditAddressForm() {
                         </Sheet.Content>
                     </Sheet.Container>
                 </Sheet>
+                <SubmitButton isActive={btnActive}>수정</SubmitButton>
             </form>
-
-            <div>
-                <Button
-                    type={'submit'}
-                    className={`absolute bottom-8 flex w-full max-w-[600px] items-center justify-center rounded-xl py-4 text-white hover:bg-gray-200 ${btnActive ? 'bg-black' : 'pointer-events-none bg-gray-200'}`}
-                >
-                    {'수정 '}
-                </Button>
-            </div>
         </div>
     );
 }

@@ -1,8 +1,8 @@
 export default function SocialLoginPage() {
-    const kakaoLink = `https://kauth.kakao.com/oauth/authorize?client_id=${process.env.REACT_APP_KAKAO_API_KEY}&redirect_uri=${process.env.REACT_APP_KAKAO_REDIRECT_URI}&response_type=code`;
-    const naverLink = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${process.env.REACT_APP_NAVER_API_KEY}&state=${process.env.REACT_APP_NAVER_STATE}&redirect_uri=${process.env.REACT_APP_NAVER_REDIRECT_URI}`;
+    const kakaoLink = 'http://3.36.90.34:8080/oauth2/authorization/kakao';
+    const naverLink = 'http://3.36.90.34:8080/oauth2/authorization/naver';
 
-    const handleKakaoLogin = () => {
+    const handleKakaoLogin = async () => {
         window.location.href = kakaoLink;
     };
 

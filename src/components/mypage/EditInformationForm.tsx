@@ -1,9 +1,9 @@
 import { TopHeader } from '@/components/common';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAuthStore } from '@/store/user';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import SubmitButton from '../common/Button/SubmitButton';
 
 interface IMyInfo {
     name: string;
@@ -51,13 +51,7 @@ export default function EditInformationForm() {
                     {errors.name && (
                         <p className="text-pointRed">{errors.name.message}</p>
                     )}
-
-                    <Button
-                        type="submit"
-                        className={`absolute bottom-8 flex w-full max-w-[600px] items-center justify-center rounded-xl py-4 text-white hover:bg-gray-200 ${isDirty ? 'bg-black' : 'pointer-events-none bg-gray-200'}`}
-                    >
-                        {'수정'}
-                    </Button>
+                    <SubmitButton isActive={isDirty}>수정</SubmitButton>
                 </form>
             </div>
         </div>

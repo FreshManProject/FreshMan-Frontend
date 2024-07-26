@@ -26,9 +26,7 @@ export default function RegisterSuccessPage() {
             </div>
             <Button
                 onClick={() => navigate('/categories')}
-                className={
-                    'absolute bottom-8 flex w-full max-w-[600px] items-center justify-center rounded-xl bg-black py-4 text-white hover:bg-gray-200'
-                }
+                className="absolute bottom-8 flex w-full max-w-[393px] items-center justify-center rounded-xl bg-black py-4 text-white hover:bg-gray-200"
             >
                 홈으로 가기
             </Button>
