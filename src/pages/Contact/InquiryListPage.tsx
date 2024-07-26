@@ -1,4 +1,4 @@
-import { getContactList } from '@/apis/user/getContactList';
+import { getInquiryList } from '@/apis/user/getInquiryList';
 import { TopHeader } from '@/components/common';
 import InquiryList from '@/components/Inquiry/InquiryList';
 import { useQuery } from '@tanstack/react-query';
@@ -10,7 +10,7 @@ export default function InquiryListPage() {
         error,
     } = useQuery({
         queryKey: ['inquiryList'],
-        queryFn: getContactList,
+        queryFn: getInquiryList,
     });
     if (isLoading) return <div>Loading...</div>;
     if (error) return <div>Error : {error.message}</div>;

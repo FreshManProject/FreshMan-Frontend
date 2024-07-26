@@ -1,9 +1,11 @@
 import axios from 'axios';
 
-export default async function getLikeList() {
+export async function getInquiryList() {
     try {
-        const response = await axios.get('/likes?orderby=latest');
-        if (response.data) return response.data.data;
+        const response = await axios.get('/api/contact');
+        if (response.data) {
+            return response.data.data;
+        }
         throw new Error(
             `Unexpected response : ${response.status} ${response.statusText}`,
         );
