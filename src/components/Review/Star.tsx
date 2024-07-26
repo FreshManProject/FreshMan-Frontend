@@ -20,9 +20,11 @@ export default function Star({ w, h, readonly, rate }: IStarProps) {
         if (rate >= index) {
             return '100%';
         }
+        if (Math.floor(index - rate) > 0) {
+            return '0%';
+        }
         const percentage = ((rate % 1) * 100).toFixed();
-        if (percentage) return `${percentage}%`;
-        return '100%';
+        return `${percentage}%`;
     };
 
     return (
