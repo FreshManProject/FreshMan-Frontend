@@ -14,8 +14,6 @@
 #env
 .env
 
-#eslint
-.eslintrc.js
 
 # misc
 .DS_Store
