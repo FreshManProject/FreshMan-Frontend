@@ -42,7 +42,7 @@
         "zustand": "^4.5.4"
     },
     "scripts": {
-        "start": "GENERATE_SOURCEMAP=false craco start",
+        "start": "craco start",
         "build": "craco build",
         "test": "craco test",
         "eject": "craco eject"
