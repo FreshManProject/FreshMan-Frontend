@@ -44,6 +44,12 @@ module.exports = {
             2,
             { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
         ],
+        'jsx-a11y/label-has-associated-control': [
+            2,
+            {
+                some: ['nesting', 'id'],
+            },
+        ],
         'react/no-array-index-key': 'off',
         // 사용하지 않는 변수가 있을 때 발생하는 경고 비활성화
         // 'no-unused-vars': ['off'],
