@@ -31,6 +31,8 @@ module.exports = {
         ],
         // var 금지
         'no-var': 'warn',
+        // alert 허용
+        'no-alert': 'off',
         // 일치 연산자 사용 필수
         eqeqeq: 'warn',
         // 컴포넌트의 props 검사 비활성화, propstype 사용하지 않아도 경고 띄우지 않음

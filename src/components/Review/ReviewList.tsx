@@ -5,8 +5,8 @@ export default function ReviewList() {
         <ul className="flex flex-col gap-9">
             {Array(5)
                 .fill(null)
-                .map(() => (
-                    <ReviewItem />
+                .map((index: number) => (
+                    <ReviewItem key={index} />
                 ))}
         </ul>
     );

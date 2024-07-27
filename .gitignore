@@ -14,8 +14,8 @@
 #env
 .env
 
-#eslint
-.eslintrc.js
+#yarn
+yarn.lock
 
 # misc
 .DS_Store

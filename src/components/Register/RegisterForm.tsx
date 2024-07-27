@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { useRef, useState } from 'react';
 import { Sheet, SheetRef } from 'react-modal-sheet';
 import { useNavigate } from 'react-router-dom';
+import SubmitButton from '../common/Button/SubmitButton';
 
 export default function RegisterForm() {
     const [showDaumPostCodeModal, setShowDaumPostCodeModal] =
@@ -33,8 +34,12 @@ export default function RegisterForm() {
     const watchAddress = watch('address');
     const watchAddressDetail = watch('addressDetail');
 
-    const btnActive =
-        watchName && watchPhone && watchAddress && watchAddressDetail;
+    const btnActive = !!(
+        watchName &&
+        watchPhone &&
+        watchAddress &&
+        watchAddressDetail
+    );
 
     const handleDaumAddress = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -146,14 +151,7 @@ export default function RegisterForm() {
                     </p>
                 )}
             </div>
-            <div>
-                <Button
-                    type={'submit'}
-                    className={`absolute bottom-8 flex w-full max-w-[600px] items-center justify-center rounded-xl py-4 text-white hover:bg-gray-200 ${btnActive ? 'bg-black' : 'pointer-events-none bg-gray-200'}`}
-                >
-                    {'다음'}
-                </Button>
-            </div>
+            <SubmitButton isActive={btnActive}>다음</SubmitButton>
         </form>
     );
 }

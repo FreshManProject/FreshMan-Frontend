@@ -75,7 +75,12 @@ export default function MyPageInformation() {
                 <div className="flex flex-col items-center justify-center">
                     <GoHeartFill size={30} />
                     <p>찜</p>
-                    <Button className="text-[#7BDFF2]">{user.heart}</Button>
+                    <Button
+                        className="text-[#7BDFF2]"
+                        onClick={() => navigate('/mypage/like')}
+                    >
+                        {user.heart}
+                    </Button>
                 </div>
             </div>
             <div className="border-b-[1px] border-b-gray-100" />
@@ -83,7 +88,11 @@ export default function MyPageInformation() {
                 <p className="my-5 text-body3 text-gray-400">문의</p>
                 <div className="my-5 flex flex-row justify-between">
                     <p className="text-sm">문의 내역</p>
-                    <GoChevronRight className="text-gray-400" size={24} />
+                    <GoChevronRight
+                        className="text-gray-400"
+                        size={24}
+                        onClick={() => navigate('/inquiry/list')}
+                    />
                 </div>
             </div>
         </div>
