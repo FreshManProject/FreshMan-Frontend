@@ -12,7 +12,9 @@ const root = ReactDOM.createRoot(
 
 // MSW 설정
 if (process.env.NODE_ENV === 'development') {
-    worker.start();
+    worker.start({
+        onUnhandledRequest: 'bypass',
+    });
 }
 
 root.render(
