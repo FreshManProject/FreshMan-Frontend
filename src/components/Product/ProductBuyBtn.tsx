@@ -16,7 +16,7 @@ export default function ProductBuyBtn() {
                 'fixed bottom-0 z-[21] flex w-full items-center justify-between bg-white px-2 py-4 shadow-top [&>#likeBtn]:basis-16 [&>#primaryBtn]:flex-1'
             }
         >
-            <LikeBtn size={'lg'} />
+            <LikeBtn favorite={false} size={'lg'} />
             <PrimaryBkButton primary handleClick={handleClick}>
                 {'구매하기'}
             </PrimaryBkButton>

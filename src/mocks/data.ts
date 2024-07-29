@@ -4,21 +4,28 @@ export const dummyProudctList = [
         name: '테스트 상품 7',
         price: 10000,
         brand: '뉴발란스',
-        image: '',
+        favorite: false,
+        sale: {
+            salePrice: 7000,
+            saleRate: 22,
+        },
+        image: 'https://image.msscdn.net/images/goods_img/20230214/3082569/3082569_17058889205261_500.jpg',
     },
     {
         productSeq: 7,
         name: '테스트 상품 6',
         price: 7000,
         brand: '나이키',
-        image: '',
+        favorite: true,
+        image: 'https://image.msscdn.net/images/goods_img/20230214/3082569/3082569_17058889205261_500.jpg',
     },
     {
         productSeq: 9,
         name: '테스트 상품 6',
         price: 500000,
         brand: '나이키',
-        image: '',
+        favorite: false,
+        image: 'https://image.msscdn.net/images/goods_img/20230214/3082569/3082569_17058889205261_500.jpg',
     },
 ];
 

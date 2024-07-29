@@ -3,14 +3,15 @@ import { PiHeart, PiHeartFill } from 'react-icons/pi';
 
 interface ILikeBtnProps {
     size?: 'm' | 'lg';
+    favorite: boolean;
 }
 
-export default function LikeBtn({ size }: ILikeBtnProps) {
+export default function LikeBtn({ size, favorite }: ILikeBtnProps) {
     const btnSize = {
         m: 'h-8 w-8',
         lg: 'w-10 h-10',
     };
-    const [isClicked, setIsClicked] = useState(false);
+    const [isClicked, setIsClicked] = useState(favorite);
 
     const handleClickLike = () => {
         setIsClicked((prev) => !prev);

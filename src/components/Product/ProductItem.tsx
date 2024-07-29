@@ -1,48 +1,65 @@
 import { Link } from 'react-router-dom';
+import { productItemType } from '@/types/Product/productList';
+import { formatNumber } from '@/util/formatData';
 import { LikeBtn } from '../common';
 
-interface IProductItemProps {
-    id: number;
+interface IProductItemProps extends productItemType {
+    size: 's' | 'm';
 }
 
-export default function ProductItem({ id }: IProductItemProps) {
+export default function ProductItem({
+    size,
+    productSeq,
+    name,
+    brand,
+    price,
+    image,
+    sale,
+    favorite,
+}: IProductItemProps) {
     return (
-        <li className={'basis-6/12'}>
-            <Link to={`/products/${id}`}>
+        <li className={`${size === 's' ? 'basis-4/12' : 'basis-6/12'}`}>
+            <Link
+                to={`/products/${productSeq}`}
+                className="block aspect-[1/1.1]"
+            >
                 <img
-                    src={
-                        'https://sitem.ssgcdn.com/68/30/98/spclprc/1000282983068_sp.jpg'
-                    }
-                    alt={'TEST 이미지'}
+                    src={image}
+                    alt={name}
+                    className="h-full w-full object-cover"
                 />
             </Link>
             <div className={'px-2.5'}>
                 <div className={'mb-1 flex items-center justify-between'}>
-                    <span className={'text-body4_b'}>{'stussy'}</span>
-                    <LikeBtn />
+                    <span className={'text-body4_b'}>{brand}</span>
+                    <LikeBtn favorite={favorite} />
                 </div>
-                <Link to={`/products/${id}`}>
+                <Link to={`/products/${productSeq}`}>
                     <p className={'line-clamp-2 text-body2 leading-tight'}>
                         {'Stussy World Tour T-Shirt White 2024'}
                     </p>
                 </Link>
                 <div className={'mt-3'}>
-                    <del className={'block text-body4 text-gray-400'}>
-                        {'304,000원'}
-                    </del>
-                    <em
-                        className={'mr-2 text-body2_b not-italic text-pointRed'}
-                    >
-                        {'30%'}
+                    {sale && (
+                        <>
+                            <del className={'block text-body4 text-gray-400'}>
+                                {formatNumber(sale?.salePrice)}원
+                            </del>
+                            <em
+                                className={
+                                    'mr-2 text-body2_b not-italic text-pointRed'
+                                }
+                            >
+                                {sale?.saleRate}%
+                            </em>
+                        </>
+                    )}
+
+                    <em className={'text-body2_b not-italic'}>
+                        {formatNumber(price)}원
                     </em>
-                    <em className={'text-body2_b not-italic'}>{'222,333원'}</em>
                 </div>
             </div>
         </li>
     );
 }
-
-// export default memo(
-//     ProductItem,
-//     (prevProps, nextProps) => prevProps.isClicked === nextProps.isClicked,
-// );
