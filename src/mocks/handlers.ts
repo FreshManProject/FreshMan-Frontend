@@ -1,5 +1,5 @@
 import { rest, RestRequest, ResponseComposition, RestContext } from 'msw';
-import { dummyInquiryList, dummyLikeList, dummyProudctList } from './data';
+import { dummyInquiryList, dummyProudctList } from './data';
 
 const handlers = [
     rest.get(
@@ -79,7 +79,10 @@ const handlers = [
         (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
             return res(
                 ctx.json({
-                    data: dummyLikeList,
+                    status: 200,
+                    message: 'success',
+                    list: dummyProudctList,
+                    count: dummyProudctList.length,
                 }),
             );
         },

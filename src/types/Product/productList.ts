@@ -18,6 +18,11 @@ export interface productItemType {
     price: number;
     brand: string;
     image: string;
+    favorite: boolean;
+    sale?: {
+        salePrice: 35000;
+        saleRate: 22;
+    };
 }
 export interface filterStateType {
     price: boolean;

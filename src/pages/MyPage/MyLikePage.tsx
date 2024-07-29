@@ -1,7 +1,7 @@
 import { TopHeader } from '@/components/common';
 import getLikeList from '@/apis/user/getLikeList';
 import { useQuery } from '@tanstack/react-query';
-import { ProductItem } from '@/components/Product';
+import { ProductList } from '@/components/Product';
 
 export default function MyLikePage() {
     const {
@@ -13,16 +13,12 @@ export default function MyLikePage() {
         queryFn: getLikeList,
     });
     if (LikeListIsLoading) return <div>Loading...</div>;
-    if (error) return <div>Error : {error.message}</div>;
-    console.log(LikeList);
+    if (!LikeList || error) return <div>Error : {error?.message}</div>;
+
     return (
         <div>
             <TopHeader backUrl="/mypage" title="찜" />
-            <div className="flex flex-wrap">
-                {LikeList.map((index: number) => (
-                    <ProductItem key={index} id={index} />
-                ))}
-            </div>
+            <ProductList listData={LikeList} size="m" />
         </div>
     );
 }
