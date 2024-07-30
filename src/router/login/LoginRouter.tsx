@@ -1,6 +1,5 @@
-import KakaoSocialLoginPage from '@/pages/Login/KakaoSocialLoginPage';
-import NaverSocialLoginPage from '@/pages/Login/NaverSocialLoginPage';
 import SocialLoginPage from '@/pages/Login/SocialLoginPage';
+import SocialLoginRedirectPage from '@/pages/Login/SocialLoginRedirectPage';
 
 export const LoginRouter = [
     {
@@ -8,11 +7,7 @@ export const LoginRouter = [
         element: <SocialLoginPage />,
     },
     {
-        path: '/login/oauth2/code/kakao',
-        element: <KakaoSocialLoginPage />,
-    },
-    {
-        path: '/login/oauth2/code/naver',
-        element: <NaverSocialLoginPage />,
+        path: '/authorize',
+        element: <SocialLoginRedirectPage />,
     },
 ];
