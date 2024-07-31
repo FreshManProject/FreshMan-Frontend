@@ -1,5 +1,5 @@
-import InquiryListPage from '@/pages/Contact/InquiryListPage';
-import InquiryPage from '@/pages/Contact/InquiryPage';
+import InquiryListPage from '@/pages/Inquiry/InquiryListPage';
+import InquiryPage from '@/pages/Inquiry/InquiryPage';
 
 export const InquiryRouter = [
     {

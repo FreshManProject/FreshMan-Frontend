@@ -1,5 +1,5 @@
 import { rest, RestRequest, ResponseComposition, RestContext } from 'msw';
-import { dummyInquiryList, dummyProudctList } from './data';
+import { dummyInquiryList, dummyProudctList, dummySearchList } from './data';
 
 const handlers = [
     rest.get(
@@ -93,6 +93,16 @@ const handlers = [
             return res(
                 ctx.json({
                     data: dummyInquiryList,
+                }),
+            );
+        },
+    ),
+    rest.get(
+        '/api/products?keyword=test',
+        (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+            return res(
+                ctx.json({
+                    data: dummySearchList,
                 }),
             );
         },
