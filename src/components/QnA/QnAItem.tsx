@@ -20,7 +20,7 @@ export default function QnAItem({ value }: IQnAItemProps) {
                         2023.01.01 &nbsp;&nbsp; testset1234
                     </div>
                     <div className="flex">
-                        <p className="ellipsis-1 flex-1 text-left text-body2">
+                        <p className="line-clamp-3 flex-1 text-left text-body2">
                             문의사항이 있는데여?? 문의사항이 있는데여 화장품
                             성분이 궁금해서여
                         </p>

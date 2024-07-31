@@ -1,3 +1,4 @@
+import { useReviewStore } from '@/store/review';
 import { useState } from 'react';
 import { FaStar } from 'react-icons/fa6';
 
@@ -9,10 +10,12 @@ interface IStarProps {
 }
 export default function Star({ w, h, readonly, rate }: IStarProps) {
     const [rating, setRating] = useState(rate || 0);
+    const { setReviewRating } = useReviewStore();
 
     const handleClickStar = (index: number) => {
         if (!readonly) {
             setRating(index + 1);
+            setReviewRating(index + 1);
         }
     };
 

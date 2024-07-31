@@ -66,7 +66,7 @@ module.exports = {
                 sm: 'calc(var(--radius) - 4px)',
             },
             gridTemplateColumns: {
-                header: '2rem 1fr 4rem',
+                header: '60px 1fr 60px',
             },
             boxShadow: {
                 top: '-3px -17px 42px -7px rgba(184,184,184,0.24);',
@@ -87,6 +87,10 @@ module.exports = {
             },
         },
     },
-    // eslint-disable-next-line global-require
-    plugins: [require('tailwindcss-animate')],
+    plugins: [
+        // eslint-disable-next-line global-require
+        require('tailwindcss-animate'),
+        // eslint-disable-next-line global-require
+        require('@tailwindcss/line-clamp'),
+    ],
 };
