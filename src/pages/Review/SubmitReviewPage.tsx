@@ -66,7 +66,7 @@ export default function SubmitReviewPage() {
                 <div className="px-4 pb-10 [&>button]:w-full">
                     <PrimaryBkButton
                         disabled={reviewText.length < 10}
-                        handleClick={() => handleSubmit({ reviewText })}
+                        handleClick={handleSubmit}
                     >
                         등록
                     </PrimaryBkButton>

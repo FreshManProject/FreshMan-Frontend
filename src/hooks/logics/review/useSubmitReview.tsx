@@ -1,15 +1,19 @@
+import usePostReview from '@/hooks/query/review/usePostReview';
 import { useRef, useState } from 'react';
-
-interface reviewDataType {
-    reviewText: string;
-}
 
 export default function useSubmitReview() {
     const inputFileRef = useRef<HTMLInputElement>(null);
     const [reviewText, setReviewText] = useState('');
+    const { mutatePostReview } = usePostReview();
 
-    const handleSubmit = (data: reviewDataType) => {
-        console.log(data);
+    const handleSubmit = () => {
+        // console.log(reviewText);
+        mutatePostReview({
+            productSeq: 1,
+            content: reviewText,
+            score: 5,
+            type: 'N',
+        });
     };
 
     const handleChangeText = (
