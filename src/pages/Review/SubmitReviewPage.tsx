@@ -59,7 +59,7 @@ export default function SubmitReviewPage() {
                             ref={inputFileRef}
                             className="hidden"
                             onChange={handleImageUpload}
-                            accept="image/jpeg, image/png"
+                            accept="image/*"
                         />
                     </div>
                 </section>
