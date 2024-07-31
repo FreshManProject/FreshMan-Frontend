@@ -1,5 +1,7 @@
-import useDeleteRecentSearch from '@/hooks/query/search/useDeleteRecentSearch';
-import useGetRecentSearchList from '@/hooks/query/search/useGetRecentSearchList';
+import {
+    useDeleteRecentSearch,
+    useGetRecentSearchList,
+} from '@/hooks/query/search';
 import { IoCloseOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 

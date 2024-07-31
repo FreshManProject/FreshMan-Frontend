@@ -10,17 +10,10 @@ import {
 
 import { useState } from 'react';
 import { ProductOptionType } from '@/types/Product/productDetail';
-import { BottomSheet } from '../common';
 import { GrayBorderButton, PrimaryBkButton } from '../common/Button';
 import { OptionCount } from './ProductDetail';
 
-interface IProductOptionProps {
-    isOpen: {
-        bottomSheet: boolean;
-    };
-}
-
-export default function ProductOption({ isOpen }: IProductOptionProps) {
+export default function ProductOption() {
     const [selectedList, setSelectedList] = useState<ProductOptionType[]>([]);
 
     const handleClickBuy = () => {};
@@ -36,7 +29,7 @@ export default function ProductOption({ isOpen }: IProductOptionProps) {
     };
 
     return (
-        <BottomSheet isOpen={isOpen.bottomSheet}>
+        <>
             <div className={'max-h-40 overflow-y-auto'}>
                 <Select onValueChange={handleChangeOption}>
                     <SelectTrigger
@@ -87,6 +80,6 @@ export default function ProductOption({ isOpen }: IProductOptionProps) {
                     </PrimaryBkButton>
                 </div>
             </div>
-        </BottomSheet>
+        </>
     );
 }

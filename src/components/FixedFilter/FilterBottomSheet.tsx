@@ -1,4 +1,3 @@
-import useGetProductList from '@/hooks/query/product/useGetProductList';
 import { Slider } from '@/components/ui/slider';
 import { useState } from 'react';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
@@ -12,6 +11,7 @@ import {
 
 import { formatNumber } from '@/util/formatData';
 import { filterType } from '@/types/Product/productList';
+import useGetProductList from '@/hooks/query/product';
 import {
     GrayBorderButton,
     GrayBorderToggleButton,

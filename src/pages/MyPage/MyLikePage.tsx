@@ -1,7 +1,7 @@
 import { TopHeader } from '@/components/common';
-import getLikeList from '@/apis/user/getLikeList';
 import { useQuery } from '@tanstack/react-query';
 import { ProductList } from '@/components/Product';
+import getLikeList from '@/apis/user';
 
 export default function MyLikePage() {
     const {
