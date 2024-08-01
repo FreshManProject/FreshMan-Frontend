@@ -5,7 +5,6 @@ import { useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Sheet, SheetRef } from 'react-modal-sheet';
 import DaumPostCode from 'react-daum-postcode';
-import { TopHeader } from '@/components/common';
 import SubmitButton from '../common/Button/SubmitButton';
 
 interface IEditAddress {
@@ -41,7 +40,6 @@ export default function EditAddressForm() {
 
     return (
         <div>
-            <TopHeader backUrl="/mypage" title="배송지 관리" />
             <form className="mt-5" onSubmit={handleSubmit(onSubmit)}>
                 <label className="text-gray-400" htmlFor="address">
                     {'주소'}

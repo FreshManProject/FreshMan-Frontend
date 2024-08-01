@@ -1,4 +1,3 @@
-import { TopHeader } from '@/components/common';
 import { Input } from '@/components/ui/input';
 import { useAuthStore } from '@/store/user';
 import { useForm } from 'react-hook-form';
@@ -29,7 +28,6 @@ export default function EditInformationForm() {
     };
     return (
         <div>
-            <TopHeader backUrl="/mypage/info" />
             <div className="mx-4 mb-10 mt-5">
                 <h2 className="mb-2 text-2xl font-bold">{`${name}님`}</h2>
                 <p>{email}</p>

@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { useAuthStore } from '@/store/user';
 import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { TopHeader } from '@/components/common';
 
 export default function MyPageInformation() {
     const navigate = useNavigate();
@@ -45,7 +44,6 @@ export default function MyPageInformation() {
     if (error) return <div>Error : {error.message}</div>;
     return (
         <div>
-            <TopHeader title="마이페이지" />
             <div className="mx-4 mt-8 flex flex-row items-center justify-between">
                 <div>
                     <h2 className="mb-2 text-2xl font-bold">{`${user.name}님`}</h2>

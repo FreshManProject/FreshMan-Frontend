@@ -1,4 +1,3 @@
-import { TopHeader } from '@/components/common';
 import { GoChevronRight } from 'react-icons/go';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,7 +5,6 @@ export default function MyInformation() {
     const navigate = useNavigate();
     return (
         <div>
-            <TopHeader backUrl="/mypage" title="내 정보" />
             <div className="flex flex-col justify-center text-body2">
                 <div className="flex h-10 items-center justify-between">
                     <p>내 정보 수정</p>
