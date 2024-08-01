@@ -1,10 +1,11 @@
 import { FaStar } from 'react-icons/fa6';
-import ProductImgSlider from '../ProductImgSlider';
 
 export default function ProductInfo() {
     return (
         <section>
-            <ProductImgSlider />
+            {/* <ProductSlider>
+                <ProductSlider.Img src={[]} title="" subTitle="" />
+            </ProductSlider> */}
             <div className={'px-2.5 pb-10'}>
                 <div className={'mb-2 flex items-center justify-between'}>
                     <span className={'text-body2'}>{'stussy'}</span>

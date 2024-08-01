@@ -24,6 +24,10 @@ module.exports = {
             fontFamily: {
                 sans: ['Apple SD Gothic Neo', ...defaultTheme.fontFamily.sans],
             },
+            backgroundImage: {
+                'gradient-bk':
+                    'linear-gradient(rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.2) 100%)',
+            },
             fontSize: {
                 title1: ['1.625rem', {}],
                 title2: ['1.25rem', {}],
