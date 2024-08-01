@@ -2,7 +2,7 @@ import SearchInput from '@/components/common/SearchInput';
 import { useEffect, useState } from 'react';
 import { productItemType } from '@/types/Product/productList';
 import ProductItem from '@/components/Product/ProductItem';
-import useGetQuerySearch from '@/hooks/query/search/useGetQuerySearch';
+import { useGetQuerySearch } from '@/hooks/query/search';
 import RecentSearchList from '@/components/search/RecentSearchList';
 
 export default function SearchPage() {

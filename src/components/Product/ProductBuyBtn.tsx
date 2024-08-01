@@ -1,15 +1,8 @@
-import { useBottomSheetStore } from '@/store/useBottomSheetStore';
 import { LikeBtn } from '../common';
 import { PrimaryBkButton } from '../common/Button';
 import ProductOption from './ProductOption';
 
 export default function ProductBuyBtn() {
-    const { setIsOpenBottomSheet, isOpen } = useBottomSheetStore();
-
-    const handleClick = () => {
-        setIsOpenBottomSheet(true);
-    };
-
     return (
         <div
             className={
@@ -17,10 +10,10 @@ export default function ProductBuyBtn() {
             }
         >
             <LikeBtn favorite={false} size={'lg'} />
-            <PrimaryBkButton primary handleClick={handleClick}>
+            <PrimaryBkButton primary handleClick={() => {}}>
                 {'구매하기'}
             </PrimaryBkButton>
-            <ProductOption isOpen={isOpen} />
+            <ProductOption />
         </div>
     );
 }

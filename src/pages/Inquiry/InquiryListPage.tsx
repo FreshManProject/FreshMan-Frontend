@@ -1,4 +1,4 @@
-import { getInquiryList } from '@/apis/user/getInquiryList';
+import { getInquiryList } from '@/apis/user';
 import { TopHeader } from '@/components/common';
 import InquiryList from '@/components/Inquiry/InquiryList';
 import { useQuery } from '@tanstack/react-query';

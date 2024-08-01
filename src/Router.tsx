@@ -1,20 +1,116 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { RegisterRouter } from './router/register/RegisterRouter';
-import { LoginRouter } from './router/login/LoginRouter';
-import { ProductRouter } from './router/product/ProductRouter';
-import { MypageRouter } from './router/mypage/MyPageRouter';
-import { InquiryRouter } from './router/inquiry/InquiryRouter';
-import { SearchRouter } from './router/search/SearchRouter';
-import { reviewRouter } from './router/review/reviewRouter';
+import { InquiryListPage, InquiryPage } from './pages/Inquiry';
+import {
+    RegisterSuccessPage,
+    SocialLoginPage,
+    SocialLoginRedirectPage,
+} from './pages/Member';
+import {
+    EditAddressPage,
+    EditInformationPage,
+    MyInformationPage,
+    MyLikePage,
+    MyPage,
+} from './pages/MyPage';
+import { LayoutWithNav, LayoutWithOutNav } from './components/common/Layout';
+import { ProductDetailPage, ProductPage } from './pages/Product';
+import RegisterForm from './components/Register/RegisterForm';
+import { SubmitReviewPage } from './pages/Review';
+import { SearchPage } from './pages/Search';
 
 export default function Router() {
     return createBrowserRouter([
-        ...LoginRouter,
-        ...RegisterRouter,
-        ...ProductRouter,
-        ...MypageRouter,
-        ...InquiryRouter,
-        ...SearchRouter,
-        ...reviewRouter,
+        {
+            path: '/search',
+            element: <SearchPage />,
+        },
+        {
+            path: '/review',
+            children: [
+                {
+                    path: 'submit',
+                    element: <SubmitReviewPage />,
+                },
+            ],
+        },
+        {
+            path: 'register',
+            children: [
+                {
+                    element: <RegisterForm />,
+                },
+                {
+                    path: 'success',
+                    element: <RegisterSuccessPage />,
+                },
+            ],
+        },
+        {
+            path: '/categories',
+            element: <LayoutWithNav />,
+            children: [
+                {
+                    path: ':id',
+                    element: <ProductPage />,
+                },
+            ],
+        },
+        {
+            element: <LayoutWithOutNav />,
+            children: [
+                {
+                    path: '/products/:id',
+                    element: <ProductDetailPage />,
+                },
+            ],
+        },
+        {
+            path: '/mypage',
+            children: [
+                {
+                    element: <MyPage />,
+                },
+                {
+                    path: 'address',
+                    element: <EditAddressPage />,
+                },
+                {
+                    path: 'like',
+                    element: <MyLikePage />,
+                },
+                {
+                    path: 'info',
+                    children: [
+                        {
+                            element: <MyInformationPage />,
+                        },
+                        {
+                            path: 'edit',
+                            element: <EditInformationPage />,
+                        },
+                    ],
+                },
+            ],
+        },
+        {
+            path: '/login',
+            element: <SocialLoginPage />,
+        },
+        {
+            path: '/authorize',
+            element: <SocialLoginRedirectPage />,
+        },
+        {
+            path: '/inquiry',
+            children: [
+                {
+                    element: <InquiryPage />,
+                },
+                {
+                    path: 'list',
+                    element: <InquiryListPage />,
+                },
+            ],
+        },
     ]);
 }
