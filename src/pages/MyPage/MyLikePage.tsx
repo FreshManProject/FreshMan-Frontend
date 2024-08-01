@@ -1,4 +1,3 @@
-import { TopHeader } from '@/components/common';
 import { useQuery } from '@tanstack/react-query';
 import { ProductList } from '@/components/Product';
 import getLikeList from '@/apis/user';
@@ -17,7 +16,6 @@ export default function MyLikePage() {
 
     return (
         <div>
-            <TopHeader backUrl="/mypage" title="찜" />
             <ProductList listData={LikeList} size="m" />
         </div>
     );

@@ -1,48 +1,51 @@
+import React from 'react';
 import { HiOutlineShoppingBag } from 'react-icons/hi';
 import { IoArrowBackOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
 
-interface ITopHeaderProps {
-    backUrl?: string;
-    redirectBack?: boolean;
+interface HeaderProps {
+    children: React.ReactNode;
+}
+interface HeaderTitleProps {
     title?: string;
+    logo?: boolean;
+}
+interface HeaderUtilProps {
+    cart: boolean;
+}
+interface HeaderBackProps {
+    backUrl: string;
 }
 
-export default function TopHeader({
-    backUrl,
-    redirectBack,
-    title,
-}: ITopHeaderProps) {
-    const navigate = useNavigate();
-    const handleRedirectBack = () => {
-        navigate(-1);
-    };
-
-    const handleBack = (backUrl: string) => {
-        if (redirectBack) {
-            return handleRedirectBack();
-        }
-        return navigate(backUrl);
-    };
-
+function TopHeaderTitle({ title, logo }: HeaderTitleProps) {
     return (
-        <header className="align-center grid h-12 grid-cols-header items-center border-b border-gray-100 px-2">
-            {backUrl ? (
-                <IoArrowBackOutline
-                    size={24}
-                    onClick={() => handleBack(backUrl)}
+        <h1 className="flex h-full items-center text-center text-title3_b font-semibold">
+            {logo ? (
+                <img
+                    alt="FreshMan"
+                    src={`${process.env.PUBLIC_URL}/images/logo.svg`}
+                    width={'114px'}
+                    className="m-auto"
                 />
             ) : (
-                <div />
+                title
             )}
-            {title ? (
-                <p className="text-center text-title3_b font-semibold">
-                    {title}
-                </p>
-            ) : (
-                <div />
-            )}
-            <div className="flex justify-end">
+        </h1>
+    );
+}
+
+function TopHeaderWraper({ children }: HeaderProps) {
+    return (
+        <header className={`relative h-12 border-b border-gray-100 px-2`}>
+            {children}
+        </header>
+    );
+}
+
+function TopHeaderUtil({ cart }: HeaderUtilProps) {
+    return (
+        <div className="absolute right-0 top-0 flex h-full items-center justify-end">
+            {cart && (
                 <button
                     type={'button'}
                     className={
@@ -58,7 +61,38 @@ export default function TopHeader({
                         {'99'}
                     </span>
                 </button>
-            </div>
-        </header>
+            )}
+        </div>
     );
 }
+
+function TopHeaderBack({ backUrl }: HeaderBackProps) {
+    const navigate = useNavigate();
+    const handleRedirectBack = () => {
+        navigate(-1);
+    };
+
+    const handleBack = (backUrl: string) => {
+        if (backUrl) {
+            return handleRedirectBack();
+        }
+        return navigate(backUrl);
+    };
+
+    return (
+        <button
+            type="button"
+            onClick={() => handleBack(backUrl)}
+            className="absolute left-0 top-0 h-full"
+        >
+            <span className="sr-only">뒤로 가기</span>
+            <IoArrowBackOutline size={24} />
+        </button>
+    );
+}
+
+export const TopHeader = Object.assign(TopHeaderWraper, {
+    Title: TopHeaderTitle,
+    Util: TopHeaderUtil,
+    Back: TopHeaderBack,
+});

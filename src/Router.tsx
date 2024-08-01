@@ -17,9 +17,14 @@ import { ProductDetailPage, ProductPage } from './pages/Product';
 import RegisterForm from './components/Register/RegisterForm';
 import { SubmitReviewPage } from './pages/Review';
 import { SearchPage } from './pages/Search';
+import { HomePage } from './pages/Home';
 
 export default function Router() {
     return createBrowserRouter([
+        {
+            path: '/',
+            element: <HomePage />,
+        },
         {
             path: '/search',
             element: <SearchPage />,

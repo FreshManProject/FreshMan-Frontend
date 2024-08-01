@@ -1,4 +1,3 @@
-import { TopHeader } from '@/components/common';
 import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -32,7 +31,6 @@ export default function InquiryPage() {
 
     return (
         <div>
-            <TopHeader backUrl="/" title="문의하기" />
             <InquiryForm
                 contact={contact}
                 onChangeContactType={(value: string) => setContactType(value)}
