@@ -5,6 +5,7 @@ import { ProductRouter } from './router/product/ProductRouter';
 import { MypageRouter } from './router/mypage/MyPageRouter';
 import { InquiryRouter } from './router/inquiry/InquiryRouter';
 import { SearchRouter } from './router/search/SearchRouter';
+import { reviewRouter } from './router/review/reviewRouter';
 
 export default function Router() {
     return createBrowserRouter([
@@ -14,5 +15,6 @@ export default function Router() {
         ...MypageRouter,
         ...InquiryRouter,
         ...SearchRouter,
+        ...reviewRouter,
     ]);
 }

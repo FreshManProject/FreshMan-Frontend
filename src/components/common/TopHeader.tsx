@@ -4,23 +4,45 @@ import { useNavigate } from 'react-router-dom';
 
 interface ITopHeaderProps {
     backUrl?: string;
+    redirectBack?: boolean;
     title?: string;
 }
 
-export default function TopHeader({ backUrl, title }: ITopHeaderProps) {
+export default function TopHeader({
+    backUrl,
+    redirectBack,
+    title,
+}: ITopHeaderProps) {
     const navigate = useNavigate();
+    const handleRedirectBack = () => {
+        navigate(-1);
+    };
+
+    const handleBack = (backUrl: string) => {
+        if (redirectBack) {
+            return handleRedirectBack();
+        }
+        return navigate(backUrl);
+    };
+
     return (
-        <div className="mt-5 flex h-10 flex-row justify-between border-b border-gray-100">
+        <header className="align-center grid h-12 grid-cols-header items-center border-b border-gray-100 px-2">
             {backUrl ? (
                 <IoArrowBackOutline
                     size={24}
-                    onClick={() => navigate(backUrl)}
+                    onClick={() => handleBack(backUrl)}
                 />
             ) : (
                 <div />
             )}
-            {title ? <p className="text-xl font-semibold">{title}</p> : <div />}
-            <div>
+            {title ? (
+                <p className="text-center text-title3_b font-semibold">
+                    {title}
+                </p>
+            ) : (
+                <div />
+            )}
+            <div className="flex justify-end">
                 <button
                     type={'button'}
                     className={
@@ -37,6 +59,6 @@ export default function TopHeader({ backUrl, title }: ITopHeaderProps) {
                     </span>
                 </button>
             </div>
-        </div>
+        </header>
     );
 }

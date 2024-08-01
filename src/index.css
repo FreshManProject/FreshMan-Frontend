@@ -14,16 +14,6 @@ body.body-hidden {
     overflow: hidden;
 }
 
-.ellipsis-1 {
-    overflow: hidden;
-    white-space: normal;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    word-break: keep-all;
-}
-
 :root {
     --bk: #242424;
     --primary: #72f0ec;
@@ -32,7 +22,7 @@ body.body-hidden {
     --gray300: #d6d6d6;
     --gray400: #9b9b9b;
     --pointRed: #ff0000;
-    --radius: 15px;
+    --radius: 10px;
     --review: #ffa93b;
     --muted: 240 4.8% 95.9%;
 }
