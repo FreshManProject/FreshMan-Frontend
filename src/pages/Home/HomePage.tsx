@@ -15,14 +15,18 @@ export default function HomePage() {
                 <TopHeader.Util cart />
             </TopHeader>
             <Tabs defaultValue="home" className="">
-                <TabsList className="grid w-full grid-cols-2">
+                <TabsList className="flex justify-start bg-white">
                     {homeTabs.map((tab) => (
-                        <TabsTrigger key={tab.value} value={tab.value}>
+                        <TabsTrigger
+                            key={tab.value}
+                            value={tab.value}
+                            className="text-body2 data-[state=active]:text-body2_b data-[state=active]:shadow-none"
+                        >
                             {tab.name}
                         </TabsTrigger>
                     ))}
                 </TabsList>
-                <TabsContent value="home">
+                <TabsContent value="home" className="mt-0">
                     <HomeContent />
                 </TabsContent>
                 <TabsContent value="sale" />
