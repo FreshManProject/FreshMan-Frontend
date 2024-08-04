@@ -11,7 +11,7 @@ import {
 
 import { formatNumber } from '@/util/formatData';
 import { filterType } from '@/types/Product/productList';
-import useGetProductList from '@/hooks/query/product';
+import { useGetProductList } from '@/hooks/query/product';
 import {
     GrayBorderButton,
     GrayBorderToggleButton,

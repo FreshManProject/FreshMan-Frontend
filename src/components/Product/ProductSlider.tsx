@@ -29,8 +29,12 @@ function ProductImg({ setApi, images, title, subTitle }: ProductImgProps) {
             <CarouselContent>
                 {images.map((src, index) => (
                     <CarouselItem key={index} className={'aspect-square'}>
-                        <figure className="after:bg-gradient-bk relative after:absolute after:left-0 after:top-0 after:h-full after:w-full after:content-['']">
-                            <img src={src} alt={title} />
+                        <figure className="relative h-full after:absolute after:left-0 after:top-0 after:h-full after:w-full after:bg-gradient-bk after:content-['']">
+                            <img
+                                src={src}
+                                alt={title}
+                                className="h-full w-full object-cover"
+                            />
                             <figcaption className="absolute bottom-0 left-0 z-10 px-4 pb-7 text-white">
                                 <p className="text-title2_b">{title}</p>
                                 <p className="text-body1">{subTitle}</p>

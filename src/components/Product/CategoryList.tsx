@@ -1,5 +1,5 @@
 import { useParams, useSearchParams } from 'react-router-dom';
-import useGetProductList from '@/hooks/query/product';
+import { useGetProductList } from '@/hooks/query/product';
 import ProductList from './ProductList';
 
 export default function CategoryList() {

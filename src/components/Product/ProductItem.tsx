@@ -4,7 +4,8 @@ import { formatNumber } from '@/util/formatData';
 import { LikeBtn } from '../common';
 
 interface IProductItemProps extends productItemType {
-    size: 's' | 'm';
+    size: 's' | 'm' | 'full';
+    className?: '';
 }
 
 export default function ProductItem({
@@ -16,9 +17,12 @@ export default function ProductItem({
     image,
     sale,
     favorite,
+    className,
 }: IProductItemProps) {
     return (
-        <li className={`${size === 's' ? 'basis-4/12' : 'basis-6/12'}`}>
+        <li
+            className={`${size === 's' ? 'basis-4/12' : size === 'm' ? 'basis-6/12' : 'w-full'} ${className}`}
+        >
             <Link
                 to={`/products/${productSeq}`}
                 className="block aspect-[1/1.1]"

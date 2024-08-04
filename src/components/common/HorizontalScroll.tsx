@@ -3,12 +3,14 @@ import React, { ReactElement } from 'react';
 
 interface HorizontalScrollProps {
     elementSize: string;
+    parentStyle?: string;
     children: React.ReactNode;
 }
 
 export default function HorizontalScroll({
     children,
     elementSize,
+    parentStyle,
 }: HorizontalScrollProps) {
     const { onMouseDown, onMouseMove, onMouseUp, targetEl } =
         useDragScroll<HTMLUListElement>();
@@ -22,7 +24,7 @@ export default function HorizontalScroll({
                 onDragOver={onMouseMove}
                 onDragEnd={onMouseUp}
                 onDragLeave={onMouseUp}
-                className="w-full overflow-x-auto whitespace-nowrap"
+                className={`flex w-full overflow-x-auto whitespace-nowrap ${parentStyle}`}
             >
                 {React.Children.map(children, (child) => {
                     if (React.isValidElement(child)) {

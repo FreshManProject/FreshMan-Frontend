@@ -3,21 +3,6 @@ import { dummyInquiryList, dummyProudctList, dummySearchList } from './data';
 
 const handlers = [
     rest.get(
-        '/api/users',
-        (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-            return res(
-                ctx.json({
-                    name: '김남성',
-                    email: 'kimssd@naver.com',
-                    address: '서울특별시 강남구 삼성동 22-3',
-                    addressDetail: '스타벅스 문앞',
-                    review: 20,
-                    heart: 200,
-                }),
-            );
-        },
-    ),
-    rest.get(
         '/api/search/recent',
         (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
             return res(
@@ -64,6 +49,65 @@ const handlers = [
                 );
             }
 
+            return res(
+                ctx.json({
+                    status: 200,
+                    message: 'success',
+                    list: dummyProudctList,
+                    count: dummyProudctList.length,
+                }),
+            );
+        },
+    ),
+    rest.get(
+        '/products',
+        (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+            const low = req.url.searchParams.get('lowPrice');
+            const high = req.url.searchParams.get('highPrice');
+            // low 이하 ~ hight 이하
+            const calculateList = dummyProudctList.filter(
+                (item) =>
+                    item.price >= Number(low) && item.price <= Number(high),
+            );
+            if (low && high) {
+                return res(
+                    ctx.json({
+                        status: 200,
+                        message: 'success',
+                        list: calculateList,
+                        count: calculateList.length,
+                    }),
+                );
+            }
+
+            return res(
+                ctx.json({
+                    status: 200,
+                    message: 'success',
+                    list: dummyProudctList,
+                    count: dummyProudctList.length,
+                }),
+            );
+        },
+    ),
+    rest.get(
+        '/products/onsale',
+        (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+            return res(
+                ctx.json({
+                    status: 200,
+                    message: 'success',
+                    list: dummyProudctList,
+                    count: dummyProudctList.length,
+                }),
+            );
+        },
+    ),
+    rest.get(
+        '/products/ranking',
+        (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+            const option = req.url.searchParams.get('option');
+            console.log(option);
             return res(
                 ctx.json({
                     status: 200,

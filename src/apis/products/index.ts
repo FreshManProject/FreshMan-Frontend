@@ -23,3 +23,23 @@ export async function getProductList(
         throw Error;
     }
 }
+
+export async function getProductRankingList(
+    option: string,
+): Promise<productListType> {
+    try {
+        const response = await axios.get(`/products/ranking?=${option}`);
+        return response.data;
+    } catch (error) {
+        throw Error;
+    }
+}
+
+export async function getProductSaleList(): Promise<productListType> {
+    try {
+        const response = await axios.get(`/products/onsale`);
+        return response.data;
+    } catch (error) {
+        throw Error;
+    }
+}

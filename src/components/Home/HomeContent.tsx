@@ -1,6 +1,7 @@
 import { ProductSlider } from '../Product';
 import { HorizontalScroll } from '../common';
 import CategoryMenu from './CategoryMenu';
+import HomeProductList from './HomeProductList';
 
 export default function HomeContent() {
     const textimg = [
@@ -8,15 +9,21 @@ export default function HomeContent() {
     ];
 
     return (
-        <ProductSlider>
-            <ProductSlider.Img
-                images={textimg}
-                title="두피장벽은 튼튼허게"
-                subTitle="시즌오프 할인"
-            />
-            <HorizontalScroll elementSize="w-32">
-                <CategoryMenu />
-            </HorizontalScroll>
-        </ProductSlider>
+        <>
+            <ProductSlider>
+                <ProductSlider.Img
+                    images={textimg}
+                    title="두피장벽은 튼튼허게"
+                    subTitle="시즌오프 할인"
+                />
+                <HorizontalScroll
+                    elementSize="w-16"
+                    parentStyle="px-4 gap-3 py-3"
+                >
+                    <CategoryMenu />
+                </HorizontalScroll>
+            </ProductSlider>
+            <HomeProductList />
+        </>
     );
 }
