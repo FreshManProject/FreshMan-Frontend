@@ -81,7 +81,10 @@ export default function FilterBottomSheet({
                     </div>
                     <DrawerFooter className="flex w-full flex-row gap-2 bg-white p-10 px-0 [&>button:last-child]:flex-1">
                         <GrayBorderButton>초기화</GrayBorderButton>
-                        <PrimaryBkButton handleClick={handleClickGotoProduct}>
+                        <PrimaryBkButton
+                            handleClick={handleClickGotoProduct}
+                            type="button"
+                        >
                             {productList?.count} 상품보기
                         </PrimaryBkButton>
                     </DrawerFooter>

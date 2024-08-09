@@ -3,6 +3,25 @@ import { dummyInquiryList, dummyProudctList, dummySearchList } from './data';
 
 const handlers = [
     rest.get(
+        '/members',
+        (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+            return res(
+                ctx.json({
+                    status: 200,
+                    message: 'success',
+                    data: {
+                        name: '김남성',
+                        email: 'ddddd@naver.com',
+                        address: '서울 특별시 강동구 천호동 222-11 404호',
+                        phone: '01023232323',
+                        review: 3,
+                        favorite: 4,
+                    },
+                }),
+            );
+        },
+    ),
+    rest.get(
         '/api/search/recent',
         (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
             return res(

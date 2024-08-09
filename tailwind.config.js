@@ -21,10 +21,17 @@ module.exports = {
         },
         extend: {
             // figma 기준, 필요시 옵션 추가
+            width: {
+                default: 'var(--min-w)',
+            },
+            maxWidth: {
+                default: 'var(--max-w)',
+            },
             fontFamily: {
                 sans: ['Apple SD Gothic Neo', ...defaultTheme.fontFamily.sans],
             },
             backgroundImage: {
+                'login-success': `url(./assets/images/login-success.svg)`,
                 'gradient-bk':
                     'linear-gradient(rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.2) 100%)',
             },
@@ -50,6 +57,7 @@ module.exports = {
                 body5_b: ['0.625rem', { fontWeight: '700' }],
             },
             colors: {
+                background: 'white',
                 border: 'var(--radius)',
                 input: 'hsl(var(--input))',
                 bk: 'var(--bk)',

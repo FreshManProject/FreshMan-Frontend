@@ -1,4 +1,4 @@
-import { EditInformationForm } from '@/components/mypage';
+import { EditInformationForm } from '@/components/mypage/edit';
 
 export default function EditInformationPage() {
     return <EditInformationForm />;

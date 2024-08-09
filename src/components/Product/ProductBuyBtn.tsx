@@ -1,5 +1,11 @@
 import { LikeBtn } from '../common';
 import { PrimaryBkButton } from '../common/Button';
+import {
+    Drawer,
+    DrawerContent,
+    DrawerPortal,
+    DrawerTrigger,
+} from '../ui/drawer';
 import ProductOption from './ProductOption';
 
 export default function ProductBuyBtn() {
@@ -10,10 +16,19 @@ export default function ProductBuyBtn() {
             }
         >
             <LikeBtn favorite={false} size={'lg'} />
-            <PrimaryBkButton primary handleClick={() => {}}>
-                {'구매하기'}
-            </PrimaryBkButton>
-            <ProductOption />
+
+            <Drawer>
+                <DrawerTrigger className="w-full [&>button]:w-full">
+                    <PrimaryBkButton primary type="button">
+                        구매하기
+                    </PrimaryBkButton>
+                </DrawerTrigger>
+                <DrawerPortal>
+                    <DrawerContent className="bg-white">
+                        <ProductOption />
+                    </DrawerContent>
+                </DrawerPortal>
+            </Drawer>
         </div>
     );
 }
