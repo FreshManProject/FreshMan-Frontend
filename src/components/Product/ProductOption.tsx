@@ -29,8 +29,8 @@ export default function ProductOption() {
     };
 
     return (
-        <>
-            <div className={'max-h-40 overflow-y-auto'}>
+        <div className="pt-4">
+            <div className={'max-h-40 overflow-y-auto px-4'}>
                 <Select onValueChange={handleChangeOption}>
                     <SelectTrigger
                         className={
@@ -62,7 +62,7 @@ export default function ProductOption() {
             {/* 하단 버튼 & 구매수량 */}
             <div
                 className={
-                    'fixed bottom-0 left-0 w-full border-t border-gray200 bg-white px-4 pb-4 pt-6'
+                    'sticky bottom-0 left-0 w-full border-t border-gray200 bg-white px-4 pb-4 pt-6'
                 }
             >
                 <dl className={'mb-3 flex justify-between'}>
@@ -74,12 +74,16 @@ export default function ProductOption() {
                     <dd className={'text-title3_b'}>{'총 812,222원'}</dd>
                 </dl>
                 <div className={'flex gap-2.5 [&>button]:flex-1'}>
-                    <GrayBorderButton>{'장바구니'}</GrayBorderButton>
-                    <PrimaryBkButton handleClick={handleClickBuy} primary>
-                        {'구매하기'}
+                    <GrayBorderButton>장바구니</GrayBorderButton>
+                    <PrimaryBkButton
+                        handleClick={handleClickBuy}
+                        primary
+                        type="button"
+                    >
+                        구매하기
                     </PrimaryBkButton>
                 </div>
             </div>
-        </>
+        </div>
     );
 }

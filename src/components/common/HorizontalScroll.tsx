@@ -14,7 +14,7 @@ export default function HorizontalScroll({
 }: HorizontalScrollProps) {
     const { onMouseDown, onMouseMove, onMouseUp, targetEl } =
         useDragScroll<HTMLUListElement>();
-    console.log(elementSize);
+
     return (
         <div className="overflow-hidden">
             <ul
@@ -24,7 +24,7 @@ export default function HorizontalScroll({
                 onDragOver={onMouseMove}
                 onDragEnd={onMouseUp}
                 onDragLeave={onMouseUp}
-                className={`flex w-full overflow-x-auto whitespace-nowrap ${parentStyle}`}
+                className={`horizontal-scroll-box flex w-full overflow-x-auto whitespace-nowrap ${parentStyle}`}
             >
                 {React.Children.map(children, (child) => {
                     if (React.isValidElement(child)) {

@@ -62,6 +62,7 @@ export default function SubmitReviewPage() {
             </section>
             <div className="px-4 pb-10 [&>button]:w-full">
                 <PrimaryBkButton
+                    type="button"
                     disabled={reviewText.length < 10}
                     handleClick={handleSubmit}
                 >

@@ -1,11 +1,11 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAuthStore } from '@/store/user';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Sheet, SheetRef } from 'react-modal-sheet';
 import DaumPostCode from 'react-daum-postcode';
-import SubmitButton from '../common/Button/SubmitButton';
+import SubmitButton from '../../common/Button/SubmitButton';
+import { Drawer, DrawerContent } from '../../ui/drawer';
 
 interface IEditAddress {
     address: string;
@@ -26,8 +26,6 @@ export default function EditAddressForm() {
         event.preventDefault();
         setShowDaumPostCodeModal(!showDaumPostCodeModal);
     };
-
-    const ref = useRef<SheetRef>();
 
     const watchAddress = watch('address');
     const watchAddressDetail = watch('addressDetail');
@@ -72,25 +70,18 @@ export default function EditAddressForm() {
                         required: true,
                     })}
                 />
-                <Sheet
-                    ref={ref}
-                    isOpen={showDaumPostCodeModal}
-                    onClose={() => setShowDaumPostCodeModal(false)}
-                    snapPoints={[0.6]}
-                >
-                    <Sheet.Container>
-                        <Sheet.Content>
-                            <DaumPostCode
-                                onComplete={(data) => {
-                                    setValue('address', data.address, {
-                                        shouldValidate: false,
-                                    });
-                                    setShowDaumPostCodeModal(false);
-                                }}
-                            />
-                        </Sheet.Content>
-                    </Sheet.Container>
-                </Sheet>
+                <Drawer>
+                    <DrawerContent>
+                        <DaumPostCode
+                            onComplete={(data) => {
+                                setValue('address', data.address, {
+                                    shouldValidate: false,
+                                });
+                                setShowDaumPostCodeModal(false);
+                            }}
+                        />
+                    </DrawerContent>
+                </Drawer>
                 <SubmitButton isActive={btnActive}>수정</SubmitButton>
             </form>
         </div>
