@@ -14,8 +14,8 @@ interface ProductCounterProps {
 interface ProductImgProps {
     setApi?: (api: CarouselApi) => void;
     images: string[];
-    title: string;
-    subTitle: string;
+    title?: string;
+    subTitle?: string;
 }
 
 interface ProductSliderProps {

@@ -1,4 +1,5 @@
 import {
+    getProductDetail,
     getProductList,
     getProductRankingList,
     getProductSaleList,
@@ -21,6 +22,22 @@ export function useGetProductList(
     return {
         productList,
         isLoadingProductList,
+    };
+}
+
+export function useGetProductDetail(productSeq: number) {
+    const {
+        data: productInfo,
+        isLoading: isLoadingProductInfo,
+        isError: isErrorProductInfo,
+    } = useQuery({
+        queryKey: [`porudctDetail${productSeq}`],
+        queryFn: () => getProductDetail(productSeq),
+    });
+    return {
+        productInfo,
+        isErrorProductInfo,
+        isLoadingProductInfo,
     };
 }
 

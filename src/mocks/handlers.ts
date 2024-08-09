@@ -79,32 +79,24 @@ const handlers = [
         },
     ),
     rest.get(
-        '/products',
+        '/products/:id',
         (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-            const low = req.url.searchParams.get('lowPrice');
-            const high = req.url.searchParams.get('highPrice');
-            // low 이하 ~ hight 이하
-            const calculateList = dummyProudctList.filter(
-                (item) =>
-                    item.price >= Number(low) && item.price <= Number(high),
-            );
-            if (low && high) {
-                return res(
-                    ctx.json({
-                        status: 200,
-                        message: 'success',
-                        list: calculateList,
-                        count: calculateList.length,
-                    }),
-                );
-            }
-
             return res(
                 ctx.json({
                     status: 200,
                     message: 'success',
-                    list: dummyProudctList,
-                    count: dummyProudctList.length,
+                    data: {
+                        productSeq: 1,
+                        name: '테스트 상품 1',
+                        price: 45000,
+                        sale: {
+                            salePrice: 35000,
+                            saleRate: 22,
+                        },
+                        description: '테스트 상품 1입니다.',
+                        brand: '테스트 브랜드',
+                        imageList: [],
+                    },
                 }),
             );
         },
