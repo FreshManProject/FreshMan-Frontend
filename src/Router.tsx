@@ -32,6 +32,24 @@ export default function Router() {
                     path: '/',
                     element: <HomePage />,
                 },
+            ],
+        },
+        {
+            path: '/cart',
+            children: [
+                {
+                    path: '',
+                    element: <div>Cart</div>,
+                },
+            ],
+        },
+        {
+            path: '/register',
+            children: [
+                {
+                    path: '',
+                    element: <RegisterForm />,
+                },
                 {
                     path: '/search',
                     element: <SearchPage />,

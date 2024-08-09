@@ -3,10 +3,11 @@ import {
     getProductList,
     getProductRankingList,
     getProductSaleList,
+    postInCart,
 } from '@/apis/products';
 import { getProductQnaList, getQnaAnswer } from '@/apis/qna';
 import { productListParamsType } from '@/types/Product/productList';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 export function useGetProductList(
     params: productListParamsType,
@@ -109,5 +110,18 @@ export function useGetQnaAnswer(
         isLoadingAnswer,
         isErrorAnswer,
         isSuccessAnswer,
+    };
+}
+
+export function usePostInCart() {
+    const { mutate: mutatePostInCart, isPending: isPendingPostInCart } =
+        useMutation({
+            mutationFn: (data: { productSeq: number; quantity: number }) =>
+                postInCart(data),
+        });
+
+    return {
+        mutatePostInCart,
+        isPendingPostInCart,
     };
 }
