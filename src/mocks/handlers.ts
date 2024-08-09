@@ -160,6 +160,17 @@ const handlers = [
             );
         },
     ),
+    rest.post(
+        '/carts',
+        (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+            return res(
+                ctx.json({
+                    status: 200,
+                    quantity: 'success',
+                }),
+            );
+        },
+    ),
     rest.get(
         '/api/products?keyword=test',
         (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {

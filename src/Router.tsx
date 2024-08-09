@@ -39,6 +39,15 @@ export default function Router() {
             ],
         },
         {
+            path: '/cart',
+            children: [
+                {
+                    path: '',
+                    element: <div>Cart</div>,
+                },
+            ],
+        },
+        {
             path: '/register',
             children: [
                 {
