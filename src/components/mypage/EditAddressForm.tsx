@@ -1,10 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAuthStore } from '@/store/user';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Sheet, SheetRef } from 'react-modal-sheet';
-import DaumPostCode from 'react-daum-postcode';
+// import { Sheet, SheetRef } from 'react-modal-sheet';
+// import DaumPostCode from 'react-daum-postcode';
 import SubmitButton from '../common/Button/SubmitButton';
 
 interface IEditAddress {
@@ -14,7 +14,7 @@ interface IEditAddress {
 
 export default function EditAddressForm() {
     const { address, addressDetail } = useAuthStore();
-    const { register, handleSubmit, setValue, watch } = useForm<IEditAddress>({
+    const { register, handleSubmit, watch } = useForm<IEditAddress>({
         mode: 'onSubmit',
         reValidateMode: 'onSubmit',
         defaultValues: { address, addressDetail },
@@ -27,7 +27,7 @@ export default function EditAddressForm() {
         setShowDaumPostCodeModal(!showDaumPostCodeModal);
     };
 
-    const ref = useRef<SheetRef>();
+    // const ref = useRef<SheetRef>();
 
     const watchAddress = watch('address');
     const watchAddressDetail = watch('addressDetail');
@@ -72,13 +72,13 @@ export default function EditAddressForm() {
                         required: true,
                     })}
                 />
-                <Sheet
+                {/* <Sheet
                     ref={ref}
                     isOpen={showDaumPostCodeModal}
                     onClose={() => setShowDaumPostCodeModal(false)}
                     snapPoints={[0.6]}
-                >
-                    <Sheet.Container>
+                > */}
+                {/* <Sheet.Container>
                         <Sheet.Content>
                             <DaumPostCode
                                 onComplete={(data) => {
@@ -90,7 +90,7 @@ export default function EditAddressForm() {
                             />
                         </Sheet.Content>
                     </Sheet.Container>
-                </Sheet>
+                </Sheet> */}
                 <SubmitButton isActive={btnActive}>수정</SubmitButton>
             </form>
         </div>

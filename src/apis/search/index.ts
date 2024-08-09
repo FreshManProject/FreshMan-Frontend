@@ -1,10 +1,10 @@
 import { productItemType } from '@/types/Product/productList';
-import instance from '../axios';
 import requests from '../requests';
+import { axiosAuth } from '..';
 
 export async function getRecentSearchList() {
     try {
-        const response = await instance.get(requests.recentSearchList);
+        const response = await axiosAuth.get(requests.recentSearchList);
         if (response.data) return response.data.list;
         throw new Error(
             `Unexpected response : ${response.status} ${response.statusText}`,
@@ -29,7 +29,7 @@ export async function getQuerySearch(
     if (sort !== undefined) apiUrl += `&sort=${sort}`;
     console.log(`${process.env.REACT_APP_FRESHMAN_PUBLIC_API_URL}${apiUrl}`);
     try {
-        const response = await instance.get(apiUrl);
+        const response = await axiosAuth.get(apiUrl);
         if (response.data.status === 200) return response.data.list;
         throw new Error(
             `Unexpected response : ${response.status} ${response.statusText}`,
@@ -42,7 +42,7 @@ export async function getQuerySearch(
 
 export async function deleteRecentSearch(index: number) {
     try {
-        const response = await instance.delete(
+        const response = await axiosAuth.delete(
             `${requests.recentSearchList}?index=${index}`,
         );
         if (response.data) return response.data.list;

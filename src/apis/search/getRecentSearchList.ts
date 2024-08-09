@@ -1,9 +1,9 @@
-import instance from '../axios';
+import { axiosAuth } from '..';
 import requests from '../requests';
 
 export async function getRecentSearchList() {
     try {
-        const response = await instance.get(requests.recentSearchList);
+        const response = await axiosAuth.get(requests.recentSearchList);
         if (response.data) return response.data.list;
         throw new Error(
             `Unexpected response : ${response.status} ${response.statusText}`,

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import { RouterProvider } from 'react-router-dom';
+import { CookiesProvider } from 'react-cookie';
 import QueryProvider from './provider/queryProvider';
 import { worker } from './mocks/browser';
 import Router from './Router';
@@ -19,14 +20,16 @@ if (process.env.NODE_ENV === 'development') {
 
 root.render(
     <React.StrictMode>
-        <QueryProvider>
-            <div
-                className={
-                    'm-auto box-border max-w-[375px] items-center justify-center'
-                }
-            >
-                <RouterProvider router={Router()} />
-            </div>
-        </QueryProvider>
+        <CookiesProvider>
+            <QueryProvider>
+                <div
+                    className={
+                        'm-auto box-border max-w-[375px] items-center justify-center'
+                    }
+                >
+                    <RouterProvider router={Router()} />
+                </div>
+            </QueryProvider>
+        </CookiesProvider>
     </React.StrictMode>,
 );

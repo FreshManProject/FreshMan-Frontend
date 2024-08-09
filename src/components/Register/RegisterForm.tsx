@@ -5,10 +5,9 @@ import {
     registerUserSchema,
 } from '@/types/Validation/yupRegister';
 import { Input } from '@/components/ui/input';
-import DaumPostCode from 'react-daum-postcode';
+// import DaumPostCode from 'react-daum-postcode';
 import { Button } from '@/components/ui/button';
-import { useRef, useState } from 'react';
-import { Sheet, SheetRef } from 'react-modal-sheet';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SubmitButton from '../common/Button/SubmitButton';
 
@@ -18,7 +17,6 @@ export default function RegisterForm() {
     const {
         register,
         handleSubmit,
-        setValue,
         watch,
         formState: { errors },
     } = useForm<RegisterUserFormData>({
@@ -45,8 +43,6 @@ export default function RegisterForm() {
         event.preventDefault();
         setShowDaumPostCodeModal(!showDaumPostCodeModal);
     };
-
-    const ref = useRef<SheetRef>();
 
     const onSubmit = () => {
         // backend 통신 코드
@@ -115,7 +111,7 @@ export default function RegisterForm() {
                     <p className={'text-pointRed'}>{errors.address.message}</p>
                 )}
             </div>
-            <Sheet
+            {/* <Sheet
                 ref={ref}
                 isOpen={showDaumPostCodeModal}
                 onClose={() => setShowDaumPostCodeModal(false)}
@@ -133,7 +129,7 @@ export default function RegisterForm() {
                         />
                     </Sheet.Content>
                 </Sheet.Container>
-            </Sheet>
+            </Sheet> */}
             <div className={'mb-5 mt-5'}>
                 <label className={'text-gray-400'} htmlFor={'addressDetail'}>
                     {'상세주소'}
