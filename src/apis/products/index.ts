@@ -3,6 +3,7 @@ import {
     productListType,
 } from '@/types/Product/productList';
 import axios from 'axios';
+import { axiosAuth } from '..';
 
 export async function getProductList(
     params: productListParamsType,
@@ -28,7 +29,7 @@ export async function getProductRankingList(
     option: string,
 ): Promise<productListType> {
     try {
-        const response = await axios.get(`/products/ranking?=${option}`);
+        const response = await axiosAuth.get(`/products/ranking?=${option}`);
         return response.data;
     } catch (error) {
         throw Error;
@@ -37,7 +38,7 @@ export async function getProductRankingList(
 
 export async function getProductSaleList(): Promise<productListType> {
     try {
-        const response = await axios.get(`/products/onsale`);
+        const response = await axiosAuth.get(`/products/onsale`);
         return response.data;
     } catch (error) {
         throw Error;

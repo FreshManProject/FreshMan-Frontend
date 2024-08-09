@@ -1,9 +1,9 @@
-import axios from '@/apis/axios';
+import { axiosAuth } from '..';
 import requests from '../requests';
 
 export async function deleteRecentSearch(index: number) {
     try {
-        const response = await axios.delete(
+        const response = await axiosAuth.delete(
             `${requests.recentSearchList}?index=${index}`,
         );
         if (response.data) return response.data.list;

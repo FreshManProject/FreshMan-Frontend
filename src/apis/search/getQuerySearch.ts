@@ -1,5 +1,5 @@
 import { productItemType } from '@/types/Product/productList';
-import instance from '../axios';
+import { axiosAuth } from '..';
 
 export async function getQuerySearch(
     keyword: string,
@@ -15,7 +15,7 @@ export async function getQuerySearch(
     if (sort !== undefined) apiUrl += `&sort=${sort}`;
     console.log(`${process.env.REACT_APP_FRESHMAN_PUBLIC_API_URL}${apiUrl}`);
     try {
-        const response = await instance.get(apiUrl);
+        const response = await axiosAuth.get(apiUrl);
         if (response.data.status === 200) return response.data.list;
         throw new Error(
             `Unexpected response : ${response.status} ${response.statusText}`,
