@@ -39,9 +39,10 @@ export default function Router() {
             ],
         },
         {
-            path: 'register',
+            path: '/register',
             children: [
                 {
+                    path: '',
                     element: <RegisterForm />,
                 },
                 {
@@ -73,6 +74,7 @@ export default function Router() {
             path: '/mypage',
             children: [
                 {
+                    path: '',
                     element: <MyPage />,
                 },
                 {

@@ -1,53 +1,20 @@
-import { useQuery } from '@tanstack/react-query';
 import { GrDeliver } from 'react-icons/gr';
 import { MdOutlineRateReview } from 'react-icons/md';
 import { GoHeartFill, GoChevronRight } from 'react-icons/go';
 import { useNavigate } from 'react-router-dom';
-import { useAuthStore } from '@/store/user';
-import { useEffect } from 'react';
 import { Button } from '@/components/ui/button';
+import { useGetUserInfo } from '@/hooks/query/user';
 
 export default function MyPageInformation() {
     const navigate = useNavigate();
-    const userStore = useAuthStore();
-    const {
-        data: user,
-        isLoading,
-        error,
-    } = useQuery({
-        queryKey: ['user'],
-        queryFn: async () => {
-            const response = await fetch('/api/users', {
-                method: 'GET',
-            });
-            if (!response.ok) throw new Error('Network response is not ok');
-            return response.json();
-        },
-    });
-    useEffect(() => {
-        if (user) {
-            if (userStore.name !== user.name) {
-                userStore.setName(user.name);
-            }
-            if (userStore.email !== user.email) {
-                userStore.setEmail(user.email);
-            }
-            if (userStore.address !== user.address) {
-                userStore.setAddress(user.address);
-            }
-            if (userStore.addressDetail !== user.addressDetail) {
-                userStore.setAddressDetail(user.addressDetail);
-            }
-        }
-    }, [user, userStore]);
-    if (isLoading) return <div>Loading...</div>;
-    if (error) return <div>Error : {error.message}</div>;
+    const { userInfo } = useGetUserInfo();
+
     return (
         <div>
             <div className="mx-4 mt-8 flex flex-row items-center justify-between">
                 <div>
-                    <h2 className="mb-2 text-2xl font-bold">{`${user.name}님`}</h2>
-                    <p className="text-sm text-gray-400">{user.email}</p>
+                    <h2 className="mb-2 text-2xl font-bold">{`${userInfo.name}님`}</h2>
+                    <p className="text-sm text-gray-400">{userInfo.email}</p>
                 </div>
                 <GoChevronRight
                     size={24}
@@ -68,7 +35,9 @@ export default function MyPageInformation() {
                 <div className="flex flex-col items-center justify-center">
                     <MdOutlineRateReview size={30} />
                     <p>나의 리뷰</p>
-                    <Button className="text-[#7BDFF2]">{user.review}</Button>
+                    <Button className="text-[#7BDFF2]">
+                        {userInfo.review}
+                    </Button>
                 </div>
                 <div className="flex flex-col items-center justify-center">
                     <GoHeartFill size={30} />
@@ -77,7 +46,7 @@ export default function MyPageInformation() {
                         className="text-[#7BDFF2]"
                         onClick={() => navigate('/mypage/like')}
                     >
-                        {user.heart}
+                        {userInfo.heart}
                     </Button>
                 </div>
             </div>

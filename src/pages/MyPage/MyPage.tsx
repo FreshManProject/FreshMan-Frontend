@@ -1,9 +1,5 @@
-import { MyPageInformation } from '@/components/mypage';
+import { MyPageInformation } from '@/components/mypage/info';
 
 export default function MyPage() {
-    return (
-        <div>
-            <MyPageInformation />
-        </div>
-    );
+    return <MyPageInformation />;
 }

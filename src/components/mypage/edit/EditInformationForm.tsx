@@ -2,7 +2,7 @@ import { Input } from '@/components/ui/input';
 import { useAuthStore } from '@/store/user';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import SubmitButton from '../common/Button/SubmitButton';
+import SubmitButton from '../../common/Button/SubmitButton';
 
 interface IMyInfo {
     name: string;

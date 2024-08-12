@@ -25,4 +25,18 @@ body.body-hidden {
     --radius: 10px;
     --review: #ffa93b;
     --muted: 240 4.8% 95.9%;
+    --min-w: 320px;
+    --max-w: 500px;
+}
+
+.horizontal-scroll-box::-webkit-scrollbar {
+    width: 0px;
+}
+
+.horizontal-scroll-box::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.horizontal-scroll-box::-webkit-scrollbar-thumb {
+    background: transparent;
 }
