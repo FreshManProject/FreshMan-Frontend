@@ -31,7 +31,7 @@ export function useGetProductDetail(productSeq: number) {
         isLoading: isLoadingProductInfo,
         isError: isErrorProductInfo,
     } = useQuery({
-        queryKey: [`porudctDetail${productSeq}`],
+        queryKey: [`productDetail${productSeq}`],
         queryFn: () => getProductDetail(productSeq),
     });
     return {

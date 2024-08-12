@@ -79,29 +79,6 @@ const handlers = [
         },
     ),
     rest.get(
-        '/products/:id',
-        (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-            return res(
-                ctx.json({
-                    status: 200,
-                    message: 'success',
-                    data: {
-                        productSeq: 1,
-                        name: '테스트 상품 1',
-                        price: 45000,
-                        sale: {
-                            salePrice: 35000,
-                            saleRate: 22,
-                        },
-                        description: '테스트 상품 1입니다.',
-                        brand: '테스트 브랜드',
-                        imageList: [],
-                    },
-                }),
-            );
-        },
-    ),
-    rest.get(
         '/products/onsale',
         (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
             return res(
@@ -125,6 +102,29 @@ const handlers = [
                     message: 'success',
                     list: dummyProudctList,
                     count: dummyProudctList.length,
+                }),
+            );
+        },
+    ),
+    rest.get(
+        '/products/:id',
+        (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+            return res(
+                ctx.json({
+                    status: 200,
+                    message: 'success',
+                    data: {
+                        productSeq: 1,
+                        name: '테스트 상품 1',
+                        price: 45000,
+                        sale: {
+                            salePrice: 35000,
+                            saleRate: 22,
+                        },
+                        description: '테스트 상품 1입니다.',
+                        brand: '테스트 브랜드',
+                        imageList: [],
+                    },
                 }),
             );
         },
