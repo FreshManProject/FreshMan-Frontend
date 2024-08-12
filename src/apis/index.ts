@@ -1,6 +1,7 @@
 import axios from 'axios';
-
-export const BASE_URL = process.env.REACT_APP_FRESHMAN_PUBLIC_API_URL;
+// TODO: login 로직 보류
+// export const BASE_URL = process.env.REACT_APP_FRESHMAN_PUBLIC_API_URL;
+export const BASE_URL = 'http://localhost:3000';
 
 export const axiosDefault = axios.create({
     baseURL: BASE_URL,
