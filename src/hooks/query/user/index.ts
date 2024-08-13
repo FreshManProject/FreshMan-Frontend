@@ -16,3 +16,19 @@ export function useGetUserInfo() {
         isErrorUserInfo,
     };
 }
+
+export function useGetUserInquiryList() {
+    const {
+        data: inquiryList,
+        isLoading: isLoadingInquiryList,
+        isError: isErrorUserInquiryList,
+    } = useQuery({
+        queryKey: [`inquiryList`],
+        queryFn: () => getUserInfo(),
+    });
+    return {
+        inquiryList,
+        isLoadingInquiryList,
+        isErrorUserInquiryList,
+    };
+}

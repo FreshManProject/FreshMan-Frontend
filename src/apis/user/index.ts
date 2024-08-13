@@ -1,5 +1,6 @@
 import { productListType } from '@/types/Product/productList';
 import axios from 'axios';
+import { axiosAuth } from '..';
 
 export default async function getLikeList(): Promise<productListType> {
     try {
@@ -13,10 +14,11 @@ export default async function getLikeList(): Promise<productListType> {
         throw Error;
     }
 }
-export async function getInquiryList() {
+export async function getUserInquiryList() {
     try {
-        const response = await axios.get('/api/contact');
+        const response = await axiosAuth.get(`/questions/my-questions`);
         if (response.data) {
+            console.log(response.data);
             return response.data.data;
         }
         throw new Error(
