@@ -39,7 +39,7 @@ export default function Router() {
             children: [
                 {
                     path: '',
-                    element: <div>Cart</div>,
+                    element: <CartPage />,
                 },
             ],
         },
