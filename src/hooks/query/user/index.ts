@@ -1,4 +1,4 @@
-import { getUserInfo } from '@/apis/user';
+import { getUserInfo, getUserInquiryList } from '@/apis/user';
 import { useQuery } from '@tanstack/react-query';
 
 export function useGetUserInfo() {
@@ -24,7 +24,7 @@ export function useGetUserInquiryList() {
         isError: isErrorUserInquiryList,
     } = useQuery({
         queryKey: [`inquiryList`],
-        queryFn: () => getUserInfo(),
+        queryFn: () => getUserInquiryList(),
     });
     return {
         inquiryList,

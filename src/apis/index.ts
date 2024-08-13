@@ -1,7 +1,7 @@
 import axios from 'axios';
 // TODO: login 로직 보류
-// export const BASE_URL = process.env.REACT_APP_FRESHMAN_PUBLIC_API_URL;
-export const BASE_URL = 'http://localhost:3000';
+export const BASE_URL = process.env.REACT_APP_FRESHMAN_PUBLIC_API_URL;
+// export const BASE_URL = 'http://localhost:3000';
 
 export const axiosDefault = axios.create({
     baseURL: BASE_URL,
@@ -41,9 +41,8 @@ axiosAuth.interceptors.request.use(
 
         if (accessToken) {
             modifiedConfig.headers.Authorization = `Bearer ${accessToken}`;
-            return modifiedConfig;
         }
-        return config;
+        return modifiedConfig;
     },
     (error) => {
         console.log(error);

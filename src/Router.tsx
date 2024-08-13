@@ -113,7 +113,7 @@ export default function Router() {
                     element: <SocialLoginRedirectPage />,
                 },
                 {
-                    path: '/inquiry',
+                    path: 'inquiry',
                     children: [
                         {
                             path: '',

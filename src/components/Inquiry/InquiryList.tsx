@@ -1,27 +1,16 @@
-import { InquiryListType, InquiryType } from '@/types/User/inquiry';
-import { useState } from 'react';
-
-export default function InquiryList({ inquiryList }: InquiryListType) {
-    const [selectedInquiryId, setSelectedInquiryId] = useState<number | null>(
-        null,
-    );
-
-    const handleClickInquiryDetail = (id: number) => {
-        if (selectedInquiryId === id) setSelectedInquiryId(null);
-        else setSelectedInquiryId(id);
-    };
+export default function InquiryList() {
     return (
         <div className="mt-5 flex flex-col">
-            {inquiryList.map((inquiry: InquiryType) => (
+            {/* {inquiryList.map((inquiry: InquiryType) => (
                 <div
                     key={inquiry.id}
                     className={`mb-10 ${selectedInquiryId === inquiry.id ? 'bg-gray-100' : ''}`}
                 >
-                    <div className="my-1 flex flex-row text-gray-400">
+                    <div className="flex flex-row my-1 text-gray-400">
                         <p className="mr-3">{inquiry.date}</p>
                         <p>{inquiry.author}</p>
                     </div>
-                    <div className="my-1 flex flex-row justify-between">
+                    <div className="flex flex-row justify-between my-1">
                         <p>{inquiry.title}</p>
                         {inquiry.answer.length > 1 ? (
                             <button
@@ -34,7 +23,7 @@ export default function InquiryList({ inquiryList }: InquiryListType) {
                                 답변완료
                             </button>
                         ) : (
-                            <p className="text-body2_b text-gray-400">
+                            <p className="text-gray-400 text-body2_b">
                                 답변대기
                             </p>
                         )}
@@ -54,7 +43,7 @@ export default function InquiryList({ inquiryList }: InquiryListType) {
                         </div>
                     )}
                 </div>
-            ))}
+            ))} */}
         </div>
     );
 }

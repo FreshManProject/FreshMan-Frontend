@@ -4,7 +4,7 @@ import './index.css';
 import { RouterProvider } from 'react-router-dom';
 import { CookiesProvider } from 'react-cookie';
 import QueryProvider from './provider/queryProvider';
-import { worker } from './mocks/browser';
+// import { worker } from './mocks/browser';
 import Router from './Router';
 
 const root = ReactDOM.createRoot(
@@ -13,9 +13,9 @@ const root = ReactDOM.createRoot(
 
 // MSW 설정
 if (process.env.NODE_ENV === 'development') {
-    worker.start({
-        onUnhandledRequest: 'bypass',
-    });
+    // worker.start({
+    //     onUnhandledRequest: 'bypass',
+    // });
 }
 
 root.render(

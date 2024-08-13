@@ -16,7 +16,7 @@ export default async function getLikeList(): Promise<productListType> {
 }
 export async function getUserInquiryList() {
     try {
-        const response = await axiosAuth.get(`/questions/my-questions`);
+        const response = await axiosAuth.get(`/questions/my-questions?page=0`);
         if (response.data) {
             console.log(response.data);
             return response.data.data;
