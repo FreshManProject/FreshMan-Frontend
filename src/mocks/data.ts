@@ -1,4 +1,4 @@
-export const dummyProudctList = [
+export const dummyProductList = [
     {
         productSeq: 8,
         name: '테스트 상품 7',
@@ -131,5 +131,48 @@ export const dummySearchList = [
             saleRate: 22,
         },
         favorite: false,
+    },
+];
+
+export const dummyCartList = [
+    {
+        productSeq: 8,
+        name: 'Stussy World Tour T-Shirt White 2024',
+        price: '99,000',
+        brand: 'stussy',
+        favorite: false,
+        sale: {
+            salePrice: 7000,
+            saleRate: 0,
+        },
+        image: 'https://image.msscdn.net/images/goods_img/20230214/3082569/3082569_17058889205261_500.jpg',
+    },
+    {
+        productSeq: 8,
+        name: '[키스미X마찌] 키스미 히로인메이크 마스카라 어드밴스드 필름 워터프리카라 롱/볼륨',
+        price: 10000,
+        brand: '뉴발란스',
+        favorite: false,
+        sale: {
+            salePrice: 7000,
+            saleRate: 22,
+        },
+        image: 'https://image.msscdn.net/images/goods_img/20230214/3082569/3082569_17058889205261_500.jpg',
+    },
+    {
+        productSeq: 7,
+        name: '[키스미X마찌] 키스미 히로인메이크 마스카라 어드밴스드 필름 워터프리카라 롱/볼륨',
+        price: 7000,
+        brand: '나이키',
+        favorite: true,
+        image: 'https://image.msscdn.net/images/goods_img/20230214/3082569/3082569_17058889205261_500.jpg',
+    },
+    {
+        productSeq: 9,
+        name: '[키스미X마찌] 키스미 히로인메이크 마스카라 어드밴스드 필름 워터프리카라 롱/볼륨',
+        price: 500000,
+        brand: '나이키',
+        favorite: false,
+        image: 'https://image.msscdn.net/images/goods_img/20230214/3082569/3082569_17058889205261_500.jpg',
     },
 ];

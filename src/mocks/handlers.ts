@@ -1,5 +1,10 @@
 import { rest, RestRequest, ResponseComposition, RestContext } from 'msw';
-import { dummyInquiryList, dummyProudctList, dummySearchList } from './data';
+import {
+    dummyInquiryList,
+    dummyProductList,
+    dummySearchList,
+    dummyCartList,
+} from './data';
 
 const handlers = [
     rest.get(
@@ -53,7 +58,7 @@ const handlers = [
             const low = req.url.searchParams.get('lowPrice');
             const high = req.url.searchParams.get('highPrice');
             // low 이하 ~ hight 이하
-            const calculateList = dummyProudctList.filter(
+            const calculateList = dummyProductList.filter(
                 (item) =>
                     item.price >= Number(low) && item.price <= Number(high),
             );
@@ -72,8 +77,8 @@ const handlers = [
                 ctx.json({
                     status: 200,
                     message: 'success',
-                    list: dummyProudctList,
-                    count: dummyProudctList.length,
+                    list: dummyProductList,
+                    count: dummyProductList.length,
                 }),
             );
         },
@@ -85,8 +90,8 @@ const handlers = [
                 ctx.json({
                     status: 200,
                     message: 'success',
-                    list: dummyProudctList,
-                    count: dummyProudctList.length,
+                    list: dummyProductList,
+                    count: dummyProductList.length,
                 }),
             );
         },
@@ -100,8 +105,8 @@ const handlers = [
                 ctx.json({
                     status: 200,
                     message: 'success',
-                    list: dummyProudctList,
-                    count: dummyProudctList.length,
+                    list: dummyProductList,
+                    count: dummyProductList.length,
                 }),
             );
         },
@@ -136,8 +141,8 @@ const handlers = [
                 ctx.json({
                     status: 200,
                     message: 'success',
-                    list: dummyProudctList,
-                    count: dummyProudctList.length,
+                    list: dummyProductList,
+                    count: dummyProductList.length,
                 }),
             );
         },
@@ -159,6 +164,19 @@ const handlers = [
                 ctx.json({
                     status: 200,
                     quantity: 'success',
+                }),
+            );
+        },
+    ),
+    rest.get(
+        '/carts',
+        (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+            return res(
+                ctx.json({
+                    status: 200,
+                    message: 'success',
+                    list: dummyCartList,
+                    count: dummyCartList.length,
                 }),
             );
         },
