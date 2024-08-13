@@ -44,10 +44,10 @@ export default function Router() {
                     ],
                 },
                 {
-                    path: '/register',
+                    path: '/auth',
                     children: [
                         {
-                            path: '',
+                            path: 'register',
                             element: <RegisterForm />,
                         },
                         {
@@ -116,11 +116,12 @@ export default function Router() {
                     path: '/inquiry',
                     children: [
                         {
-                            element: <InquiryPage />,
+                            path: '',
+                            element: <InquiryListPage />,
                         },
                         {
-                            path: 'list',
-                            element: <InquiryListPage />,
+                            path: 'submit',
+                            element: <InquiryPage />,
                         },
                     ],
                 },

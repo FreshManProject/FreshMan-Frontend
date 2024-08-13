@@ -3,6 +3,28 @@ import { dummyInquiryList, dummyProudctList, dummySearchList } from './data';
 
 const handlers = [
     rest.get(
+        '/questions/my-questions',
+        (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+            // const page = req.url.searchParams.get('page');
+
+            return res(
+                ctx.json({
+                    status: 200,
+                    message: 'success',
+                    list: {
+                        date: '2023-12-24',
+                        email: 'ddddd@naver.com',
+                        title: '서울 특별시 강동구 천호동 222-11 404호',
+                        productTitle:
+                            '[THREE TO EIGHTY] Essential Color Socks (15colors)',
+                        answerStatus: '답변대기',
+                        image: 4,
+                    },
+                }),
+            );
+        },
+    ),
+    rest.get(
         '/members',
         (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
             return res(
