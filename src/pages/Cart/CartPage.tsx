@@ -1,7 +1,7 @@
 import { TopHeader } from '@/components/common';
 import { useQuery } from '@tanstack/react-query';
 import { getCartList } from '@/apis/user';
-// import CartItemList from '@/components/Cart/CartItemList';
+import CartItemList from '@/components/Cart/CartItemList';
 
 export default function CartPage() {
     const {
@@ -21,7 +21,7 @@ export default function CartPage() {
                 <TopHeader.Back backUrl="/" />
                 <TopHeader.Title title="장바구니" />
             </TopHeader>
-            {/* <CartItemList listData={CartList} /> */}
+            <CartItemList listData={CartList} />
         </>
     );
 }
