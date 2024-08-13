@@ -2,6 +2,7 @@ import React from 'react';
 import { HiOutlineShoppingBag } from 'react-icons/hi';
 import { IoArrowBackOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 interface HeaderProps {
     children: React.ReactNode;
@@ -19,7 +20,7 @@ interface HeaderBackProps {
 
 function TopHeaderTitle({ title, logo }: HeaderTitleProps) {
     return (
-        <h1 className="flex h-full items-center text-center text-title3_b font-semibold">
+        <h1 className="flex h-full items-center justify-center text-center text-title3_b font-semibold">
             {logo ? (
                 <img
                     alt="FreshMan"
@@ -46,8 +47,8 @@ function TopHeaderUtil({ cart }: HeaderUtilProps) {
     return (
         <div className="absolute right-0 top-0 flex h-full items-center justify-end">
             {cart && (
-                <button
-                    type={'button'}
+                <Link
+                    to="/cart"
                     className={
                         'relative flex h-7 w-7 items-center justify-center'
                     }
@@ -60,7 +61,7 @@ function TopHeaderUtil({ cart }: HeaderUtilProps) {
                     >
                         {'99'}
                     </span>
-                </button>
+                </Link>
             )}
         </div>
     );

@@ -18,6 +18,7 @@ import RegisterForm from './components/Register/RegisterForm';
 import { SubmitReviewPage } from './pages/Review';
 import { SearchPage } from './pages/Search';
 import { HomePage } from './pages/Home';
+import { CartPage } from './pages/Cart';
 
 export default function Router() {
     return createBrowserRouter([
@@ -43,7 +44,7 @@ export default function Router() {
             children: [
                 {
                     path: '',
-                    element: <div>Cart</div>,
+                    element: <CartPage />,
                 },
             ],
         },
