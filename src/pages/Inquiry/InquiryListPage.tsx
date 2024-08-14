@@ -1,23 +1,8 @@
-import { getUserInquiryList } from '@/apis/user';
-import InquiryList from '@/components/Inquiry/InquiryList';
-import { useQuery } from '@tanstack/react-query';
+import { QnAList } from '@/components/QnA';
+import { useGetUserInquiryList } from '@/hooks/query/user';
 
 export default function InquiryListPage() {
-    const {
-        data: inquiryList,
-        isLoading,
-        error,
-    } = useQuery({
-        queryKey: ['inquiryList'],
-        queryFn: () => getUserInquiryList(),
-    });
-    if (isLoading) return <div>Loading...</div>;
-    if (error) return <div>Error : {error.message}</div>;
+    const { inquiryList } = useGetUserInquiryList();
 
-    if (!inquiryList) return <div>No data available</div>;
-    return (
-        <div>
-            <InquiryList inquiryList={inquiryList} />
-        </div>
-    );
+    return <QnAList data={inquiryList} />;
 }

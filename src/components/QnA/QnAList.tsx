@@ -1,14 +1,16 @@
 import { Accordion } from '@/components/ui/accordion';
+import { InquiryType } from '@/types/User/inquiry';
 import QnAItem from './QnAItem';
 
-export default function QnAList() {
+interface Iprops {
+    data: InquiryType[];
+}
+export default function QnAList({ data }: Iprops) {
     return (
         <Accordion type="single" collapsible className="-mx-4">
-            {Array(5)
-                .fill(null)
-                .map((item, index) => (
-                    <QnAItem key={index} value={index} />
-                ))}
+            {data.map((item: InquiryType, index: number) => (
+                <QnAItem key={index} value={index} />
+            ))}
         </Accordion>
     );
 }

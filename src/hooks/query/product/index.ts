@@ -1,5 +1,6 @@
 import {
     getProductList,
+    getProductQnaList,
     getProductRankingList,
     getProductSaleList,
 } from '@/apis/products';
@@ -52,5 +53,21 @@ export function useGetProductSaleList() {
         productSaleList,
         isLoadingProductSaleList,
         isErrorProductSaleList,
+    };
+}
+
+export function useGetProductQnaList(productSeq: number) {
+    const {
+        data: productQnaList,
+        isLoading: isLoadingProductQnaList,
+        isError: isErrorProductQnaList,
+    } = useQuery({
+        queryKey: [`productQnaList`],
+        queryFn: () => getProductQnaList(productSeq),
+    });
+    return {
+        productQnaList,
+        isLoadingProductQnaList,
+        isErrorProductQnaList,
     };
 }
