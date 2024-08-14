@@ -2,6 +2,7 @@ import { TopHeader } from '@/components/common';
 import { useQuery } from '@tanstack/react-query';
 import { getCartList } from '@/apis/user';
 import CartItemList from '@/components/Cart/CartItemList';
+import CartSummary from '@/components/Cart/CartSummary';
 
 export default function CartPage() {
     const {
@@ -21,6 +22,7 @@ export default function CartPage() {
                 <TopHeader.Title title="장바구니" />
             </TopHeader>
             <CartItemList listData={CartList} />
+            <CartSummary listData={CartList} />
         </>
     );
 }

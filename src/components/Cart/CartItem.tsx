@@ -6,17 +6,10 @@ import { cartItemType } from '@/types/Product/productList';
 import { Checkbox } from '../ui/checkbox';
 import CartOption from './CartOption';
 
-interface ICartItemProps extends cartItemType {}
+// interface ICartItemProps extends cartItemType {}
 
-export default function CartItem({
-    productSeq,
-    name,
-    brand,
-    image,
-    // price,
-    // sale,
-    checked,
-}: ICartItemProps) {
+export default function CartItem(items: cartItemType) {
+    const { productSeq, name, brand, image, checked } = items;
     const [isChecked, setIsChecked] = useState(checked);
 
     const onCheckedChange = async (check: CheckedState) => {
@@ -62,7 +55,7 @@ export default function CartItem({
             </div>
             {/* // !옵션 들어갈시 추가 */}
             <div className="flex w-full flex-col pl-6">
-                <CartOption />
+                <CartOption {...items} />
             </div>
         </li>
     );

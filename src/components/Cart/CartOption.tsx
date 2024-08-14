@@ -9,9 +9,10 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import { ProductOptionType } from '@/types/Product/productDetail';
+import { cartItemType } from '@/types/Product/productList';
 import CartOptionCount from './CartOptionCount';
 
-export default function CartOption() {
+export default function CartOption(items: cartItemType) {
     const [selectedItem, setSelectedItem] = useState<ProductOptionType>();
 
     const handleChangeOption = (value: string) => {
@@ -45,7 +46,7 @@ export default function CartOption() {
                     </SelectGroup>
                 </SelectContent>
             </Select>
-            <CartOptionCount />
+            <CartOptionCount {...items} />
         </div>
     );
 }

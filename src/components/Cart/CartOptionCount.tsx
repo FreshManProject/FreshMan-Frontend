@@ -1,45 +1,29 @@
 import { Button } from '@/components/ui/button';
-// import { ProductOptionType } from '@/types/Product/productDetail';
+import { cartItemType } from '@/types/Product/productList';
+import { formatNumber } from '@/util/formatData';
 import { useState } from 'react';
 import { FaMinus, FaPlus } from 'react-icons/fa6';
 
-// interface IOptionCountItemProps {
-//     selectedItem: ProductOptionType;
-// }
-
-export default function CartOptionCount() {
+export default function CartOptionCount(items: cartItemType) {
+    const { price, sale } = items;
     const [count, setCount] = useState(0);
-
-    // const changeListInCount = () => {
-    //     // const changeItem = selectedList.filter((item) => item.id === id)[0];
-    //     // changeItem.count = count;
-    //     // const newSelectedList = selectedList.map((item) => {
-    //     //     if (item.id === changeItem.id) {
-    //     //         return changeItem;
-    //     //     }
-    //     //     return item;
-    //     // });
-    //     // setSelectedList(id);
-    // };
 
     const handleAddCount = () => {
         setCount((prevCount) => prevCount + 1);
-        // changeListInCount();
     };
 
     const handleMinusCount = () => {
         setCount((prevCount) => {
             return prevCount > 1 ? prevCount - 1 : prevCount;
         });
-        // changeListInCount();
     };
 
     return (
-        <div className="mt-2 flex justify-between overflow-hidden pb-6 pt-3">
-            <div className={'flex h-9 items-center'}>
+        <div className="mt-2.5 flex h-10 items-center justify-between overflow-hidden">
+            <div className="flex h-9 items-center rounded-md border text-gray400">
                 <Button
-                    variant={'outline'}
-                    className={'h-full rounded-none'}
+                    // variant={'outline'}
+                    className="h-full w-9 rounded-none"
                     data-count={'add'}
                     onClick={handleMinusCount}
                 >
@@ -49,20 +33,31 @@ export default function CartOptionCount() {
                     type={'number'}
                     value={count}
                     readOnly
-                    className={
-                        'gray-200 h-full w-9 border border-l-0 border-r-0 text-center text-body2_b'
-                    }
+                    className="h-full w-10 border-l border-r text-center text-body1_b"
                 />
                 <Button
-                    variant={'outline'}
-                    className={'h-full rounded-none'}
+                    // variant={'outline'}
+                    className="h-full w-9 rounded-none"
                     data-count={'minus'}
                     onClick={handleAddCount}
                 >
                     <FaPlus className={'text-sm'} />
                 </Button>
             </div>
-            <p className={'text-body1'}>{'10,000원'}</p>
+            <div className="flex h-full items-center gap-2.5">
+                {sale ? (
+                    <>
+                        <p className={'text-center text-gray400 line-through'}>
+                            {formatNumber(price)}원
+                        </p>
+                        <p className={'text-body1_b'}>
+                            {`${formatNumber(sale.salePrice)}원`}
+                        </p>
+                    </>
+                ) : (
+                    <p className={'text-body1_b'}>{formatNumber(price)}원</p>
+                )}
+            </div>
         </div>
     );
 }
