@@ -16,20 +16,31 @@ export const axiosAuth = axios.create({
         'Content-Type': 'application/json',
     },
     withCredentials: true,
+    timeout: 10 * 1000,
 });
 
 const refreshAccessToken = async () => {
     try {
-        const response = await axiosDefault.post('/reissue');
+        const response = await axios.post(
+            `${process.env.REACT_APP_FRESHMAN_PUBLIC_API_URL}reissue`,
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                withCredentials: true,
+                timeout: 1000,
+            },
+        );
         if (response.status === 200) {
             const accessToken = response.headers.access_token;
+            console.log(accessToken);
             axios.defaults.headers.common.Authorization = `Bearer ${accessToken}`;
 
             return true;
         }
         return false;
     } catch (error) {
-        console.log(error);
+        console.log(error, 'reissue Error');
         throw Error;
     }
 };
@@ -58,7 +69,6 @@ axiosAuth.interceptors.response.use(
 
         // 토근 만료시 access token 재발급
         if (errorStatus === 401) {
-            console.log(error, '토큰 만료');
             try {
                 const response = await refreshAccessToken();
                 if (response) {
@@ -66,7 +76,7 @@ axiosAuth.interceptors.response.use(
                 }
             } catch (err) {
                 alert('토큰이 만료되었습니다. 다시 로그인 해주세요');
-                window.location.replace('/auth');
+                // window.location.replace('/auth');
             }
         }
         // 에러 반환.
