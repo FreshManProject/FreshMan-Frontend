@@ -1,6 +1,12 @@
+import { useState } from 'react';
+import { CheckedState } from '@radix-ui/react-checkbox';
 import { Link } from 'react-router-dom';
-import { productItemType } from '@/types/Product/productList';
+import { patchCartItem } from '@/apis/user';
+import { cartItemType } from '@/types/Product/productList';
 import { Checkbox } from '../ui/checkbox';
+import CartOption from './CartOption';
+
+interface ICartItemProps extends cartItemType {}
 
 export default function CartItem({
     productSeq,
@@ -9,11 +15,30 @@ export default function CartItem({
     image,
     // price,
     // sale,
-}: productItemType) {
+    checked,
+}: ICartItemProps) {
+    const [isChecked, setIsChecked] = useState(checked);
+
+    const onCheckedChange = async (check: CheckedState) => {
+        const newCheckedState = !!check;
+        setIsChecked(newCheckedState);
+
+        try {
+            await patchCartItem({ productSeq, checked: newCheckedState });
+        } catch (error) {
+            console.error('Failed to update cart item:', error);
+            setIsChecked(!newCheckedState);
+        }
+    };
+
     return (
         <li className="flex w-full flex-col gap-2.5 px-4 py-3.5">
             <div className="flex justify-start gap-2.5">
-                <Checkbox className="h-5 w-5 border-gray300 data-[state=checked]:bg-black data-[state=checked]:text-white" />
+                <Checkbox
+                    checked={isChecked}
+                    onCheckedChange={onCheckedChange}
+                    className="h-5 w-5 border-gray300 data-[state=checked]:bg-black data-[state=checked]:text-white"
+                />
                 <Link
                     to={`/products/${productSeq}`}
                     className="block aspect-[1] h-20 min-w-20"
@@ -36,9 +61,9 @@ export default function CartItem({
                 </div>
             </div>
             {/* // !옵션 들어갈시 추가 */}
-            {/* <div className="flex w-full flex-col pl-6">
+            <div className="flex w-full flex-col pl-6">
                 <CartOption />
-            </div> */}
+            </div>
         </li>
     );
 }

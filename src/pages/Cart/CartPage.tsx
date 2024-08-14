@@ -14,7 +14,6 @@ export default function CartPage() {
     });
     if (CartListIsLoading) return <div>Loading...</div>;
     if (!CartList || error) return <div>Error : {error?.message}</div>;
-
     return (
         <>
             <TopHeader>

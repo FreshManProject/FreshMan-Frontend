@@ -9,24 +9,23 @@ import {
     SelectValue,
 } from '@/components/ui/select';
 import { ProductOptionType } from '@/types/Product/productDetail';
-import { OptionCount } from '../Product/ProductDetail';
+import CartOptionCount from './CartOptionCount';
 
 export default function CartOption() {
-    const [selectedList, setSelectedList] = useState<ProductOptionType[]>([]);
+    const [selectedItem, setSelectedItem] = useState<ProductOptionType>();
 
     const handleChangeOption = (value: string) => {
-        setSelectedList((prevList) => [
-            ...prevList,
-            {
-                id: value,
-                name: value,
-                count: 0,
-            },
-        ]);
+        console.log(selectedItem);
+        setSelectedItem({
+            id: value,
+            name: value,
+            count: 0,
+        });
     };
 
+    const options = ['option 1', 'option 2', 'option 3', 'option 4'];
     return (
-        <div className={'max-h-40 overflow-y-auto'}>
+        <div className={'max-h-40 overflow-y-hidden'}>
             <Select onValueChange={handleChangeOption}>
                 <SelectTrigger
                     className={
@@ -38,22 +37,15 @@ export default function CartOption() {
                 <SelectContent className={'h-56 bg-white'}>
                     <SelectGroup>
                         <SelectLabel>{'옵션을 선택해주세요.'}</SelectLabel>
-                        <SelectItem value={'est'}>
-                            {'라임썬데이 팩 1'}
-                        </SelectItem>
-                        <SelectItem value={'cst'}>
-                            {'라임썬데이 팩 2'}
-                        </SelectItem>
-                        <SelectItem value={'mst'}>
-                            {'라임썬데이 팩 3'}
-                        </SelectItem>
+                        {options.map((item, k) => (
+                            <SelectItem value={item} key={k}>
+                                {item}
+                            </SelectItem>
+                        ))}
                     </SelectGroup>
                 </SelectContent>
             </Select>
-            <OptionCount
-                selectedList={selectedList}
-                setSelectedList={setSelectedList}
-            />
+            <CartOptionCount />
         </div>
     );
 }

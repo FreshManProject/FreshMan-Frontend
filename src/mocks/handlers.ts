@@ -181,6 +181,45 @@ const handlers = [
             );
         },
     ),
+    rest.patch('/carts', (req, res, ctx) => {
+        const { checked } = req.body as { checked: boolean };
+
+        // msw 데이터 수정
+        const updatedList = dummyCartList.map((item) => ({ ...item, checked }));
+        Object.assign(dummyCartList, updatedList);
+
+        return res(
+            ctx.json({
+                status: 200,
+                message: 'success',
+                updatedItems: updatedList,
+            }),
+        );
+    }),
+    rest.patch('/carts/:id', (req, res, ctx) => {
+        const { id } = req.params;
+        const { checked } = req.body as { checked: boolean };
+
+        // msw 데이터 수정
+        const updatedList = dummyCartList.map((item) => {
+            if (item.productSeq === Number(id)) {
+                return { ...item, checked };
+            }
+            return item;
+        });
+
+        Object.assign(dummyCartList, updatedList);
+
+        return res(
+            ctx.json({
+                status: 200,
+                message: 'success',
+                updatedItem: updatedList.find(
+                    (item) => item.productSeq === Number(id),
+                ),
+            }),
+        );
+    }),
     rest.get(
         '/api/products?keyword=test',
         (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
