@@ -1,5 +1,4 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { InquiryListPage, InquiryPage } from './pages/Inquiry';
 import {
     RegisterSuccessPage,
     SocialLoginPage,
@@ -11,6 +10,7 @@ import {
     MyInformationPage,
     MyLikePage,
     MyPage,
+    MyqnaPage,
 } from './pages/MyPage';
 import { LayoutWithNav, LayoutWithOutNav } from './components/common/Layout';
 import { ProductDetailPage, ProductPage } from './pages/Product';
@@ -19,6 +19,7 @@ import { SubmitReviewPage } from './pages/Review';
 import { SearchPage } from './pages/Search';
 import { HomePage } from './pages/Home';
 import GlobalError from './GlobalError';
+import { QnaSubmitPage } from './pages/qna';
 
 export default function Router() {
     return createBrowserRouter([
@@ -113,15 +114,15 @@ export default function Router() {
                     element: <SocialLoginRedirectPage />,
                 },
                 {
-                    path: '/inquiry',
+                    path: '/qna',
                     children: [
                         {
                             path: '',
-                            element: <InquiryListPage />,
+                            element: <MyqnaPage />,
                         },
                         {
                             path: 'submit',
-                            element: <InquiryPage />,
+                            element: <QnaSubmitPage />,
                         },
                     ],
                 },

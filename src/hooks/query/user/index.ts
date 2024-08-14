@@ -1,3 +1,4 @@
+import { getUserQnaList } from '@/apis/qna';
 import { getUserInfo } from '@/apis/user';
 import { useQuery } from '@tanstack/react-query';
 
@@ -17,18 +18,18 @@ export function useGetUserInfo() {
     };
 }
 
-export function useGetUserInquiryList() {
+export function useGetUserQnaList() {
     const {
-        data: inquiryList,
-        isLoading: isLoadingInquiryList,
-        isError: isErrorUserInquiryList,
+        data: myQnaList,
+        isLoading: isLoadingMyQnaList,
+        isError: isErrorUsegMyQnaList,
     } = useQuery({
-        queryKey: [`inquiryList`],
-        queryFn: () => getUserInfo(),
+        queryKey: [`myQnaList`],
+        queryFn: () => getUserQnaList(),
     });
     return {
-        inquiryList,
-        isLoadingInquiryList,
-        isErrorUserInquiryList,
+        myQnaList,
+        isLoadingMyQnaList,
+        isErrorUsegMyQnaList,
     };
 }

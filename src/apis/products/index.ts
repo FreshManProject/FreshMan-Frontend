@@ -3,7 +3,6 @@ import {
     productListType,
 } from '@/types/Product/productList';
 import axios from 'axios';
-import { InquiryType } from '@/types/User/inquiry';
 import { axiosAuth } from '..';
 
 export async function getProductList(
@@ -41,19 +40,6 @@ export async function getProductSaleList(): Promise<productListType> {
     try {
         const response = await axiosAuth.get(`/products/onsale`);
         return response.data;
-    } catch (error) {
-        throw Error;
-    }
-}
-
-export async function getProductQnaList(
-    productSeq: number,
-): Promise<InquiryType[]> {
-    try {
-        const response = await axiosAuth.get(
-            `/questions/products/${productSeq}`,
-        );
-        return response.data.list;
     } catch (error) {
         throw Error;
     }

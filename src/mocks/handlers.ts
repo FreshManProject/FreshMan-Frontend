@@ -3,6 +3,17 @@ import { dummyInquiryList, dummyProudctList, dummySearchList } from './data';
 
 const handlers = [
     rest.get(
+        '/answers/:id',
+        (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+            // const page = req.url.searchParams.get('page');
+            return res(
+                ctx.json({
+                    content: '답변 테스트!1',
+                }),
+            );
+        },
+    ),
+    rest.get(
         '/questions/products/:id',
         (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
             // const page = req.url.searchParams.get('page');
