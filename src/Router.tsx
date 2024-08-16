@@ -18,9 +18,9 @@ import RegisterForm from './components/Register/RegisterForm';
 import { SubmitReviewPage } from './pages/Review';
 import { SearchPage } from './pages/Search';
 import { HomePage } from './pages/Home';
-import { CartPage } from './pages/Cart';
 import GlobalError from './GlobalError';
 import { QnaSubmitPage } from './pages/qna';
+import { CartPage } from './pages/Cart';
 
 export default function Router() {
     return createBrowserRouter([
@@ -31,24 +31,6 @@ export default function Router() {
                 {
                     path: '/',
                     element: <HomePage />,
-                },
-            ],
-        },
-        {
-            path: '/cart',
-            children: [
-                {
-                    path: '',
-                    element: <CartPage />,
-                },
-            ],
-        },
-        {
-            path: '/register',
-            children: [
-                {
-                    path: '',
-                    element: <RegisterForm />,
                 },
                 {
                     path: '/search',
@@ -87,20 +69,20 @@ export default function Router() {
                     ],
                 },
                 {
-                    element: <LayoutWithOutNav />,
-                    children: [
-                        {
-                            path: '/products/:id',
-                            element: <ProductDetailPage />,
-                        },
-                    ],
-                },
-                {
                     path: '/cart',
                     children: [
                         {
                             path: '',
                             element: <CartPage />,
+                        },
+                    ],
+                },
+                {
+                    element: <LayoutWithOutNav />,
+                    children: [
+                        {
+                            path: '/products/:id',
+                            element: <ProductDetailPage />,
                         },
                     ],
                 },

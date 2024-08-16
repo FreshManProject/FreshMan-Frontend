@@ -1,6 +1,6 @@
-import { axiosAuth } from '..';
-import { productListType } from '@/types/Product/productList';
 import axios from 'axios';
+import { productListType } from '@/types/Product/productList';
+import { axiosAuth } from '..';
 
 export default async function getLikeList(): Promise<productListType> {
     try {
