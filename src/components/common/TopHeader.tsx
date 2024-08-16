@@ -19,7 +19,7 @@ interface HeaderBackProps {
 
 function TopHeaderTitle({ title, logo }: HeaderTitleProps) {
     return (
-        <h1 className="flex h-full items-center text-center text-title3_b font-semibold">
+        <h1 className="flex h-full items-center justify-center text-center text-title3_b font-semibold">
             {logo ? (
                 <img
                     alt="FreshMan"
@@ -83,7 +83,7 @@ function TopHeaderBack({ backUrl }: HeaderBackProps) {
         <button
             type="button"
             onClick={() => handleBack(backUrl)}
-            className="absolute left-0 top-0 h-full"
+            className="absolute left-2 top-0 h-full"
         >
             <span className="sr-only">뒤로 가기</span>
             <IoArrowBackOutline size={24} />

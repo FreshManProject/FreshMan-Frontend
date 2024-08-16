@@ -3,36 +3,50 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from '@/components/ui/accordion';
+import { InquiryType } from '@/types/User/inquiry';
 
 interface IQnAItemProps {
     value: number;
+    item: InquiryType;
+    answer?: string;
+    disabled: boolean;
 }
 
-export default function QnAItem({ value }: IQnAItemProps) {
+export default function QnAItem({
+    value,
+    item,
+    answer,
+    disabled,
+}: IQnAItemProps) {
     return (
         <AccordionItem
             value={`item-${value}`}
+            disabled={disabled}
             className="qnaGroup px-4 data-[state=open]:bg-gray100"
         >
             <AccordionTrigger className="items-start">
-                <div className="flex flex-col items-start gap-3">
+                <div className="flex flex-1 flex-col items-start gap-3">
                     <div className="text-body3 text-gray400">
-                        2023.01.01 &nbsp;&nbsp; testset1234
+                        {item.postedDate.join('-')} &nbsp;&nbsp;{' '}
+                        {item.memberName}
                     </div>
-                    <div className="flex">
+                    <div className="flex w-full">
                         <p className="line-clamp-3 flex-1 text-left text-body2">
-                            문의사항이 있는데여?? 문의사항이 있는데여 화장품
-                            성분이 궁금해서여
+                            {item.content}
                         </p>
                         <em className="flex-[0.2] text-right text-body2_b not-italic text-gray400">
-                            답변대기
+                            {item.isAnswered ? (
+                                <span className="text-primary">답변완료</span>
+                            ) : (
+                                <span className="text-gray300">답변대기</span>
+                            )}
                         </em>
                     </div>
                 </div>
             </AccordionTrigger>
             <AccordionContent className="pt-5">
                 <h4 className="mb-7 text-body2_b">답변</h4>
-                <p>네 고객님 안녕하세요.</p>
+                <p>{answer}</p>
             </AccordionContent>
         </AccordionItem>
     );

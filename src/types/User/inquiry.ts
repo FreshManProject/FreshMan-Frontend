@@ -1,14 +1,11 @@
 export interface InquiryType {
-    id: number;
+    questionSeq: number;
+    memberName: null | string;
+    content: string;
     image: string;
-    date: string;
-    author: string;
-    title: string;
-    description: string;
-    product: string;
-    answer: string;
-}
-
-export interface InquiryListType {
-    inquiryList: InquiryType[];
+    isAnswered: boolean;
+    postedDate: [number, number, number];
+    productName?: string;
+    productImage?: null;
+    productSeq?: number;
 }

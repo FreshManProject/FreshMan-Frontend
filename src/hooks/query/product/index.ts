@@ -3,6 +3,7 @@ import {
     getProductRankingList,
     getProductSaleList,
 } from '@/apis/products';
+import { getProductQnaList, getQnaAnswer } from '@/apis/qna';
 import { productListParamsType } from '@/types/Product/productList';
 import { useQuery } from '@tanstack/react-query';
 
@@ -52,5 +53,44 @@ export function useGetProductSaleList() {
         productSaleList,
         isLoadingProductSaleList,
         isErrorProductSaleList,
+    };
+}
+
+export function useGetProductQnaList(productSeq: number) {
+    const {
+        data: productQnaList,
+        isLoading: isLoadingProductQnaList,
+        isError: isErrorProductQnaList,
+    } = useQuery({
+        queryKey: [`productQnaList`],
+        queryFn: () => getProductQnaList(productSeq),
+    });
+    return {
+        productQnaList,
+        isLoadingProductQnaList,
+        isErrorProductQnaList,
+    };
+}
+
+// 상품 문의 답변
+export function useGetQnaAnswer(
+    questionSeq: number | string,
+    isFetching: boolean,
+) {
+    const {
+        data: answer,
+        isLoading: isLoadingAnswer,
+        isError: isErrorAnswer,
+        isSuccess: isSuccessAnswer,
+    } = useQuery({
+        queryKey: [`qnaAnswer`],
+        queryFn: () => getQnaAnswer(questionSeq),
+        enabled: isFetching,
+    });
+    return {
+        answer,
+        isLoadingAnswer,
+        isErrorAnswer,
+        isSuccessAnswer,
     };
 }
