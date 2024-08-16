@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { CheckedState } from '@radix-ui/react-checkbox';
-import { patchCart } from '@/apis/user';
+import { patchCart } from '@/apis/carts';
 import { cartItemType, cartListType } from '@/types/Product/productList';
 import { Checkbox } from '@/components/ui/checkbox';
 import CartItem from './CartItem';

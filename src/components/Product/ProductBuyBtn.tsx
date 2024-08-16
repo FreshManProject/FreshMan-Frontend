@@ -1,4 +1,4 @@
-import { usePostInCart } from '@/hooks/query/product';
+import { usePostInCart } from '@/hooks/query/carts';
 import { LikeBtn } from '../common';
 import { GrayBorderButton, PrimaryBkButton } from '../common/Button';
 

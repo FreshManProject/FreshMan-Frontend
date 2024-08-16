@@ -1,6 +1,6 @@
 import { TopHeader } from '@/components/common';
 import { useQuery } from '@tanstack/react-query';
-import { getCartList } from '@/apis/user';
+import { getCartList } from '@/apis/carts';
 import CartItemList from '@/components/Cart/CartItemList';
 import CartSummary from '@/components/Cart/CartSummary';
 

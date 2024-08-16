@@ -1,12 +1,10 @@
 import { useState } from 'react';
 import { CheckedState } from '@radix-ui/react-checkbox';
 import { Link } from 'react-router-dom';
-import { patchCartItem } from '@/apis/user';
+import { patchCartItem } from '@/apis/carts';
 import { cartItemType } from '@/types/Product/productList';
 import { Checkbox } from '../ui/checkbox';
 import CartOption from './CartOption';
-
-// interface ICartItemProps extends cartItemType {}
 
 export default function CartItem(items: cartItemType) {
     const { productSeq, name, brand, image, checked } = items;

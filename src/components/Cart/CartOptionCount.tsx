@@ -22,7 +22,6 @@ export default function CartOptionCount(items: cartItemType) {
         <div className="mt-2.5 flex h-10 items-center justify-between overflow-hidden">
             <div className="flex h-9 items-center rounded-md border text-gray400">
                 <Button
-                    // variant={'outline'}
                     className="h-full w-9 rounded-none"
                     data-count={'add'}
                     onClick={handleMinusCount}
@@ -36,7 +35,6 @@ export default function CartOptionCount(items: cartItemType) {
                     className="h-full w-10 border-l border-r text-center text-body1_b"
                 />
                 <Button
-                    // variant={'outline'}
                     className="h-full w-9 rounded-none"
                     data-count={'minus'}
                     onClick={handleAddCount}

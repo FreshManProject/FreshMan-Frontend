@@ -3,10 +3,9 @@ import {
     getProductList,
     getProductRankingList,
     getProductSaleList,
-    postInCart,
 } from '@/apis/products';
 import { productListParamsType } from '@/types/Product/productList';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 export function useGetProductList(
     params: productListParamsType,
@@ -70,18 +69,5 @@ export function useGetProductSaleList() {
         productSaleList,
         isLoadingProductSaleList,
         isErrorProductSaleList,
-    };
-}
-
-export function usePostInCart() {
-    const { mutate: mutatePostInCart, isPending: isPendingPostInCart } =
-        useMutation({
-            mutationFn: (data: { productSeq: number; quantity: number }) =>
-                postInCart(data),
-        });
-
-    return {
-        mutatePostInCart,
-        isPendingPostInCart,
     };
 }
