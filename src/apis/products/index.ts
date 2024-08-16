@@ -56,18 +56,3 @@ export async function getProductSaleList(): Promise<productListType> {
         throw Error;
     }
 }
-
-export async function postInCart(data: {
-    productSeq: number;
-    quantity: number;
-}) {
-    try {
-        const response = await axiosAuth.post('/carts', { data });
-        if (response.data) return response.data;
-        throw new Error(
-            `Unexpected response : ${response.status} ${response.statusText}`,
-        );
-    } catch (error) {
-        throw Error;
-    }
-}

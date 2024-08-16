@@ -3,7 +3,6 @@ import {
     getProductList,
     getProductRankingList,
     getProductSaleList,
-    postInCart,
 } from '@/apis/products';
 import { getProductQnaList, getQnaAnswer } from '@/apis/qna';
 import { productListParamsType } from '@/types/Product/productList';
@@ -110,18 +109,5 @@ export function useGetQnaAnswer(
         isLoadingAnswer,
         isErrorAnswer,
         isSuccessAnswer,
-    };
-}
-
-export function usePostInCart() {
-    const { mutate: mutatePostInCart, isPending: isPendingPostInCart } =
-        useMutation({
-            mutationFn: (data: { productSeq: number; quantity: number }) =>
-                postInCart(data),
-        });
-
-    return {
-        mutatePostInCart,
-        isPendingPostInCart,
     };
 }
