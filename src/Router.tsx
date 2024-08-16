@@ -16,7 +16,7 @@ import { LayoutWithNav, LayoutWithOutNav } from './components/common/Layout';
 import { ProductDetailPage, ProductPage } from './pages/Product';
 import RegisterForm from './components/Register/RegisterForm';
 import { SubmitReviewPage } from './pages/Review';
-import { SearchPage } from './pages/Search';
+import { SearchPage, SearchResultPage } from './pages/Search';
 import { HomePage } from './pages/Home';
 import GlobalError from './GlobalError';
 import { QnaSubmitPage } from './pages/qna';
@@ -33,7 +33,16 @@ export default function Router() {
                 },
                 {
                     path: '/search',
-                    element: <SearchPage />,
+                    children: [
+                        {
+                            path: '',
+                            element: <SearchPage />,
+                        },
+                        {
+                            path: 'result',
+                            element: <SearchResultPage />,
+                        },
+                    ],
                 },
                 {
                     path: '/review',

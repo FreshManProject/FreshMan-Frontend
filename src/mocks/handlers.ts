@@ -1,5 +1,5 @@
 import { rest, RestRequest, ResponseComposition, RestContext } from 'msw';
-import { dummyInquiryList, dummyProudctList, dummySearchList } from './data';
+import { dummyInquiryList, dummyProudctList } from './data';
 
 const handlers = [
     rest.get(
@@ -155,11 +155,14 @@ const handlers = [
         (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
             const low = req.url.searchParams.get('lowPrice');
             const high = req.url.searchParams.get('highPrice');
+            const keyword = req.url.searchParams.get('keyword');
+            const filteredList = dummyProudctList;
             // low 이하 ~ hight 이하
             const calculateList = dummyProudctList.filter(
                 (item) =>
                     item.price >= Number(low) && item.price <= Number(high),
             );
+
             if (low && high) {
                 return res(
                     ctx.json({
@@ -171,37 +174,13 @@ const handlers = [
                 );
             }
 
-            return res(
-                ctx.json({
-                    status: 200,
-                    message: 'success',
-                    list: dummyProudctList,
-                    count: dummyProudctList.length,
-                }),
-            );
-        },
-    ),
-    rest.get(
-        '/products',
-        (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-            const low = req.url.searchParams.get('lowPrice');
-            const high = req.url.searchParams.get('highPrice');
-            // low 이하 ~ hight 이하
-            const calculateList = dummyProudctList.filter(
-                (item) =>
-                    item.price >= Number(low) && item.price <= Number(high),
-            );
-            if (low && high) {
-                return res(
-                    ctx.json({
-                        status: 200,
-                        message: 'success',
-                        list: calculateList,
-                        count: calculateList.length,
-                    }),
+            if (keyword) {
+                filteredList.filter(
+                    (item) =>
+                        item.name.includes(keyword) ||
+                        item.brand.includes(keyword),
                 );
             }
-
             return res(
                 ctx.json({
                     status: 200,
@@ -264,11 +243,23 @@ const handlers = [
         },
     ),
     rest.get(
-        '/api/products?keyword=test',
+        '/products',
         (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+            // const option = req.url.searchParams.get('categorySeq');
+            const keyword = req.url.searchParams.get('keyword');
+            const filteredList = dummyProudctList;
+
+            if (keyword) {
+                filteredList.filter(
+                    (item) =>
+                        item.name.includes(keyword) ||
+                        item.brand.includes(keyword),
+                );
+            }
+
             return res(
                 ctx.json({
-                    data: dummySearchList,
+                    data: filteredList,
                 }),
             );
         },

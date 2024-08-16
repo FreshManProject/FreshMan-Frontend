@@ -1,10 +1,11 @@
-export type filterType = 'price' | 'sort';
+export type filterType = 'price' | 'sort' | 'category';
 
 export interface productListParamsType {
-    categorySeq: number;
+    categorySeq?: number;
     lowPrice?: number;
     highPrice?: number;
     sort?: string;
+    keyword?: string;
 }
 
 export interface productListType {
@@ -28,4 +29,11 @@ export interface filterStateType {
     price: boolean;
     sort: boolean;
     [key: string]: boolean;
+}
+
+export interface SortITemType {
+    id: number;
+    name: string;
+    value: string;
+    checked: boolean;
 }

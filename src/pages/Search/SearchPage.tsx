@@ -3,7 +3,7 @@ import SearchInput from '@/components/search/SearchInput';
 
 export default function SearchPage() {
     return (
-        <div className="py-4">
+        <div>
             <SearchInput />
             {/* 최근 검색어 */}
             <section className="px-4">
