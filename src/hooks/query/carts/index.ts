@@ -1,4 +1,5 @@
 import {
+    deleteItemInCart,
     getCartList,
     patchCart,
     patchCartItem,
@@ -60,5 +61,18 @@ export function usePostInCart() {
     return {
         mutatePostInCart,
         isPendingPostInCart,
+    };
+}
+
+export function useDeleteItemInCart() {
+    const { mutate: mutateDeleteItemInCart, isPending: isPendingDeleteInCart } =
+        useMutation({
+            mutationFn: (data: { productSeq: number }) =>
+                deleteItemInCart(data),
+        });
+
+    return {
+        mutateDeleteItemInCart,
+        isPendingDeleteInCart,
     };
 }

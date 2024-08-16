@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { CheckedState } from '@radix-ui/react-checkbox';
 import { cartItemType, cartListType } from '@/types/Product/productList';
-import { usePatchCart } from '@/hooks/query/carts';
+import { useDeleteItemInCart, usePatchCart } from '@/hooks/query/carts';
 import { Checkbox } from '@/components/ui/checkbox';
 import CartItem from './CartItem';
 
@@ -13,6 +13,7 @@ export default function CartList({ listData }: ICartListProps) {
     const [isAllChecked, setIsAllChecked] = useState(false);
     const [countSelected, setCountSelected] = useState(0);
     const { mutatePatchCart } = usePatchCart();
+    const { mutateDeleteItemInCart } = useDeleteItemInCart();
 
     const handlePatchCartItem = (newCheck: boolean) => {
         mutatePatchCart({
@@ -44,6 +45,12 @@ export default function CartList({ listData }: ICartListProps) {
         );
     }, [listData.list]);
 
+    const handleDeleteSelected = () => {
+        listData.list?.map(
+            ({ productSeq, checked }) =>
+                checked && mutateDeleteItemInCart({ productSeq }),
+        );
+    };
     return (
         <>
             <div className="flex items-center justify-between px-4 pb-2.5 pt-1 text-body3">
@@ -56,7 +63,13 @@ export default function CartList({ listData }: ICartListProps) {
                     />
                     <p>{`전체선택 (${countSelected}/${listData.count})`}</p>
                 </div>
-                <p className="text-center text-gray400">{'선택삭제'}</p>
+                <button
+                    type="button"
+                    onClick={handleDeleteSelected}
+                    className="text-center text-gray400"
+                >
+                    {'선택삭제'}
+                </button>
             </div>
             <ul className={'flex flex-wrap'}>
                 {listData.count > 0 ? (

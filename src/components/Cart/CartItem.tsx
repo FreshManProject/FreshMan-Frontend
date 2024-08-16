@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { cartItemType } from '@/types/Product/productList';
 import { usePatchCartItem } from '@/hooks/query/carts';
 import { Checkbox } from '../ui/checkbox';
-import CartOption from './CartOption';
 import CartOptionCount from './CartOptionCount';
 
 export default function CartItem(items: cartItemType) {
@@ -84,9 +83,9 @@ export default function CartItem(items: cartItemType) {
                     </Link>
                 </div>
             </div>
-            {/* // !옵션 들어갈시 추가 */}
             <div className="flex max-h-40 w-full flex-col overflow-y-hidden pl-6">
-                <CartOption />
+                {/* // !옵션 들어갈시 추가 */}
+                {/* <CartOption /> */}
                 <CartOptionCount
                     itemQuantity={itemQuantity}
                     handleAddQuantity={handleAddQuantity}

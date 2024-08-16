@@ -192,7 +192,6 @@ const handlers = [
             ctx.json({
                 status: 200,
                 message: 'success',
-                updatedItems: updatedList,
             }),
         );
     }),
@@ -203,7 +202,6 @@ const handlers = [
             checked: boolean;
         };
 
-        // msw 데이터 수정
         const updatedList = dummyCartList.map((item) => {
             if (item.productSeq === Number(id)) {
                 return { ...item, quantity, checked };
@@ -217,9 +215,14 @@ const handlers = [
             ctx.json({
                 status: 200,
                 message: 'success',
-                updatedItem: updatedList.find(
-                    (item) => item.productSeq === Number(id),
-                ),
+            }),
+        );
+    }),
+    rest.delete('/carts/:id', (req, res, ctx) => {
+        return res(
+            ctx.json({
+                status: 200,
+                message: 'success',
             }),
         );
     }),

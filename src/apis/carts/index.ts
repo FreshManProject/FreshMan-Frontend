@@ -59,3 +59,15 @@ export async function postInCart(data: {
         throw Error;
     }
 }
+
+export async function deleteItemInCart(data: { productSeq: number }) {
+    try {
+        const response = await axiosAuth.delete(`/carts/${data.productSeq}`);
+        if (response.data) return response.data;
+        throw new Error(
+            `Unexpected response: ${response.status} ${response.statusText}`,
+        );
+    } catch (error) {
+        throw new Error('An unknown error occurred');
+    }
+}
