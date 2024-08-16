@@ -19,12 +19,14 @@ import {
 } from '../common/Button';
 
 interface IFilterBottomSheetProps {
+    filterName: filterType;
     isOpenFilter: boolean;
     toggleFilter: (filterName: filterType, open: boolean) => void;
 }
 
 export default function FilterBottomSheet({
     isOpenFilter,
+    filterName,
     toggleFilter,
 }: IFilterBottomSheetProps) {
     const navigate = useNavigate();
@@ -41,7 +43,7 @@ export default function FilterBottomSheet({
         setRange(value);
     };
     const handleClickGotoProduct = () => {
-        toggleFilter('price', false);
+        toggleFilter(filterName, false);
         const params = new URLSearchParams(location.search);
         const sortValue = params.get('sort') ?? 'newest';
         params.delete('sort');
@@ -59,7 +61,9 @@ export default function FilterBottomSheet({
     return (
         <>
             <FilterBottomSheetTrigger>
-                <GrayBorderToggleButton>가격</GrayBorderToggleButton>
+                <GrayBorderToggleButton close={false}>
+                    가격
+                </GrayBorderToggleButton>
             </FilterBottomSheetTrigger>
             <DrawerPortal>
                 <DrawerContent className="bg-white px-4">

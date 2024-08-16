@@ -3,55 +3,34 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { filterType } from '@/types/Product/productList';
-import { FilterBottomSheetTrigger } from './FilterBottomSheet';
-import { GrayBorderToggleButton } from '../common/Button';
+import { SortITemType, filterType } from '@/types/Product/productList';
+import { FilterBottomSheetTrigger } from '../FixedFilter/FilterBottomSheet';
+import { GrayBorderToggleButton } from './Button';
 
 interface ISortBottomSheetContentProps {
+    filterName: filterType;
     toggleFilter: (filterName: filterType, open: boolean) => void;
+    sortList: SortITemType[];
+    onSortChange: (id: number, checked: boolean) => void;
 }
 export default function SortBottomSheetContent({
+    filterName,
     toggleFilter,
+    sortList,
+    onSortChange,
 }: ISortBottomSheetContentProps) {
     const navigate = useNavigate();
     const location = useLocation();
 
     const [currentSortItem, setCurrentSortItem] = useState(1);
-    const [sortList, setSortList] = useState([
-        {
-            id: 1,
-            name: '최신순',
-            value: 'newest',
-            checked: true,
-        },
-        {
-            id: 2,
-            name: '높은 가격순',
-            value: 'highest',
-            checked: false,
-        },
-        {
-            id: 3,
-            name: '낮은 가격순',
-            value: 'lowest',
-            checked: false,
-        },
-    ]);
 
     const handleCheckedChange = (id: number, checked: boolean) => {
-        toggleFilter('sort', false);
+        toggleFilter(filterName, false);
 
-        setSortList((prevSort) => {
-            return prevSort.map((item) => {
-                return {
-                    ...item,
-                    checked: item.id === id ? checked : false,
-                };
-            });
-        });
+        onSortChange(id, checked);
 
         const params = new URLSearchParams(location.search);
-        params.set('sort', sortList[id - 1].value);
+        params.set(filterName, sortList[id - 1].value);
         setCurrentSortItem(id);
         navigate(`${location.pathname}?${params.toString()}`);
     };
@@ -59,7 +38,7 @@ export default function SortBottomSheetContent({
     return (
         <>
             <FilterBottomSheetTrigger>
-                <GrayBorderToggleButton>
+                <GrayBorderToggleButton close={false}>
                     {sortList[currentSortItem - 1].name}
                 </GrayBorderToggleButton>
             </FilterBottomSheetTrigger>
