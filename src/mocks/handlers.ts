@@ -198,12 +198,15 @@ const handlers = [
     }),
     rest.patch('/carts/:id', (req, res, ctx) => {
         const { id } = req.params;
-        const { checked } = req.body as { checked: boolean };
+        const { quantity, checked } = req.body as {
+            quantity: number;
+            checked: boolean;
+        };
 
         // msw 데이터 수정
         const updatedList = dummyCartList.map((item) => {
             if (item.productSeq === Number(id)) {
-                return { ...item, checked };
+                return { ...item, quantity, checked };
             }
             return item;
         });

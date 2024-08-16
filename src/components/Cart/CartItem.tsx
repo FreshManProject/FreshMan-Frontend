@@ -1,24 +1,57 @@
 import { useState } from 'react';
 import { CheckedState } from '@radix-ui/react-checkbox';
 import { Link } from 'react-router-dom';
-import { patchCartItem } from '@/apis/carts';
 import { cartItemType } from '@/types/Product/productList';
+import { usePatchCartItem } from '@/hooks/query/carts';
 import { Checkbox } from '../ui/checkbox';
 import CartOption from './CartOption';
+import CartOptionCount from './CartOptionCount';
 
 export default function CartItem(items: cartItemType) {
-    const { productSeq, name, brand, image, checked } = items;
+    const { productSeq, name, brand, image, checked, quantity } = items;
+    const [itemQuantity, setItemQuantity] = useState(quantity);
     const [isChecked, setIsChecked] = useState(checked);
+    const { mutatePatchCartItem } = usePatchCartItem();
+
+    const handlePatchCartItem = (newQuantity: number, newCheck: boolean) => {
+        mutatePatchCartItem({
+            productSeq,
+            quantity: newQuantity,
+            checked: newCheck,
+        });
+    };
 
     const onCheckedChange = async (check: CheckedState) => {
         const newCheckedState = !!check;
         setIsChecked(newCheckedState);
 
         try {
-            await patchCartItem({ productSeq, checked: newCheckedState });
+            handlePatchCartItem(itemQuantity, newCheckedState);
         } catch (error) {
             console.error('Failed to update cart item:', error);
             setIsChecked(!newCheckedState);
+        }
+    };
+
+    const handleAddQuantity = () => {
+        setItemQuantity((prevCount) => prevCount + 1);
+        try {
+            handlePatchCartItem(itemQuantity + 1, isChecked);
+        } catch (error) {
+            console.error('Failed to update cart item:', error);
+            setItemQuantity(itemQuantity + 1);
+        }
+    };
+
+    const handleMinusQuantity = () => {
+        setItemQuantity((prevCount) => {
+            return prevCount > 1 ? prevCount - 1 : prevCount;
+        });
+        try {
+            handlePatchCartItem(itemQuantity + 1, isChecked);
+        } catch (error) {
+            console.error('Failed to update cart item:', error);
+            setItemQuantity(itemQuantity - 1);
         }
     };
 
@@ -52,8 +85,14 @@ export default function CartItem(items: cartItemType) {
                 </div>
             </div>
             {/* // !옵션 들어갈시 추가 */}
-            <div className="flex w-full flex-col pl-6">
-                <CartOption {...items} />
+            <div className="flex max-h-40 w-full flex-col overflow-y-hidden pl-6">
+                <CartOption />
+                <CartOptionCount
+                    itemQuantity={itemQuantity}
+                    handleAddQuantity={handleAddQuantity}
+                    handleMinusQuantity={handleMinusQuantity}
+                    {...items}
+                />
             </div>
         </li>
     );

@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
-
 import { CheckedState } from '@radix-ui/react-checkbox';
-import { patchCart } from '@/apis/carts';
 import { cartItemType, cartListType } from '@/types/Product/productList';
+import { usePatchCart } from '@/hooks/query/carts';
 import { Checkbox } from '@/components/ui/checkbox';
 import CartItem from './CartItem';
 
@@ -10,9 +9,16 @@ interface ICartListProps {
     listData: cartListType;
 }
 
-export default function CartItemList({ listData }: ICartListProps) {
+export default function CartList({ listData }: ICartListProps) {
     const [isAllChecked, setIsAllChecked] = useState(false);
     const [countSelected, setCountSelected] = useState(0);
+    const { mutatePatchCart } = usePatchCart();
+
+    const handlePatchCartItem = (newCheck: boolean) => {
+        mutatePatchCart({
+            checked: newCheck,
+        });
+    };
 
     const onAllCheckedChange = async (checked: CheckedState) => {
         const newCheckedState = !!checked;
@@ -20,14 +26,7 @@ export default function CartItemList({ listData }: ICartListProps) {
         try {
             setIsAllChecked(newCheckedState);
             setCountSelected(newCheckedState ? listData.count : 0);
-
-            const response = await patchCart({ checked: newCheckedState });
-
-            if (response.status === 200) {
-                console.log('All cart items updated:', response.updatedItems);
-            } else {
-                throw new Error('Update failed');
-            }
+            handlePatchCartItem(newCheckedState);
         } catch (error) {
             console.error('Failed to update cart items:', error);
             setIsAllChecked(!newCheckedState);

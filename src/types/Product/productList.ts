@@ -32,6 +32,7 @@ export interface filterStateType {
 
 export interface cartItemType extends productItemType {
     checked: boolean;
+    quantity: number;
 }
 
 export interface cartListType {

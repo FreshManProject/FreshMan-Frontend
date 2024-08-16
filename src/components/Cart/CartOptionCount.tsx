@@ -1,22 +1,20 @@
 import { Button } from '@/components/ui/button';
 import { cartItemType } from '@/types/Product/productList';
 import { formatNumber } from '@/util/formatData';
-import { useState } from 'react';
 import { FaMinus, FaPlus } from 'react-icons/fa6';
 
-export default function CartOptionCount(items: cartItemType) {
+interface ICartOptionCount extends cartItemType {
+    itemQuantity: number;
+    handleAddQuantity: () => void;
+    handleMinusQuantity: () => void;
+}
+export default function CartOptionCount({
+    itemQuantity,
+    handleAddQuantity,
+    handleMinusQuantity,
+    ...items
+}: ICartOptionCount) {
     const { price, sale } = items;
-    const [count, setCount] = useState(0);
-
-    const handleAddCount = () => {
-        setCount((prevCount) => prevCount + 1);
-    };
-
-    const handleMinusCount = () => {
-        setCount((prevCount) => {
-            return prevCount > 1 ? prevCount - 1 : prevCount;
-        });
-    };
 
     return (
         <div className="mt-2.5 flex h-10 items-center justify-between overflow-hidden">
@@ -24,20 +22,20 @@ export default function CartOptionCount(items: cartItemType) {
                 <Button
                     className="h-full w-9 rounded-none"
                     data-count={'add'}
-                    onClick={handleMinusCount}
+                    onClick={handleMinusQuantity}
                 >
                     <FaMinus />
                 </Button>
                 <input
                     type={'number'}
-                    value={count}
+                    value={itemQuantity}
                     readOnly
                     className="h-full w-10 border-l border-r text-center text-body1_b"
                 />
                 <Button
                     className="h-full w-9 rounded-none"
                     data-count={'minus'}
-                    onClick={handleAddCount}
+                    onClick={handleAddQuantity}
                 >
                     <FaPlus className={'text-sm'} />
                 </Button>

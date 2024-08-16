@@ -1,28 +1,21 @@
 import { TopHeader } from '@/components/common';
-import { useQuery } from '@tanstack/react-query';
-import { getCartList } from '@/apis/carts';
-import CartItemList from '@/components/Cart/CartItemList';
+import CartItemList from '@/components/Cart/CartList';
 import CartSummary from '@/components/Cart/CartSummary';
+import { useGetCartList } from '@/hooks/query/carts';
 
 export default function CartPage() {
-    const {
-        data: CartList,
-        isLoading: CartListIsLoading,
-        error,
-    } = useQuery({
-        queryKey: ['CartList'],
-        queryFn: getCartList,
-    });
-    if (CartListIsLoading) return <div>Loading...</div>;
-    if (!CartList || error) return <div>Error : {error?.message}</div>;
+    const { cartList, cartListIsLoading, error } = useGetCartList();
+
+    if (cartListIsLoading) return <div>Loading...</div>;
+    if (!cartList || error) return <div>Error : {error?.message}</div>;
     return (
         <>
             <TopHeader>
                 <TopHeader.Back backUrl="/" />
                 <TopHeader.Title title="장바구니" />
             </TopHeader>
-            <CartItemList listData={CartList} />
-            <CartSummary listData={CartList} />
+            <CartItemList listData={cartList} />
+            <CartSummary listData={cartList} />
         </>
     );
 }

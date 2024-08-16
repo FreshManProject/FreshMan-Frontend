@@ -137,14 +137,17 @@ export const dummySearchList = [
 export const dummyCartList = [
     {
         checked: true,
+        quantity: 1,
         ...dummyProductList[0],
     },
     {
         checked: true,
+        quantity: 1,
         ...dummyProductList[1],
     },
     {
         checked: true,
+        quantity: 1,
         ...dummyProductList[2],
     },
 ];
