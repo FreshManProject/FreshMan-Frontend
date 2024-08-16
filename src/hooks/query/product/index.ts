@@ -6,7 +6,7 @@ import {
 } from '@/apis/products';
 import { getProductQnaList, getQnaAnswer } from '@/apis/qna';
 import { productListParamsType } from '@/types/Product/productList';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 export function useGetProductList(
     params: productListParamsType,
