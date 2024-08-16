@@ -24,7 +24,7 @@ root.render(
             <QueryProvider>
                 <div
                     className={
-                        'm-auto box-border max-w-default items-center justify-center'
+                        'max-w-default m-auto box-border items-center justify-center'
                     }
                 >
                     <RouterProvider router={Router()} />

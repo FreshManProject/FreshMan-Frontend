@@ -8,7 +8,7 @@ export default function RegisterSuccessPage() {
         <section className="flex h-screen flex-col justify-between pt-10">
             <div>
                 <div
-                    className={`flex h-80 flex-col justify-end bg-login-success bg-center bg-no-repeat`}
+                    className={`bg-login-success flex h-80 flex-col justify-end bg-center bg-no-repeat`}
                 />
                 <div className="pt-6 text-center leading-7">
                     <p className={'text-title1_b'}>
@@ -19,7 +19,7 @@ export default function RegisterSuccessPage() {
                     </p>
                 </div>
             </div>
-            <div className="fixed bottom-0 left-0 right-0 m-auto max-w-default px-4 pb-8 [&>button]:w-full">
+            <div className="max-w-default fixed bottom-0 left-0 right-0 m-auto px-4 pb-8 [&>button]:w-full">
                 <PrimaryBkButton
                     handleClick={() => navigate('/')}
                     type="button"

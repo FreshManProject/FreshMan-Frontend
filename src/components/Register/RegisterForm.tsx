@@ -140,7 +140,7 @@ export default function RegisterForm() {
                     </p>
                 )}
             </div>
-            <div className="fixed bottom-0 left-0 right-0 m-auto max-w-default px-4 pb-8 [&>button]:w-full">
+            <div className="max-w-default fixed bottom-0 left-0 right-0 m-auto px-4 pb-8 [&>button]:w-full">
                 <PrimaryBkButton disabled={!isValid} type="submit">
                     다음
                 </PrimaryBkButton>
