@@ -3,6 +3,7 @@ import {
     productListType,
 } from '@/types/Product/productList';
 import axios from 'axios';
+import { ProductDetailType } from '@/types/Product/productDetail';
 import { axiosAuth } from '..';
 
 export async function getProductList(
@@ -20,6 +21,17 @@ export async function getProductList(
     try {
         const response = await axios.get(url.toString());
         return response.data;
+    } catch (error) {
+        throw Error;
+    }
+}
+
+export async function getProductDetail(
+    productSeq: number,
+): Promise<ProductDetailType> {
+    try {
+        const response = await axiosAuth.get(`/products/${productSeq}`);
+        return response.data.data;
     } catch (error) {
         throw Error;
     }

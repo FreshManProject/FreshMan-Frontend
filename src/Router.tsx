@@ -20,6 +20,7 @@ import { SearchPage } from './pages/Search';
 import { HomePage } from './pages/Home';
 import GlobalError from './GlobalError';
 import { QnaSubmitPage } from './pages/qna';
+import { CartPage } from './pages/Cart';
 
 export default function Router() {
     return createBrowserRouter([
@@ -64,6 +65,15 @@ export default function Router() {
                         {
                             path: ':id',
                             element: <ProductPage />,
+                        },
+                    ],
+                },
+                {
+                    path: '/cart',
+                    children: [
+                        {
+                            path: '',
+                            element: <CartPage />,
                         },
                     ],
                 },

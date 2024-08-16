@@ -29,3 +29,13 @@ export interface filterStateType {
     sort: boolean;
     [key: string]: boolean;
 }
+
+export interface cartItemType extends productItemType {
+    checked: boolean;
+    quantity: number;
+}
+
+export interface cartListType {
+    list: cartItemType[];
+    count: number;
+}

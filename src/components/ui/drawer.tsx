@@ -41,11 +41,11 @@ const DrawerContent = React.forwardRef<
     React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content>
 >(({ className, children, ...props }, ref) => (
     <DrawerPortal>
-        <DrawerOverlay />
+        <DrawerOverlay className="max-w-default m-auto" />
         <DrawerPrimitive.Content
             ref={ref}
             className={cn(
-                'bg-background fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[10px] border',
+                'max-w-default bg-background fixed inset-x-0 bottom-0 z-50 m-auto mt-24 flex h-auto flex-col rounded-t-[10px] border',
                 className,
             )}
             {...props}

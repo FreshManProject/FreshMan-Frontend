@@ -1,7 +1,7 @@
-export const dummyProudctList = [
+export const dummyProductList = [
     {
         productSeq: 8,
-        name: '테스트 상품 7',
+        name: '테스트 상품 8',
         price: 10000,
         brand: '뉴발란스',
         favorite: false,
@@ -13,7 +13,7 @@ export const dummyProudctList = [
     },
     {
         productSeq: 7,
-        name: '테스트 상품 6',
+        name: '테스트 상품 7',
         price: 7000,
         brand: '나이키',
         favorite: true,
@@ -21,7 +21,7 @@ export const dummyProudctList = [
     },
     {
         productSeq: 9,
-        name: '테스트 상품 6',
+        name: '테스트 상품 9',
         price: 500000,
         brand: '나이키',
         favorite: false,
@@ -131,5 +131,23 @@ export const dummySearchList = [
             saleRate: 22,
         },
         favorite: false,
+    },
+];
+
+export const dummyCartList = [
+    {
+        checked: true,
+        quantity: 1,
+        ...dummyProductList[0],
+    },
+    {
+        checked: true,
+        quantity: 1,
+        ...dummyProductList[1],
+    },
+    {
+        checked: true,
+        quantity: 1,
+        ...dummyProductList[2],
     },
 ];
