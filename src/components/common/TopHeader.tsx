@@ -84,7 +84,7 @@ function TopHeaderBack({ backUrl }: HeaderBackProps) {
         <button
             type="button"
             onClick={() => handleBack(backUrl)}
-            className="absolute left-0 top-0 h-full"
+            className="absolute left-2 top-0 h-full"
         >
             <span className="sr-only">뒤로 가기</span>
             <IoArrowBackOutline size={24} />

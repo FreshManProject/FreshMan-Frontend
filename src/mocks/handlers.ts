@@ -8,6 +8,109 @@ import {
 
 const handlers = [
     rest.get(
+        '/answers/:id',
+        (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+            // const page = req.url.searchParams.get('page');
+            return res(
+                ctx.json({
+                    content: '답변 테스트!1',
+                }),
+            );
+        },
+    ),
+    rest.get(
+        '/questions/products/:id',
+        (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+            // const page = req.url.searchParams.get('page');
+            return res(
+                ctx.json({
+                    status: 200,
+                    message: 'success',
+                    list: [
+                        {
+                            questionSeq: 2,
+                            memberName: null,
+                            content: '문의 테스트 내용 ',
+                            image: 'https://file-for-study.s3.ap-northeast-2.amazonaws.com/1b815211-ed73-4cba-8890-1f2c5a2a5180.jpeg',
+                            isAnswered: false,
+                            postedDate: [2024, 8, 13],
+                        },
+                        {
+                            questionSeq: 1,
+                            memberName: null,
+                            content: '문의 테스트 내용 ',
+                            image: 'https://file-for-study.s3.ap-northeast-2.amazonaws.com/02b5e0e0-b958-4f4d-a65b-765099a4835b.png',
+                            isAnswered: false,
+                            postedDate: [2024, 8, 13],
+                        },
+                        {
+                            questionSeq: 2,
+                            memberName: null,
+                            content: '문의 테스트 내용 ',
+                            image: 'https://file-for-study.s3.ap-northeast-2.amazonaws.com/1b815211-ed73-4cba-8890-1f2c5a2a5180.jpeg',
+                            isAnswered: false,
+                            postedDate: [2024, 8, 13],
+                        },
+                        {
+                            questionSeq: 1,
+                            memberName: null,
+                            content: '문의 테스트 내용 ',
+                            image: 'https://file-for-study.s3.ap-northeast-2.amazonaws.com/02b5e0e0-b958-4f4d-a65b-765099a4835b.png',
+                            isAnswered: false,
+                            postedDate: [2024, 8, 13],
+                        },
+                    ],
+                }),
+            );
+        },
+    ),
+    rest.get(
+        '/questions/my-questions',
+        (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+            // const page = req.url.searchParams.get('page');
+            return res(
+                ctx.json({
+                    status: 200,
+                    message: 'success',
+                    list: [
+                        {
+                            questionSeq: 2,
+                            memberName: null,
+                            content: '문의 테스트 내용 ',
+                            image: 'https://file-for-study.s3.ap-northeast-2.amazonaws.com/1b815211-ed73-4cba-8890-1f2c5a2a5180.jpeg',
+                            isAnswered: false,
+                            postedDate: [2024, 8, 13],
+                        },
+                        {
+                            questionSeq: 1,
+                            memberName: null,
+                            content: '문의 테스트 내용 ',
+                            image: 'https://file-for-study.s3.ap-northeast-2.amazonaws.com/02b5e0e0-b958-4f4d-a65b-765099a4835b.png',
+                            isAnswered: false,
+                            postedDate: [2024, 8, 13],
+                        },
+                        {
+                            questionSeq: 3,
+                            memberName: null,
+                            content: '문의 테스트 내용 ',
+                            image: 'https://file-for-study.s3.ap-northeast-2.amazonaws.com/1b815211-ed73-4cba-8890-1f2c5a2a5180.jpeg',
+                            isAnswered: true,
+                            postedDate: [2024, 8, 13],
+                        },
+                        {
+                            questionSeq: 4,
+                            memberName: null,
+                            content: '문의 테스트 내용 ',
+                            image: 'https://file-for-study.s3.ap-northeast-2.amazonaws.com/02b5e0e0-b958-4f4d-a65b-765099a4835b.png',
+                            isAnswered: false,
+                            postedDate: [2024, 8, 13],
+                        },
+                    ],
+                }),
+            );
+        },
+    ),
+    rest.get(
         '/members',
         (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
             return res(

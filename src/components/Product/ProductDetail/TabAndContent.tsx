@@ -1,9 +1,15 @@
 import { ProductReviewScore, ReviewList } from '@/components/Review';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { QnABtn, QnAList } from '@/components/QnA';
+import { useGetProductQnaList } from '@/hooks/query/product';
+import { useParams } from 'react-router-dom';
+import { Suspense } from 'react';
 import TabAndContentLayout from './TabAndContentLayout';
 
 export default function TabAndContent() {
+    const { id } = useParams();
+    const { productQnaList } = useGetProductQnaList(Number(id));
+    console.log(productQnaList);
     return (
         <Tabs defaultValue={'productInfo'}>
             <TabsList
@@ -47,7 +53,11 @@ export default function TabAndContent() {
             <TabsContent value={'productQna'}>
                 <TabAndContentLayout
                     topComponent={<QnABtn />}
-                    bottomComponent={<QnAList />}
+                    bottomComponent={
+                        <Suspense fallback={'dd'}>
+                            <QnAList data={productQnaList ?? []} />
+                        </Suspense>
+                    }
                     subTitle="문의"
                 />
             </TabsContent>

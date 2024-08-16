@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import InquiryForm from '@/components/Inquiry/InquiryForm';
 
-export default function InquiryPage() {
+export default function QnaSubmitPage() {
     const navigate = useNavigate();
     const [contactType, setContactType] = useState<string>('');
     const [contact, setContact] = useState<string>('');

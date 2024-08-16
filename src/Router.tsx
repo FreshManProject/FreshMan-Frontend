@@ -1,5 +1,4 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { InquiryListPage, InquiryPage } from './pages/Inquiry';
 import {
     RegisterSuccessPage,
     SocialLoginPage,
@@ -11,6 +10,7 @@ import {
     MyInformationPage,
     MyLikePage,
     MyPage,
+    MyqnaPage,
 } from './pages/MyPage';
 import { LayoutWithNav, LayoutWithOutNav } from './components/common/Layout';
 import { ProductDetailPage, ProductPage } from './pages/Product';
@@ -19,113 +19,122 @@ import { SubmitReviewPage } from './pages/Review';
 import { SearchPage } from './pages/Search';
 import { HomePage } from './pages/Home';
 import { CartPage } from './pages/Cart';
+import GlobalError from './GlobalError';
+import { QnaSubmitPage } from './pages/qna';
 
 export default function Router() {
     return createBrowserRouter([
         {
             path: '/',
-            element: <HomePage />,
-        },
-        {
-            path: '/search',
-            element: <SearchPage />,
-        },
-        {
-            path: '/review',
+            errorElement: <GlobalError />,
             children: [
                 {
-                    path: 'submit',
-                    element: <SubmitReviewPage />,
-                },
-            ],
-        },
-        {
-            path: '/cart',
-            children: [
-                {
-                    path: '',
-                    element: <CartPage />,
-                },
-            ],
-        },
-        {
-            path: '/register',
-            children: [
-                {
-                    path: '',
-                    element: <RegisterForm />,
+                    path: '/',
+                    element: <HomePage />,
                 },
                 {
-                    path: 'success',
-                    element: <RegisterSuccessPage />,
-                },
-            ],
-        },
-        {
-            path: '/categories',
-            element: <LayoutWithNav />,
-            children: [
-                {
-                    path: ':id',
-                    element: <ProductPage />,
-                },
-            ],
-        },
-        {
-            element: <LayoutWithOutNav />,
-            children: [
-                {
-                    path: '/products/:id',
-                    element: <ProductDetailPage />,
-                },
-            ],
-        },
-        {
-            path: '/mypage',
-            children: [
-                {
-                    path: '',
-                    element: <MyPage />,
+                    path: '/search',
+                    element: <SearchPage />,
                 },
                 {
-                    path: 'address',
-                    element: <EditAddressPage />,
-                },
-                {
-                    path: 'like',
-                    element: <MyLikePage />,
-                },
-                {
-                    path: 'info',
+                    path: '/review',
                     children: [
                         {
-                            element: <MyInformationPage />,
-                        },
-                        {
-                            path: 'edit',
-                            element: <EditInformationPage />,
+                            path: 'submit',
+                            element: <SubmitReviewPage />,
                         },
                     ],
                 },
-            ],
-        },
-        {
-            path: '/login',
-            element: <SocialLoginPage />,
-        },
-        {
-            path: '/authorize',
-            element: <SocialLoginRedirectPage />,
-        },
-        {
-            path: '/inquiry',
-            children: [
                 {
-                    element: <InquiryPage />,
+                    path: '/auth',
+                    children: [
+                        {
+                            path: 'register',
+                            element: <RegisterForm />,
+                        },
+                        {
+                            path: 'success',
+                            element: <RegisterSuccessPage />,
+                        },
+                    ],
                 },
                 {
-                    path: 'list',
-                    element: <InquiryListPage />,
+                    path: '/categories',
+                    element: <LayoutWithNav />,
+                    children: [
+                        {
+                            path: ':id',
+                            element: <ProductPage />,
+                        },
+                    ],
+                },
+                {
+                    element: <LayoutWithOutNav />,
+                    children: [
+                        {
+                            path: '/products/:id',
+                            element: <ProductDetailPage />,
+                        },
+                    ],
+                },
+                {
+                    path: '/cart',
+                    children: [
+                        {
+                            path: '',
+                            element: <CartPage />,
+                        },
+                    ],
+                },
+                {
+                    path: '/mypage',
+                    children: [
+                        {
+                            path: '',
+                            element: <MyPage />,
+                        },
+                        {
+                            path: 'address',
+                            element: <EditAddressPage />,
+                        },
+                        {
+                            path: 'like',
+                            element: <MyLikePage />,
+                        },
+                        {
+                            path: 'info',
+                            children: [
+                                {
+                                    element: <MyInformationPage />,
+                                },
+                                {
+                                    path: 'edit',
+                                    element: <EditInformationPage />,
+                                },
+                            ],
+                        },
+                    ],
+                },
+                {
+                    path: '/login',
+                    element: <SocialLoginPage />,
+                },
+                {
+                    path: '/authorize',
+                    element: <SocialLoginRedirectPage />,
+                },
+                {
+                    path: '/qna',
+                    children: [
+                        {
+                            path: '',
+                            element: <MyqnaPage />,
+                        },
+                        {
+                            path: 'submit',
+                            element: <QnaSubmitPage />,
+                        },
+                    ],
                 },
             ],
         },

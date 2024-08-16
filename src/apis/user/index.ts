@@ -1,9 +1,10 @@
 import { productListType } from '@/types/Product/productList';
+import { axiosAuth } from '..';
 import axios from 'axios';
 
 export default async function getLikeList(): Promise<productListType> {
     try {
-        const response = await axios.get('/likes?orderby=latest');
+        const response = await axiosAuth.get('/likes?orderby=latest');
         if (response.data) return response.data;
         throw new Error(
             `Unexpected response : ${response.status} ${response.statusText}`,
@@ -31,7 +32,7 @@ export async function getInquiryList() {
 
 export async function getUserInfo() {
     try {
-        const response = await axios.get('/members');
+        const response = await axiosAuth.get('/members');
         if (response.data) {
             return response.data.data;
         }
