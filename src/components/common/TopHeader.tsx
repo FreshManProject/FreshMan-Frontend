@@ -1,8 +1,7 @@
 import React from 'react';
 import { HiOutlineShoppingBag } from 'react-icons/hi';
 import { IoArrowBackOutline } from 'react-icons/io5';
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 interface HeaderProps {
     children: React.ReactNode;
