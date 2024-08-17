@@ -40,7 +40,7 @@ export default function ProductItem({
                 </div>
                 <Link to={`/products/${productSeq}`}>
                     <p className={'line-clamp-2 text-body2 leading-tight'}>
-                        {'Stussy World Tour T-Shirt White 2024'}
+                        {name}
                     </p>
                 </Link>
                 <div className={'mt-3'}>

@@ -1,7 +1,10 @@
-export const dummyProductList = [
-    {
-        productSeq: 8,
-        name: '테스트 상품 8',
+import { productItemType } from '@/types/Product/productList';
+
+export const dummyProductList: productItemType[] = [];
+for (let i = 0; i < 32; i += 1) {
+    dummyProductList.push({
+        productSeq: 3 * i,
+        name: `테스트 상품 ${3 * i}`,
         price: 10000,
         brand: '뉴발란스',
         favorite: false,
@@ -10,24 +13,24 @@ export const dummyProductList = [
             saleRate: 22,
         },
         image: 'https://image.msscdn.net/images/goods_img/20230214/3082569/3082569_17058889205261_500.jpg',
-    },
-    {
-        productSeq: 7,
-        name: '테스트 상품 7',
+    });
+    dummyProductList.push({
+        productSeq: 3 * i + 1,
+        name: `테스트 상품 ${3 * i + 1}`,
         price: 7000,
         brand: '나이키',
         favorite: true,
         image: 'https://image.msscdn.net/images/goods_img/20230214/3082569/3082569_17058889205261_500.jpg',
-    },
-    {
-        productSeq: 9,
-        name: '테스트 상품 9',
+    });
+    dummyProductList.push({
+        productSeq: 3 * i + 2,
+        name: `테스트 상품 ${3 * i + 2}`,
         price: 500000,
         brand: '나이키',
         favorite: false,
         image: 'https://image.msscdn.net/images/goods_img/20230214/3082569/3082569_17058889205261_500.jpg',
-    },
-];
+    });
+}
 
 export const dummyLikeList = [
     {

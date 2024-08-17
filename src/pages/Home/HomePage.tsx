@@ -1,4 +1,5 @@
 import HomeContent from '@/components/Home/HomeContent';
+import SaleContent from '@/components/Home/SaleContent';
 import { TopHeader } from '@/components/common';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
@@ -29,7 +30,9 @@ export default function HomePage() {
                 <TabsContent value="home" className="mt-0">
                     <HomeContent />
                 </TabsContent>
-                <TabsContent value="sale" />
+                <TabsContent value="sale">
+                    <SaleContent />
+                </TabsContent>
                 <TabsContent value="ranking" />
             </Tabs>
         </>

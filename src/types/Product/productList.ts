@@ -20,8 +20,8 @@ export interface productItemType {
     image: string;
     favorite: boolean;
     sale?: {
-        salePrice: 35000;
-        saleRate: 22;
+        salePrice: number;
+        saleRate: number;
     };
 }
 export interface filterStateType {
