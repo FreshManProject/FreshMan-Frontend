@@ -31,7 +31,7 @@ export interface filterStateType {
     [key: string]: boolean;
 }
 
-export interface SortITemType {
+export interface filterITemType {
     id: number;
     name: string;
     value: string;

@@ -2,7 +2,6 @@ import { Input } from '@/components/ui/input';
 import { VscSettings } from 'react-icons/vsc';
 import { IoIosCloseCircle } from 'react-icons/io';
 import { FormEvent, useState } from 'react';
-import { SortITemType } from '@/types/Product/productList';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { IoSearchOutline } from 'react-icons/io5';
 import { SortBottomSheetContent, TopHeader } from '../common';
@@ -22,50 +21,6 @@ export default function SearchInput({ result }: IProps) {
 
     const navigate = useNavigate();
 
-    const [sortList, setSortList] = useState<SortITemType[]>([
-        {
-            id: 1,
-            name: '스킨케어',
-            value: 'skincare',
-            checked: true,
-        },
-        {
-            id: 2,
-            name: '바디케어',
-            value: 'bodycare',
-            checked: false,
-        },
-        {
-            id: 3,
-            name: '헤어케어',
-            value: 'haircare',
-            checked: false,
-        },
-        {
-            id: 4,
-            name: '발케어',
-            value: 'footcare',
-            checked: false,
-        },
-        {
-            id: 5,
-            name: '마스크팩',
-            value: 'maskpack',
-            checked: false,
-        },
-        {
-            id: 6,
-            name: '립',
-            value: 'lip',
-            checked: false,
-        },
-        {
-            id: 7,
-            name: '향수',
-            value: 'perfume',
-            checked: false,
-        },
-    ]);
     const [searchFilter, setsearchFilter] = useState({ category: false });
     const toggleFilter = (filterName: string, open: boolean) => {
         setsearchFilter({
@@ -74,19 +29,9 @@ export default function SearchInput({ result }: IProps) {
         });
     };
 
-    const onSortChange = (id: number, checked: boolean) => {
-        setSortList((prevSort) => {
-            return prevSort.map((item) => {
-                return {
-                    ...item,
-                    checked: item.id === id ? checked : false,
-                };
-            });
-        });
-    };
-
     const handleSubmitToSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        if (inputKeyword === '') return alert('검색어를 입력해주세요.');
 
         const filters = {
             lowPrice,
@@ -101,7 +46,7 @@ export default function SearchInput({ result }: IProps) {
                 queries += `&${key}=${value}`;
             }
         });
-        navigate(`/search/result${queries}`);
+        return navigate(`/search/result${queries}`);
     };
 
     const handleKeyDownSearch = (e: React.KeyboardEvent<HTMLButtonElement>) => {
@@ -196,8 +141,6 @@ export default function SearchInput({ result }: IProps) {
                             <DrawerPortal>
                                 <SortBottomSheetContent
                                     filterName="category"
-                                    onSortChange={onSortChange}
-                                    sortList={sortList}
                                     toggleFilter={toggleFilter}
                                 />
                             </DrawerPortal>

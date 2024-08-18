@@ -24,7 +24,7 @@ interface IFilterBottomSheetProps {
     toggleFilter: (filterName: filterType, open: boolean) => void;
 }
 
-export default function FilterBottomSheet({
+export default function PriceBottomSheet({
     isOpenFilter,
     filterName,
     toggleFilter,
@@ -34,6 +34,7 @@ export default function FilterBottomSheet({
     const { id } = useParams();
     const [range, setRange] = useState([1000, 10000000]);
     const [price, setPrice] = useState([1000, 10000000]);
+    const [selectedPrice, setSeletedPrice] = useState(false);
 
     const { productList } = useGetProductList(
         { categorySeq: Number(id), lowPrice: price[0], highPrice: price[1] },
@@ -53,6 +54,7 @@ export default function FilterBottomSheet({
         navigate(
             `?${params.toString()}${sortValue ? `&sort=${sortValue}` : ''}`,
         );
+        setSeletedPrice(true);
     };
     const handleChangeEnd = (value: number[]) => {
         setPrice(value);
@@ -60,11 +62,16 @@ export default function FilterBottomSheet({
 
     return (
         <>
-            <FilterBottomSheetTrigger>
-                <GrayBorderToggleButton close={false}>
-                    가격
-                </GrayBorderToggleButton>
-            </FilterBottomSheetTrigger>
+            <PriceBottomSheetTrigger asChild>
+                <span>
+                    <GrayBorderToggleButton
+                        close={false}
+                        active={selectedPrice}
+                    >
+                        가격
+                    </GrayBorderToggleButton>
+                </span>
+            </PriceBottomSheetTrigger>
             <DrawerPortal>
                 <DrawerContent className="bg-white px-4">
                     <div className="py-8">
@@ -97,5 +104,5 @@ export default function FilterBottomSheet({
         </>
     );
 }
-export const FilterBottomSheetRoot = Drawer;
-export const FilterBottomSheetTrigger = DrawerTrigger;
+export const PriceBottomSheetRoot = Drawer;
+export const PriceBottomSheetTrigger = DrawerTrigger;

@@ -1,52 +1,112 @@
-import { DrawerContent, DrawerPortal } from '@/components/ui/drawer';
+import {
+    Drawer,
+    DrawerContent,
+    DrawerPortal,
+    DrawerTrigger,
+} from '@/components/ui/drawer';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { SortITemType, filterType } from '@/types/Product/productList';
-import { FilterBottomSheetTrigger } from '../FixedFilter/FilterBottomSheet';
+import { filterITemType, filterType } from '@/types/Product/productList';
+import { filterWithCategryData, filterWithSortData } from '@/data';
+import { useFilterStore } from '@/store/filter';
 import { GrayBorderToggleButton } from './Button';
 
 interface ISortBottomSheetContentProps {
     filterName: filterType;
     toggleFilter: (filterName: filterType, open: boolean) => void;
-    sortList: SortITemType[];
-    onSortChange: (id: number, checked: boolean) => void;
 }
 export default function SortBottomSheetContent({
     filterName,
     toggleFilter,
-    sortList,
-    onSortChange,
 }: ISortBottomSheetContentProps) {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const [currentSortItem, setCurrentSortItem] = useState(1);
+    const [filterList, setFilterList] = useState<{
+        sort: filterITemType[];
+        category: filterITemType[];
+    }>({
+        sort: filterWithSortData,
+        category: filterWithCategryData,
+    });
+    const currentFilter = filterList[filterName as keyof typeof filterList];
+    const [currentFilterItem, setCurrentFilterItem] = useState(1);
 
-    const handleCheckedChange = (id: number, checked: boolean) => {
+    const { setCategory, setSort, categroyState, sortState } = useFilterStore();
+    const [selectedFilter, setSelectedFilter] = useState(false);
+    const handleFilterChange = (
+        id: number,
+        checked: boolean,
+        filterName: filterType,
+    ) => {
+        setFilterList((prevSort) => {
+            return {
+                ...prevSort,
+                [filterName]: currentFilter.map((item) =>
+                    item.id === id
+                        ? { ...item, checked }
+                        : { ...item, checked: false },
+                ),
+            };
+        });
+    };
+
+    const handleCheckedChange = (
+        id: number,
+        checked: boolean,
+        filterName: filterType,
+    ) => {
         toggleFilter(filterName, false);
+        const filters = [sortState, categroyState];
+        const changedFilter = filters.find(
+            (filter) => filter.name === filterName,
+        );
 
-        onSortChange(id, checked);
+        console.log(!changedFilter!.checked, '선택');
+        setSelectedFilter(!changedFilter!.checked);
+        handleFilterChange(id, checked, filterName);
+        // 상태저장
+        // TODO: 리팩 필요
+        if (filterName === 'category')
+            setCategory({ checked, name: 'category', data: { id } });
+        if (filterName === 'sort')
+            setSort({ checked, name: 'sort', data: { id } });
 
         const params = new URLSearchParams(location.search);
-        params.set(filterName, sortList[id - 1].value);
-        setCurrentSortItem(id);
+
+        params.set(filterName, currentFilter[id - 1].value);
+        setCurrentFilterItem(id);
         navigate(`${location.pathname}?${params.toString()}`);
     };
 
+    useEffect(() => {
+        // 상태 리셋
+        // return () => {
+        //     setCategory({ checked: false, data: { id: -1 } });
+        //     setSort({ checked: false, data: { id: -1 } });
+        // };
+    }, []);
+    console.log(selectedFilter);
+
     return (
         <>
-            <FilterBottomSheetTrigger>
-                <GrayBorderToggleButton close={false}>
-                    {sortList[currentSortItem - 1].name}
-                </GrayBorderToggleButton>
-            </FilterBottomSheetTrigger>
+            <DrawerTrigger asChild>
+                <span>
+                    <GrayBorderToggleButton
+                        close={false}
+                        active={selectedFilter}
+                    >
+                        {currentFilter[currentFilterItem - 1].name}
+                    </GrayBorderToggleButton>
+                </span>
+            </DrawerTrigger>
             <DrawerPortal>
                 <DrawerContent className="bg-white px-4">
                     <div className="py-8">
                         <ul>
-                            {sortList.map((item) => (
+                            {currentFilter.map((item) => (
                                 <li
                                     className="flex justify-between border-b border-gray200 py-5 first:pt-0"
                                     key={item.id}
@@ -66,6 +126,7 @@ export default function SortBottomSheetContent({
                                             handleCheckedChange(
                                                 item.id,
                                                 checked as boolean,
+                                                filterName,
                                             )
                                         }
                                     />
@@ -78,3 +139,5 @@ export default function SortBottomSheetContent({
         </>
     );
 }
+
+export const SortBottomSheetRoot = Drawer;
