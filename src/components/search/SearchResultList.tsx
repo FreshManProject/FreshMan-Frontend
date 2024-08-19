@@ -1,8 +1,6 @@
 import { useGetSearch } from '@/hooks/query/search';
 import { useSearchParams } from 'react-router-dom';
 import { ProductList } from '../Product';
-import { FilterContainer } from '../FixedFilter';
-import SearchInput from './SearchInput';
 
 export default function SearchResultList() {
     const [searchParams] = useSearchParams();
@@ -20,11 +18,5 @@ export default function SearchResultList() {
 
     if (!searchResult) return <div>노 리절트</div>;
 
-    return (
-        <>
-            <SearchInput result />
-            <FilterContainer />
-            <ProductList listData={searchResult} size="m" />
-        </>
-    );
+    return <ProductList listData={searchResult} size="m" />;
 }

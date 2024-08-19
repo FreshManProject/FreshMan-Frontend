@@ -12,11 +12,9 @@ import {
 import { formatNumber } from '@/util/formatData';
 import { filterType } from '@/types/Product/productList';
 import { useGetProductList } from '@/hooks/query/product';
-import {
-    GrayBorderButton,
-    GrayBorderToggleButton,
-    PrimaryBkButton,
-} from '../common/Button';
+import { useFilterStore } from '@/store/filter';
+import { GrayBorderButton, PrimaryBkButton } from '../common/Button';
+import FilterBtn from './FilterBtn';
 
 interface IFilterBottomSheetProps {
     filterName: filterType;
@@ -34,7 +32,8 @@ export default function PriceBottomSheet({
     const { id } = useParams();
     const [range, setRange] = useState([1000, 10000000]);
     const [price, setPrice] = useState([1000, 10000000]);
-    const [selectedPrice, setSeletedPrice] = useState(false);
+
+    const { filters, setFilterState } = useFilterStore();
 
     const { productList } = useGetProductList(
         { categorySeq: Number(id), lowPrice: price[0], highPrice: price[1] },
@@ -51,10 +50,20 @@ export default function PriceBottomSheet({
         params.set('lowPrice', String(price[0]));
         params.set('highPrice', String(price[1]));
 
+        const selectedFilter = filters[filterName];
+
+        // 상태저장
+        setFilterState(selectedFilter.name as filterType, {
+            checked: true,
+            name: filterName,
+            data: {
+                value: `${formatNumber(range[0])}원~${formatNumber(range[1])}원`,
+            },
+        });
+
         navigate(
             `?${params.toString()}${sortValue ? `&sort=${sortValue}` : ''}`,
         );
-        setSeletedPrice(true);
     };
     const handleChangeEnd = (value: number[]) => {
         setPrice(value);
@@ -62,16 +71,13 @@ export default function PriceBottomSheet({
 
     return (
         <>
-            <PriceBottomSheetTrigger asChild>
-                <span>
-                    <GrayBorderToggleButton
-                        close={false}
-                        active={selectedPrice}
-                    >
-                        가격
-                    </GrayBorderToggleButton>
-                </span>
-            </PriceBottomSheetTrigger>
+            <DrawerTrigger>
+                <FilterBtn
+                    close={false}
+                    active={filters.price.checked}
+                    filterName={filters.price.data.value}
+                />
+            </DrawerTrigger>
             <DrawerPortal>
                 <DrawerContent className="bg-white px-4">
                     <div className="py-8">
@@ -105,4 +111,3 @@ export default function PriceBottomSheet({
     );
 }
 export const PriceBottomSheetRoot = Drawer;
-export const PriceBottomSheetTrigger = DrawerTrigger;

@@ -11,7 +11,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { filterITemType, filterType } from '@/types/Product/productList';
 import { filterWithCategryData, filterWithSortData } from '@/data';
 import { useFilterStore } from '@/store/filter';
-import { GrayBorderToggleButton } from './Button';
+import { FilterBtn } from '../FixedFilter';
 
 interface ISortBottomSheetContentProps {
     filterName: filterType;
@@ -34,8 +34,7 @@ export default function SortBottomSheetContent({
     const currentFilter = filterList[filterName as keyof typeof filterList];
     const [currentFilterItem, setCurrentFilterItem] = useState(1);
 
-    const { setCategory, setSort, categroyState, sortState } = useFilterStore();
-    const [selectedFilter, setSelectedFilter] = useState(false);
+    const { setFilterState, filters } = useFilterStore();
     const handleFilterChange = (
         id: number,
         checked: boolean,
@@ -59,20 +58,16 @@ export default function SortBottomSheetContent({
         filterName: filterType,
     ) => {
         toggleFilter(filterName, false);
-        const filters = [sortState, categroyState];
-        const changedFilter = filters.find(
-            (filter) => filter.name === filterName,
-        );
+        const selectedFilter = filters[filterName];
 
-        console.log(!changedFilter!.checked, '선택');
-        setSelectedFilter(!changedFilter!.checked);
         handleFilterChange(id, checked, filterName);
+
         // 상태저장
-        // TODO: 리팩 필요
-        if (filterName === 'category')
-            setCategory({ checked, name: 'category', data: { id } });
-        if (filterName === 'sort')
-            setSort({ checked, name: 'sort', data: { id } });
+        setFilterState(selectedFilter.name as filterType, {
+            checked,
+            name: filterName,
+            data: { id },
+        });
 
         const params = new URLSearchParams(location.search);
 
@@ -81,6 +76,7 @@ export default function SortBottomSheetContent({
         navigate(`${location.pathname}?${params.toString()}`);
     };
 
+    console.log(filters);
     useEffect(() => {
         // 상태 리셋
         // return () => {
@@ -88,19 +84,14 @@ export default function SortBottomSheetContent({
         //     setSort({ checked: false, data: { id: -1 } });
         // };
     }, []);
-    console.log(selectedFilter);
-
     return (
         <>
-            <DrawerTrigger asChild>
-                <span>
-                    <GrayBorderToggleButton
-                        close={false}
-                        active={selectedFilter}
-                    >
-                        {currentFilter[currentFilterItem - 1].name}
-                    </GrayBorderToggleButton>
-                </span>
+            <DrawerTrigger>
+                <FilterBtn
+                    close={false}
+                    active={filters[filterName].checked}
+                    filterName={currentFilter[currentFilterItem - 1].name}
+                />
             </DrawerTrigger>
             <DrawerPortal>
                 <DrawerContent className="bg-white px-4">
