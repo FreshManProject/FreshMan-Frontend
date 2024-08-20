@@ -1,6 +1,6 @@
 import HomeContent from '@/components/Home/HomeContent';
-import RankingContent from '@/components/Home/RankingContent';
-import SaleContent from '@/components/Home/SaleContent';
+import RankingContent from '@/pages/Home/RankingContent';
+import SaleContent from '@/pages/Home/SaleContent';
 import { TopHeader } from '@/components/common';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
