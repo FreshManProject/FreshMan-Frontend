@@ -1,4 +1,4 @@
-import { cartListType } from '../../types/Product/productList';
+import { cartListType } from '@/types/Product/productList';
 import { axiosAuth } from '..';
 
 export async function getCartList(): Promise<cartListType> {

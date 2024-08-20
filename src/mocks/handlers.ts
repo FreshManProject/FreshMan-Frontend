@@ -1,5 +1,6 @@
 import { rest, RestRequest, ResponseComposition, RestContext } from 'msw';
-import { dummyProductList, dummyCartList, dummyInquiryList } from './data';
+
+import { dummyInquiryList, dummyProductList, dummyCartList } from './data';
 
 const handlers = [
     rest.get(
@@ -181,6 +182,7 @@ const handlers = [
                         item.brand.includes(keyword),
                 );
             }
+
             return res(
                 ctx.json({
                     status: 200,
@@ -267,6 +269,75 @@ const handlers = [
     ),
     rest.post(
         '/carts',
+        (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+            return res(
+                ctx.json({
+                    status: 200,
+                    quantity: 'success',
+                }),
+            );
+        },
+    ),
+    rest.get(
+        '/carts',
+        (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+            return res(
+                ctx.json({
+                    status: 200,
+                    message: 'success',
+                    list: dummyCartList,
+                    count: dummyCartList.length,
+                }),
+            );
+        },
+    ),
+    rest.patch('/carts', (req, res, ctx) => {
+        const { checked } = req.body as { checked: boolean };
+
+        // msw 데이터 수정
+        const updatedList = dummyCartList.map((item) => ({ ...item, checked }));
+        Object.assign(dummyCartList, updatedList);
+
+        return res(
+            ctx.json({
+                status: 200,
+                message: 'success',
+            }),
+        );
+    }),
+    rest.patch('/carts/:id', (req, res, ctx) => {
+        const { id } = req.params;
+        const { quantity, checked } = req.body as {
+            quantity: number;
+            checked: boolean;
+        };
+
+        const updatedList = dummyCartList.map((item) => {
+            if (item.productSeq === Number(id)) {
+                return { ...item, quantity, checked };
+            }
+            return item;
+        });
+
+        Object.assign(dummyCartList, updatedList);
+
+        return res(
+            ctx.json({
+                status: 200,
+                message: 'success',
+            }),
+        );
+    }),
+    rest.delete('/carts/:id', (req, res, ctx) => {
+        return res(
+            ctx.json({
+                status: 200,
+                message: 'success',
+            }),
+        );
+    }),
+    rest.get(
+        '/api/products?keyword=test',
         (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
             return res(
                 ctx.json({
