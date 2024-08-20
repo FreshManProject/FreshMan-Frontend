@@ -14,10 +14,17 @@ export function useDeleteRecentSearch() {
     return mutation;
 }
 
-export function useGetSearch(params: productListParamsType) {
+export function useGetSearch({
+    params,
+    status,
+}: {
+    params: productListParamsType;
+    status: boolean;
+}) {
     const { data: searchResult, isLoading: isLoadingSearchResult } = useQuery({
         queryKey: ['searchResult'],
         queryFn: () => getSearch(params),
+        enabled: status,
     });
     return { searchResult, isLoadingSearchResult };
 }

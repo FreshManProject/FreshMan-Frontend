@@ -4,6 +4,7 @@ import { IoIosCloseCircle } from 'react-icons/io';
 import { FormEvent, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { IoSearchOutline } from 'react-icons/io5';
+import { useFilterStore } from '@/store/filter';
 import { SortBottomSheetContent, TopHeader } from '../common';
 import { Drawer, DrawerPortal, DrawerTrigger } from '../ui/drawer';
 
@@ -21,7 +22,8 @@ export default function SearchInput({ result }: IProps) {
 
     const navigate = useNavigate();
 
-    const [searchFilter, setsearchFilter] = useState({ category: false });
+    const [searchFilter, setsearchFilter] = useState({ categorySeq: false });
+    const { setEnableFilter } = useFilterStore();
     const toggleFilter = (filterName: string, open: boolean) => {
         setsearchFilter({
             ...searchFilter,
@@ -46,7 +48,10 @@ export default function SearchInput({ result }: IProps) {
                 queries += `&${key}=${value}`;
             }
         });
-        return navigate(`/search/result${queries}`);
+        navigate(`/search/result${queries}`);
+        setEnableFilter(true);
+
+        return null;
     };
 
     const handleKeyDownSearch = (e: React.KeyboardEvent<HTMLButtonElement>) => {
@@ -106,11 +111,11 @@ export default function SearchInput({ result }: IProps) {
                             placeholder="상품을 검색해주세요."
                         />
                         <Drawer
-                            open={searchFilter.category}
+                            open={searchFilter.categorySeq}
                             onOpenChange={(open: boolean) =>
                                 setsearchFilter({
                                     ...searchFilter,
-                                    category: open,
+                                    categorySeq: open,
                                 })
                             }
                         >
@@ -140,7 +145,7 @@ export default function SearchInput({ result }: IProps) {
                             </div>
                             <DrawerPortal>
                                 <SortBottomSheetContent
-                                    filterName="category"
+                                    filterName="categorySeq"
                                     toggleFilter={toggleFilter}
                                 />
                             </DrawerPortal>

@@ -1,21 +1,29 @@
 import { useState } from 'react';
 import { filterStateType, filterType } from '@/types/Product/productList';
-import { SortBottomSheetContent } from '../common';
+import { useFilterStore } from '@/store/filter';
+import { HorizontalScroll, SortBottomSheetContent } from '../common';
 import PriceBottomSheet, { PriceBottomSheetRoot } from './PriceBottomSheet';
 import { SortBottomSheetRoot } from '../common/SortBottomSheetContent';
 
-export default function FilterContainer() {
+interface IProps {
+    showCategory?: boolean;
+}
+
+export default function FilterContainer({ showCategory }: IProps) {
     const [filters, setFilters] = useState<filterStateType>({
         price: false,
         sort: false,
-        category: false,
+        categorySeq: false,
     });
 
+    const { setEnableFilter } = useFilterStore();
     const toggleFilter = (filterName: filterType, open: boolean) => {
         setFilters((prevFilter) => ({
             ...prevFilter,
             [filterName]: open,
         }));
+        // 데이터 패칭 비활성화
+        if (open) setEnableFilter(false);
     };
 
     const filterList = [
@@ -55,25 +63,29 @@ export default function FilterContainer() {
             name: '카테고리',
             component: (
                 <SortBottomSheetRoot
-                    open={filters.category}
-                    onOpenChange={(open) => toggleFilter('category', open)}
+                    open={filters.categorySeq}
+                    onOpenChange={(open) => toggleFilter('categorySeq', open)}
                 >
                     <SortBottomSheetContent
                         toggleFilter={toggleFilter}
-                        filterName="category"
+                        filterName="categorySeq"
                     />
                 </SortBottomSheetRoot>
             ),
         },
     ];
 
+    const newFilterdList = showCategory
+        ? filterList.filter((item) => item.name !== '카테고리')
+        : filterList;
+
     return (
         <div className={`sticky top-0 z-[21] bg-white p-4`}>
-            <ul className={'flex gap-2.5'}>
-                {filterList.map((item) => (
+            <HorizontalScroll parentStyle="gap-2.5">
+                {newFilterdList.map((item) => (
                     <li key={item.id}>{item.component}</li>
                 ))}
-            </ul>
+            </HorizontalScroll>
         </div>
     );
 }

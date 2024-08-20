@@ -14,11 +14,13 @@ type CategoryStateType = IFilterItemStateType<{ id: number }>;
 interface IfilterItem {
     sort: SortStateType;
     price: PriceStateType;
-    category: CategoryStateType;
+    categorySeq: CategoryStateType;
 }
 
 interface IFilterState {
     filters: IfilterItem;
+    enableFilter: boolean;
+    setEnableFilter: (value: boolean) => void;
     setFilterState: (
         filterName: filterType,
         filter: SortStateType | PriceStateType | CategoryStateType,
@@ -39,12 +41,15 @@ export const useFilterStore = create<IFilterState>()(
                     name: 'price',
                     data: { value: '가격' },
                 },
-                category: {
+                categorySeq: {
                     checked: false,
-                    name: 'category',
+                    name: 'categorySeq',
                     data: { id: -1 },
                 },
             },
+            enableFilter: false,
+            setEnableFilter: (value: boolean) =>
+                set((state) => ({ ...state, enableFilter: value })),
             setFilterState: (
                 filterName: filterType,
                 filter: SortStateType | PriceStateType | CategoryStateType,

@@ -1,6 +1,11 @@
 import { Slider } from '@/components/ui/slider';
 import { useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import {
+    useLocation,
+    useNavigate,
+    useParams,
+    useSearchParams,
+} from 'react-router-dom';
 import {
     Drawer,
     DrawerContent,
@@ -29,6 +34,10 @@ export default function PriceBottomSheet({
 }: IFilterBottomSheetProps) {
     const navigate = useNavigate();
     const location = useLocation();
+    const [searchParams] = useSearchParams();
+    const keyword = searchParams.get('keyword');
+    console.log(location, keyword);
+
     const { id } = useParams();
     const [range, setRange] = useState([1000, 10000000]);
     const [price, setPrice] = useState([1000, 10000000]);

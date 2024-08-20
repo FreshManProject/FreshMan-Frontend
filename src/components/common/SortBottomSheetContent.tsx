@@ -26,15 +26,15 @@ export default function SortBottomSheetContent({
 
     const [filterList, setFilterList] = useState<{
         sort: filterITemType[];
-        category: filterITemType[];
+        categorySeq: filterITemType[];
     }>({
         sort: filterWithSortData,
-        category: filterWithCategryData,
+        categorySeq: filterWithCategryData,
     });
+    const { setFilterState, filters, setEnableFilter } = useFilterStore();
     const currentFilter = filterList[filterName as keyof typeof filterList];
     const [currentFilterItem, setCurrentFilterItem] = useState(1);
 
-    const { setFilterState, filters } = useFilterStore();
     const handleFilterChange = (
         id: number,
         checked: boolean,
@@ -61,22 +61,25 @@ export default function SortBottomSheetContent({
         const selectedFilter = filters[filterName];
 
         handleFilterChange(id, checked, filterName);
-
+        console.log(filterName);
         // 상태저장
         setFilterState(selectedFilter.name as filterType, {
             checked,
             name: filterName,
             data: { id },
         });
+        setCurrentFilterItem(id);
 
         const params = new URLSearchParams(location.search);
-
-        params.set(filterName, currentFilter[id - 1].value);
-        setCurrentFilterItem(id);
+        if (filterName === 'categorySeq')
+            params.set(filterName, currentFilter[id - 1].id.toString());
+        if (filterName === 'sort')
+            params.set(filterName, currentFilter[id - 1].value);
         navigate(`${location.pathname}?${params.toString()}`);
+        // 필터 변경 완료 후 데이터 패칭
+        setEnableFilter(true);
     };
 
-    console.log(filters);
     useEffect(() => {
         // 상태 리셋
         // return () => {

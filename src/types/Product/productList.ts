@@ -1,4 +1,4 @@
-export type filterType = 'price' | 'sort' | 'category';
+export type filterType = 'price' | 'sort' | 'categorySeq';
 
 export interface productListParamsType {
     categorySeq?: number;
