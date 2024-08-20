@@ -20,6 +20,7 @@ interface IfilterItem {
 interface IFilterState {
     filters: IfilterItem;
     enableFilter: boolean;
+    initFilter: () => void;
     setEnableFilter: (value: boolean) => void;
     setFilterState: (
         filterName: filterType,
@@ -48,6 +49,29 @@ export const useFilterStore = create<IFilterState>()(
                 },
             },
             enableFilter: false,
+            initFilter: () => {
+                set(() => ({
+                    filters: {
+                        sort: {
+                            checked: false,
+                            name: 'sort',
+                            data: { id: -1 },
+                        },
+                        price: {
+                            checked: false,
+                            name: 'price',
+                            data: { value: '가격' },
+                        },
+                        categorySeq: {
+                            checked: false,
+                            name: 'categorySeq',
+                            data: { id: -1 },
+                        },
+                    },
+                    enableFilter: false,
+                }));
+                sessionStorage.removeItem('filterStorage');
+            },
             setEnableFilter: (value: boolean) =>
                 set((state) => ({ ...state, enableFilter: value })),
             setFilterState: (

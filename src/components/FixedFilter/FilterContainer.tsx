@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { filterStateType, filterType } from '@/types/Product/productList';
 import { useFilterStore } from '@/store/filter';
 import { HorizontalScroll, SortBottomSheetContent } from '../common';
@@ -16,7 +16,7 @@ export default function FilterContainer({ showCategory }: IProps) {
         categorySeq: false,
     });
 
-    const { setEnableFilter } = useFilterStore();
+    const { setEnableFilter, initFilter } = useFilterStore();
     const toggleFilter = (filterName: filterType, open: boolean) => {
         setFilters((prevFilter) => ({
             ...prevFilter,
@@ -78,6 +78,13 @@ export default function FilterContainer({ showCategory }: IProps) {
     const newFilterdList = showCategory
         ? filterList.filter((item) => item.name !== '카테고리')
         : filterList;
+
+    useEffect(() => {
+        return () => {
+            // unmount시 필터 삭제
+            initFilter();
+        };
+    }, []);
 
     return (
         <div className={`sticky top-0 z-[21] bg-white p-4`}>

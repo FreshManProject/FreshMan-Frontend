@@ -71,7 +71,7 @@ export default function PriceBottomSheet({
         });
 
         navigate(
-            `?${params.toString()}${sortValue ? `&sort=${sortValue}` : ''}`,
+            `?${params.toString()}${sortValue ? `&sort=${sortValue}` : ''}${keyword ? `&keyword=${keyword}` : ''}`,
         );
     };
     const handleChangeEnd = (value: number[]) => {
@@ -119,4 +119,5 @@ export default function PriceBottomSheet({
         </>
     );
 }
+
 export const PriceBottomSheetRoot = Drawer;
