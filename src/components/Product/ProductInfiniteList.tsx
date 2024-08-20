@@ -1,23 +1,29 @@
-import React from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 import { InfiniteData, UseInfiniteQueryResult } from '@tanstack/react-query';
 import { ListType, productItemType } from '@/types/Product/productList';
-import ProductItem from './ProductItem';
+// import ProductItem from './ProductItem';
 
-interface IProductInfiniteList<T> {
-    useGetList: () => UseInfiniteQueryResult<InfiniteData<T, unknown>, Error>;
-    size: 's' | 'm';
+interface IProductInfiniteList<T, LT> {
+    result: UseInfiniteQueryResult<InfiniteData<LT, unknown>, Error>;
+    children: (item: T) => React.ReactNode;
 }
 
 export default function ProductInfiniteList<
     T extends productItemType,
     LT extends ListType<T>,
->({ useGetList, size }: IProductInfiniteList<LT>) {
-    const { data, fetchNextPage, hasNextPage, isFetchingNextPage, status } =
-        useGetList();
+>({ result, children }: IProductInfiniteList<T, LT>) {
+    const {
+        data,
+        isLoading,
+        isError,
+        hasNextPage,
+        fetchNextPage,
+        isFetchingNextPage,
+    } = result;
 
-    const observer = React.useRef<IntersectionObserver | null>(null);
-    const lastProductRef = React.useCallback(
-        (node: HTMLLIElement | null) => {
+    const observer = useRef<IntersectionObserver | null>(null);
+    const ref = useCallback(
+        (node: HTMLDivElement | null) => {
             if (isFetchingNextPage) return;
             if (observer.current) observer.current.disconnect();
             observer.current = new IntersectionObserver((entries) => {
@@ -30,25 +36,18 @@ export default function ProductInfiniteList<
         [isFetchingNextPage, fetchNextPage, hasNextPage],
     );
 
-    if (status === 'error') return <div>Error...</div>;
+    const list = useMemo(() => {
+        return data?.pages.flatMap((listData) => listData.list) || [];
+    }, [data]);
 
-    const list = data?.pages.flatMap((listData) => listData.list) || [];
+    if (isLoading) return <div>Loading...</div>;
+
+    if (isError) return <div>Error...</div>;
 
     return (
         <ul className={'flex flex-wrap gap-y-10'}>
-            {list.map((item, index) =>
-                index === list.length - 1 && hasNextPage ? (
-                    <ProductItem
-                        ref={lastProductRef}
-                        key={item.productSeq}
-                        {...item}
-                        size={size}
-                    />
-                ) : (
-                    <ProductItem key={item.productSeq} {...item} size={size} />
-                ),
-            )}
-            {isFetchingNextPage && <p>Loading more...</p>}
+            {list.map((item) => children(item))}
+            {isFetchingNextPage ? <p>Loading more...</p> : <div ref={ref} />}
         </ul>
     );
 }

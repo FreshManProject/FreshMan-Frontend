@@ -59,10 +59,17 @@ export async function getProductSaleList({
         const response = await axios.get<productListType>('/products/onsale', {
             params: {
                 page: pageParam,
-                limit: rowsPerPage,
+                size: rowsPerPage,
             },
         });
-        return response.data;
+
+        const startIndex = (Number(pageParam) - 1) * rowsPerPage;
+        const list = response.data.list.slice(
+            startIndex,
+            startIndex + rowsPerPage,
+        );
+
+        return { list, count: list.length };
     } catch (error) {
         throw new Error('Failed to fetch product sale list');
     }
