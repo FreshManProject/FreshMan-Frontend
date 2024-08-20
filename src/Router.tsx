@@ -20,6 +20,7 @@ import { SearchPage, SearchResultPage } from './pages/Search';
 import { HomePage } from './pages/Home';
 import GlobalError from './GlobalError';
 import { QnaSubmitPage } from './pages/qna';
+import { CartPage } from './pages/Cart';
 
 export default function Router() {
     return createBrowserRouter([
@@ -60,6 +61,24 @@ export default function Router() {
                             path: 'register',
                             element: <RegisterForm />,
                         },
+                    ],
+                },
+                {
+                    path: '/review',
+                    children: [
+                        {
+                            path: 'submit',
+                            element: <SubmitReviewPage />,
+                        },
+                    ],
+                },
+                {
+                    path: '/auth',
+                    children: [
+                        {
+                            path: 'register',
+                            element: <RegisterForm />,
+                        },
                         {
                             path: 'success',
                             element: <RegisterSuccessPage />,
@@ -73,6 +92,15 @@ export default function Router() {
                         {
                             path: ':id',
                             element: <ProductPage />,
+                        },
+                    ],
+                },
+                {
+                    path: '/cart',
+                    children: [
+                        {
+                            path: '',
+                            element: <CartPage />,
                         },
                     ],
                 },

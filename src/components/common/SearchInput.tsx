@@ -42,7 +42,7 @@ export default function SearchInput({
                                 size={24}
                             />
                             <DrawerContent className="flex items-center justify-center border-none shadow-none">
-                                <div className="w-full max-w-[375px] rounded-lg bg-white p-4 shadow-lg">
+                                <div className="max-w-defult w-full rounded-lg bg-white p-4 shadow-lg">
                                     {options.map(
                                         (option: string, index: number) => (
                                             <div

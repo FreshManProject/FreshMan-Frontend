@@ -1,7 +1,7 @@
-export const dummyProudctList = [
+export const dummyProductList = [
     {
         productSeq: 8,
-        name: '테스트 상품 7',
+        name: '테스트 상품 8',
         price: 10000,
         brand: '뉴발란스',
         favorite: false,
@@ -13,7 +13,7 @@ export const dummyProudctList = [
     },
     {
         productSeq: 7,
-        name: '테스트 상품 6',
+        name: '테스트 상품 7',
         price: 7000,
         brand: '나이키',
         favorite: true,
@@ -21,7 +21,7 @@ export const dummyProudctList = [
     },
     {
         productSeq: 9,
-        name: '테스트 상품 6',
+        name: '테스트 상품 9',
         price: 500000,
         brand: '나이키',
         favorite: false,
@@ -90,5 +90,64 @@ export const dummyInquiryList = [
         description: '안녕하세요 피부관련해서 질문드릴 점이 있습니다.',
         product: '[THREE TO EIGHTY] Essential Color Socks (15colors)',
         answer: '안녕하세요 고객님',
+    },
+];
+
+export const dummySearchList = [
+    {
+        productSeq: 8,
+        name: 'Stussy',
+        price: 99000,
+        brand: 'New Balance',
+        image: 'https://sitem.ssgcdn.com/68/30/98/spclprc/1000282983068_sp.jpg',
+        sale: {
+            salePrice: 35000,
+            saleRate: 22,
+        },
+        favorite: false,
+    },
+    {
+        productSeq: 8,
+        name: 'Stussy',
+        price: 99000,
+        brand: 'New Balance',
+        discountRate: 0,
+        image: 'https://sitem.ssgcdn.com/68/30/98/spclprc/1000282983068_sp.jpg',
+        sale: {
+            salePrice: 35000,
+            saleRate: 22,
+        },
+        favorite: false,
+    },
+    {
+        productSeq: 8,
+        name: 'Stussy',
+        price: 99000,
+        brand: 'New Balance',
+        discountRate: 0,
+        image: 'https://sitem.ssgcdn.com/68/30/98/spclprc/1000282983068_sp.jpg',
+        sale: {
+            salePrice: 35000,
+            saleRate: 22,
+        },
+        favorite: false,
+    },
+];
+
+export const dummyCartList = [
+    {
+        checked: true,
+        quantity: 1,
+        ...dummyProductList[0],
+    },
+    {
+        checked: true,
+        quantity: 1,
+        ...dummyProductList[1],
+    },
+    {
+        checked: true,
+        quantity: 1,
+        ...dummyProductList[2],
     },
 ];

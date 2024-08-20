@@ -19,15 +19,17 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 root.render(
-    <CookiesProvider>
-        <QueryProvider>
-            <div
-                className={
-                    'm-auto box-border max-w-default items-center justify-center'
-                }
-            >
-                <RouterProvider router={Router()} />
-            </div>
-        </QueryProvider>
-    </CookiesProvider>,
+    <React.StrictMode>
+        <CookiesProvider>
+            <QueryProvider>
+                <div
+                    className={
+                        'm-auto box-border max-w-default items-center justify-center'
+                    }
+                >
+                    <RouterProvider router={Router()} />
+                </div>
+            </QueryProvider>
+        </CookiesProvider>
+    </React.StrictMode>,
 );
