@@ -1,9 +1,9 @@
 import {
     deleteRecentSearch,
-    getQuerySearch,
     getRecentSearchList,
+    getSearch,
 } from '@/apis/search';
-import { productItemType } from '@/types/Product/productList';
+import { productListParamsType } from '@/types/Product/productList';
 import { useMutation, useQuery } from '@tanstack/react-query';
 
 export function useDeleteRecentSearch() {
@@ -14,22 +14,19 @@ export function useDeleteRecentSearch() {
     return mutation;
 }
 
-export function useGetQuerySearch(
-    enableSearch: boolean,
-    keyword: string,
-    categorySeq?: number,
-    lowPrice?: number,
-    highPrice?: number,
-    sort?: string,
-) {
-    const { data: querySearchResult, isLoading: isLoadingQuerySearchResult } =
-        useQuery<productItemType[]>({
-            queryKey: ['querySearchResult'],
-            queryFn: () =>
-                getQuerySearch(keyword, categorySeq, lowPrice, highPrice, sort),
-            enabled: enableSearch,
-        });
-    return { querySearchResult, isLoadingQuerySearchResult };
+export function useGetSearch({
+    params,
+    status,
+}: {
+    params: productListParamsType;
+    status: boolean;
+}) {
+    const { data: searchResult, isLoading: isLoadingSearchResult } = useQuery({
+        queryKey: ['searchResult'],
+        queryFn: () => getSearch(params),
+        enabled: status,
+    });
+    return { searchResult, isLoadingSearchResult };
 }
 
 export function useGetRecentSearchList() {

@@ -1,4 +1,4 @@
-export type filterType = 'price' | 'sort';
+export type filterType = 'price' | 'sort' | 'categorySeq';
 
 export interface ListType<T extends productItemType> {
     list: T[];
@@ -6,10 +6,11 @@ export interface ListType<T extends productItemType> {
 }
 
 export interface productListParamsType {
-    categorySeq: number;
+    categorySeq?: number;
     lowPrice?: number;
     highPrice?: number;
     sort?: string;
+    keyword?: string;
 }
 
 export type productListType = ListType<productItemType>;
@@ -26,6 +27,13 @@ export interface productItemType {
         salePrice: number;
         saleRate: number;
     };
+}
+
+export interface filterITemType {
+    id: number;
+    name: string;
+    value: string;
+    checked: boolean;
 }
 
 export interface cartItemType extends productItemType {

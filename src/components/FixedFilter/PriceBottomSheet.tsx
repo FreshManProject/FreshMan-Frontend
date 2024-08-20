@@ -1,6 +1,11 @@
 import { Slider } from '@/components/ui/slider';
 import { useState } from 'react';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import {
+    useLocation,
+    useNavigate,
+    useParams,
+    useSearchParams,
+} from 'react-router-dom';
 import {
     Drawer,
     DrawerContent,
@@ -12,26 +17,32 @@ import {
 import { formatNumber } from '@/util/formatData';
 import { filterType } from '@/types/Product/productList';
 import { useGetProductList } from '@/hooks/query/product';
-import {
-    GrayBorderButton,
-    GrayBorderToggleButton,
-    PrimaryBkButton,
-} from '../common/Button';
+import { useFilterStore } from '@/store/filter';
+import { GrayBorderButton, PrimaryBkButton } from '../common/Button';
+import FilterBtn from './FilterBtn';
 
 interface IFilterBottomSheetProps {
+    filterName: filterType;
     isOpenFilter: boolean;
     toggleFilter: (filterName: filterType, open: boolean) => void;
 }
 
-export default function FilterBottomSheet({
+export default function PriceBottomSheet({
     isOpenFilter,
+    filterName,
     toggleFilter,
 }: IFilterBottomSheetProps) {
     const navigate = useNavigate();
     const location = useLocation();
+    const [searchParams] = useSearchParams();
+    const keyword = searchParams.get('keyword');
+    console.log(location, keyword);
+
     const { id } = useParams();
     const [range, setRange] = useState([1000, 10000000]);
     const [price, setPrice] = useState([1000, 10000000]);
+
+    const { filters, setFilterState } = useFilterStore();
 
     const { productList } = useGetProductList(
         { categorySeq: Number(id), lowPrice: price[0], highPrice: price[1] },
@@ -41,15 +52,26 @@ export default function FilterBottomSheet({
         setRange(value);
     };
     const handleClickGotoProduct = () => {
-        toggleFilter('price', false);
+        toggleFilter(filterName, false);
         const params = new URLSearchParams(location.search);
         const sortValue = params.get('sort') ?? 'newest';
         params.delete('sort');
         params.set('lowPrice', String(price[0]));
         params.set('highPrice', String(price[1]));
 
+        const selectedFilter = filters[filterName];
+
+        // 상태저장
+        setFilterState(selectedFilter.name as filterType, {
+            checked: true,
+            name: filterName,
+            data: {
+                value: `${formatNumber(range[0])}원~${formatNumber(range[1])}원`,
+            },
+        });
+
         navigate(
-            `?${params.toString()}${sortValue ? `&sort=${sortValue}` : ''}`,
+            `?${params.toString()}${sortValue ? `&sort=${sortValue}` : ''}${keyword ? `&keyword=${keyword}` : ''}`,
         );
     };
     const handleChangeEnd = (value: number[]) => {
@@ -58,9 +80,13 @@ export default function FilterBottomSheet({
 
     return (
         <>
-            <FilterBottomSheetTrigger>
-                <GrayBorderToggleButton>가격</GrayBorderToggleButton>
-            </FilterBottomSheetTrigger>
+            <DrawerTrigger>
+                <FilterBtn
+                    close={false}
+                    active={filters.price.checked}
+                    filterName={filters.price.data.value}
+                />
+            </DrawerTrigger>
             <DrawerPortal>
                 <DrawerContent className="bg-white px-4">
                     <div className="py-8">
@@ -93,5 +119,5 @@ export default function FilterBottomSheet({
         </>
     );
 }
-export const FilterBottomSheetRoot = Drawer;
-export const FilterBottomSheetTrigger = DrawerTrigger;
+
+export const PriceBottomSheetRoot = Drawer;
