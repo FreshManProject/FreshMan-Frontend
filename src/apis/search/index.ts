@@ -2,6 +2,7 @@ import {
     productListParamsType,
     productListType,
 } from '@/types/Product/productList';
+import { pageSize } from '@/constants/query';
 import requests from '../requests';
 import { BASE_URL, axiosAuth } from '..';
 
@@ -18,9 +19,13 @@ export async function getRecentSearchList() {
     }
 }
 
-export async function getSearch(
-    params: productListParamsType,
-): Promise<productListType> {
+export async function getSearch({
+    params,
+    pageParam = 1,
+}: {
+    params: productListParamsType;
+    pageParam?: unknown;
+}): Promise<productListType> {
     // categorySeq: number, lowPrice?: number, highPrice?: number, sort?: string, keyword?: string
     const url = new URL(`/products`, BASE_URL);
 
@@ -31,7 +36,17 @@ export async function getSearch(
     });
     try {
         const response = await axiosAuth.get(url.toString());
-        return response.data;
+
+        // msw 데이터 수정
+        // TODO: 백엔드 연결 후 삭제
+        const startIndex = (Number(pageParam) - 1) * pageSize;
+        const list = response.data.list.slice(
+            startIndex,
+            startIndex + pageSize,
+        );
+
+        // TODO: return response.data;
+        return { list, count: list.length };
     } catch (error) {
         throw Error;
     }

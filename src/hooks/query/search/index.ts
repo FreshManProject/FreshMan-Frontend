@@ -3,8 +3,12 @@ import {
     getRecentSearchList,
     getSearch,
 } from '@/apis/search';
-import { productListParamsType } from '@/types/Product/productList';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { pageSize } from '@/constants/query';
+import {
+    productListParamsType,
+    productListType,
+} from '@/types/Product/productList';
+import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 
 export function useDeleteRecentSearch() {
     const mutation = useMutation({
@@ -21,12 +25,23 @@ export function useGetSearch({
     params: productListParamsType;
     status: boolean;
 }) {
-    const { data: searchResult, isLoading: isLoadingSearchResult } = useQuery({
+    return useInfiniteQuery<productListType, Error>({
         queryKey: ['searchResult'],
-        queryFn: () => getSearch(params),
+        queryFn: (pageParam) => getSearch({ params, pageParam }),
+        initialPageParam: undefined,
+        getNextPageParam: (lastPage, allPages) => {
+            const nextPage = allPages.length + 1;
+            // 상품이 0개이거나 rowsPerPage보다 작을 경우 마지막 페이지로 인식한다.
+            return lastPage?.count === 0 || lastPage?.count < pageSize
+                ? undefined
+                : nextPage;
+        },
         enabled: status,
+        retry: 0,
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        refetchOnWindowFocus: false,
     });
-    return { searchResult, isLoadingSearchResult };
 }
 
 export function useGetRecentSearchList() {

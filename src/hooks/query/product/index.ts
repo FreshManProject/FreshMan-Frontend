@@ -47,7 +47,7 @@ export function useGetProductDetail(productSeq: number) {
 
 export function useGetProductRankingList(option: string) {
     return useInfiniteQuery<productListType, Error>({
-        queryKey: ['productSale'],
+        queryKey: ['productRanking'],
         queryFn: ({ pageParam }) =>
             getProductRankingList({ pageParam, option }),
         initialPageParam: undefined,
