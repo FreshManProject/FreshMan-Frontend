@@ -42,7 +42,8 @@ export default function CartSummary({ listData }: ICartListProps) {
                 <li className="flex w-full justify-between">
                     <span>할인 금액</span>
                     <span className="text-body1_b">
-                        -{formatNumber(getSaleTotal())}원
+                        {listData.count > 0 && '-'}
+                        {formatNumber(getSaleTotal())}원
                     </span>
                 </li>
                 <li className="flex w-full justify-between border-t pt-7">

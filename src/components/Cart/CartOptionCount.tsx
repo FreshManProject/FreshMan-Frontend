@@ -30,7 +30,7 @@ export default function CartOptionCount({
                     type={'number'}
                     value={itemQuantity}
                     readOnly
-                    className="h-full w-10 border-l border-r text-center text-body1_b"
+                    className="h-full w-10 border-l border-r text-center text-body1_b [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none"
                 />
                 <Button
                     className="h-full w-9 rounded-none"
