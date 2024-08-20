@@ -4,7 +4,6 @@ export interface ListType<T extends productItemType> {
     list: T[];
     count: number;
 }
-
 export interface productListParamsType {
     categorySeq?: number;
     lowPrice?: number;
@@ -27,6 +26,13 @@ export interface productItemType {
         salePrice: number;
         saleRate: number;
     };
+}
+
+export interface filterITemType {
+    id: number;
+    name: string;
+    value: string;
+    checked: boolean;
 }
 
 export interface filterITemType {
