@@ -1,10 +1,6 @@
 import { rest, RestRequest, ResponseComposition, RestContext } from 'msw';
-import {
-    dummyInquiryList,
-    dummyProductList,
-    dummySearchList,
-    dummyCartList,
-} from './data';
+
+import { dummyInquiryList, dummyProductList, dummyCartList } from './data';
 
 const handlers = [
     rest.get(
@@ -160,11 +156,14 @@ const handlers = [
         (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
             const low = req.url.searchParams.get('lowPrice');
             const high = req.url.searchParams.get('highPrice');
+            const keyword = req.url.searchParams.get('keyword');
+            const filteredList = dummyProductList;
             // low 이하 ~ hight 이하
             const calculateList = dummyProductList.filter(
                 (item) =>
                     item.price >= Number(low) && item.price <= Number(high),
             );
+
             if (low && high) {
                 return res(
                     ctx.json({
@@ -173,6 +172,14 @@ const handlers = [
                         list: calculateList,
                         count: calculateList.length,
                     }),
+                );
+            }
+
+            if (keyword) {
+                filteredList.filter(
+                    (item) =>
+                        item.name.includes(keyword) ||
+                        item.brand.includes(keyword),
                 );
             }
 
@@ -334,7 +341,88 @@ const handlers = [
         (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
             return res(
                 ctx.json({
-                    data: dummySearchList,
+                    status: 200,
+                    quantity: 'success',
+                }),
+            );
+        },
+    ),
+    rest.get(
+        '/carts',
+        (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+            return res(
+                ctx.json({
+                    status: 200,
+                    message: 'success',
+                    list: dummyCartList,
+                    count: dummyCartList.length,
+                }),
+            );
+        },
+    ),
+    rest.patch('/carts', (req, res, ctx) => {
+        const { checked } = req.body as { checked: boolean };
+
+        // msw 데이터 수정
+        const updatedList = dummyCartList.map((item) => ({ ...item, checked }));
+        Object.assign(dummyCartList, updatedList);
+
+        return res(
+            ctx.json({
+                status: 200,
+                message: 'success',
+            }),
+        );
+    }),
+    rest.patch('/carts/:id', (req, res, ctx) => {
+        const { id } = req.params;
+        const { quantity, checked } = req.body as {
+            quantity: number;
+            checked: boolean;
+        };
+
+        const updatedList = dummyCartList.map((item) => {
+            if (item.productSeq === Number(id)) {
+                return { ...item, quantity, checked };
+            }
+            return item;
+        });
+
+        Object.assign(dummyCartList, updatedList);
+
+        return res(
+            ctx.json({
+                status: 200,
+                message: 'success',
+            }),
+        );
+    }),
+    rest.delete('/carts/:id', (req, res, ctx) => {
+        return res(
+            ctx.json({
+                status: 200,
+                message: 'success',
+            }),
+        );
+    }),
+    rest.get(
+        '/products',
+        (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+            // const option = req.url.searchParams.get('categorySeq');
+            const keyword = req.url.searchParams.get('keyword');
+            const filteredList = dummyProductList;
+
+            if (keyword) {
+                filteredList.filter(
+                    (item) =>
+                        item.name.includes(keyword) ||
+                        item.brand.includes(keyword),
+                );
+            }
+
+            return res(
+                ctx.json({
+                    data: filteredList,
                 }),
             );
         },

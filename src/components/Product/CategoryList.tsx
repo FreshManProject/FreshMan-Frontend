@@ -13,7 +13,8 @@ export default function CategoryList() {
         true,
     );
 
-    if (!productList) return <div>리스트가 없습니다.</div>;
+    if (!productList)
+        return <div className="text-gray400">해당 상품이 없습니다.</div>;
 
     return <ProductList listData={productList} size="m" />;
 }

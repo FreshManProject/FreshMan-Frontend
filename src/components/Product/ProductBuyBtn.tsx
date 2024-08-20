@@ -1,38 +1,34 @@
-import { usePostInCart } from '@/hooks/query/carts';
 import { LikeBtn } from '../common';
-import { GrayBorderButton, PrimaryBkButton } from '../common/Button';
+import { PrimaryBkButton } from '../common/Button';
+import {
+    Drawer,
+    DrawerContent,
+    DrawerPortal,
+    DrawerTrigger,
+} from '../ui/drawer';
+import ProductOption from './ProductOption';
 
 export default function ProductBuyBtn() {
-    const { mutatePostInCart } = usePostInCart();
-
-    const handleOnCart = () => {
-        mutatePostInCart({ productSeq: 2, quantity: 3 });
-    };
     return (
         <div
             className={
-                'max-w-default fixed bottom-0 left-0 right-0 z-40 z-[21] m-auto flex items-center justify-between bg-white px-2 py-4 shadow-top [&>#likeBtn]:basis-16 [&>#primaryBtn]:flex-1'
+                'fixed bottom-0 left-0 right-0 z-[21] m-auto flex max-w-default items-center justify-between bg-white px-2 py-4 shadow-top [&>#likeBtn]:basis-16 [&>#primaryBtn]:flex-1'
             }
         >
             <LikeBtn favorite={false} size={'lg'} />
-            <div className="flex flex-1 gap-2 [&>button]:flex-1">
-                <GrayBorderButton onClick={handleOnCart}>
-                    장바구니
-                </GrayBorderButton>
-                <PrimaryBkButton primary type="button">
-                    구매하기
-                </PrimaryBkButton>
-            </div>
-            {/* // !옵션 들어갈시 추가 */}
-            {/* <Drawer>
+
+            <Drawer>
                 <DrawerTrigger className="w-full [&>button]:w-full">
+                    <PrimaryBkButton primary type="button">
+                        구매하기
+                    </PrimaryBkButton>
                 </DrawerTrigger>
                 <DrawerPortal>
-                    <DrawerContent>
+                    <DrawerContent className="bg-white">
                         <ProductOption />
                     </DrawerContent>
                 </DrawerPortal>
-            </Drawer> */}
+            </Drawer>
         </div>
     );
 }

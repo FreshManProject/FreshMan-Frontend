@@ -2,7 +2,7 @@ import useDragScroll from '@/hooks/useDragScroll';
 import React, { ReactElement } from 'react';
 
 interface HorizontalScrollProps {
-    elementSize: string;
+    elementSize?: string;
     parentStyle?: string;
     children: React.ReactNode;
 }

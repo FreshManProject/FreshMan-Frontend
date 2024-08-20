@@ -4,14 +4,13 @@ import {
 } from '@/types/Product/productList';
 import axios from 'axios';
 import { ProductDetailType } from '@/types/Product/productDetail';
-import { axiosAuth } from '..';
+import { BASE_URL, axiosAuth } from '..';
 
 export async function getProductList(
     params: productListParamsType,
 ): Promise<productListType> {
     // categorySeq: number, lowPrice?: number, highPrice?: number, sort?: string
-    // TODO: baseURL 바꿔야함
-    const url = new URL(`/products`, 'http://localhost:3000');
+    const url = new URL(`/products`, BASE_URL);
 
     Object.entries(params).forEach(([key, value]) => {
         if (value) {

@@ -4,7 +4,7 @@ import { CategoryList } from '@/components/Product';
 export default function ProductPage() {
     return (
         <>
-            <FilterContainer />
+            <FilterContainer showCategory />
             <CategoryList />
         </>
     );
