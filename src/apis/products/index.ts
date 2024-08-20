@@ -7,6 +7,8 @@ import axios from 'axios';
 import { ProductDetailType } from '@/types/Product/productDetail';
 import { BASE_URL, axiosAuth } from '..';
 
+export const rowsPerPage = 10;
+
 export async function getProductList(
     params: productListParamsType,
 ): Promise<productListType> {
