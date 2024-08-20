@@ -2,11 +2,10 @@ import {
     productListParamsType,
     productListType,
 } from '@/types/Product/productList';
+import { pageSize } from '@/constants/query';
 import axios from 'axios';
 import { ProductDetailType } from '@/types/Product/productDetail';
 import { axiosAuth } from '..';
-
-export const rowsPerPage = 10;
 
 export async function getProductList(
     params: productListParamsType,
@@ -59,16 +58,19 @@ export async function getProductSaleList({
         const response = await axios.get<productListType>('/products/onsale', {
             params: {
                 page: pageParam,
-                size: rowsPerPage,
+                size: pageSize,
             },
         });
 
-        const startIndex = (Number(pageParam) - 1) * rowsPerPage;
+        // msw 데이터 수정
+        // TODO: 백엔드 연결 후 삭제
+        const startIndex = (Number(pageParam) - 1) * pageSize;
         const list = response.data.list.slice(
             startIndex,
-            startIndex + rowsPerPage,
+            startIndex + pageSize,
         );
 
+        // TODO: return response.data;
         return { list, count: list.length };
     } catch (error) {
         throw new Error('Failed to fetch product sale list');

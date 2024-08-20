@@ -3,9 +3,9 @@ import {
     getProductList,
     getProductRankingList,
     getProductSaleList,
-    rowsPerPage,
 } from '@/apis/products';
 import { getProductQnaList, getQnaAnswer } from '@/apis/qna';
+import { pageSize } from '@/constants/query';
 import {
     productListParamsType,
     productListType,
@@ -69,7 +69,7 @@ export function useGetProductSaleList() {
         getNextPageParam: (lastPage, allPages) => {
             const nextPage = allPages.length + 1;
             // 상품이 0개이거나 rowsPerPage보다 작을 경우 마지막 페이지로 인식한다.
-            return lastPage?.count === 0 || lastPage?.count < rowsPerPage
+            return lastPage?.count === 0 || lastPage?.count < pageSize
                 ? undefined
                 : nextPage;
         },

@@ -137,20 +137,8 @@ export const dummySearchList = [
     },
 ];
 
-export const dummyCartList = [
-    {
-        checked: true,
-        quantity: 1,
-        ...dummyProductList[0],
-    },
-    {
-        checked: true,
-        quantity: 1,
-        ...dummyProductList[1],
-    },
-    {
-        checked: true,
-        quantity: 1,
-        ...dummyProductList[2],
-    },
-];
+export const dummyCartList = dummyProductList.map((product) => ({
+    ...product,
+    checked: true,
+    quantity: 1,
+}));

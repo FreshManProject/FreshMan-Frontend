@@ -1,4 +1,5 @@
 import { rest, RestRequest, ResponseComposition, RestContext } from 'msw';
+import { cartItemType } from '@/types/Product/productList';
 import {
     dummyInquiryList,
     dummyProductList,
@@ -280,6 +281,25 @@ const handlers = [
                     message: 'success',
                     list: dummyCartList,
                     count: dummyCartList.length,
+                }),
+            );
+        },
+    ),
+
+    rest.get(
+        '/carts/count',
+        (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+            return res(
+                ctx.json({
+                    status: 200,
+                    message: 'success',
+                    count: dummyCartList.length,
+                    checked: dummyCartList.every(
+                        ({ checked }: cartItemType) => checked,
+                    ),
+                    selected: dummyCartList.filter(
+                        ({ checked }: cartItemType) => checked,
+                    ),
                 }),
             );
         },
