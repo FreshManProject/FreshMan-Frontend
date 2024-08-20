@@ -46,19 +46,23 @@ export function useGetProductDetail(productSeq: number) {
 }
 
 export function useGetProductRankingList(option: string) {
-    const {
-        data: productRankingList,
-        isLoading: isLoadingProductRankingList,
-        isError: isErrorProductRankingList,
-    } = useQuery({
-        queryKey: [`productList&${option}`],
-        queryFn: () => getProductRankingList(option),
+    return useInfiniteQuery<productListType, Error>({
+        queryKey: ['productSale'],
+        queryFn: ({ pageParam }) =>
+            getProductRankingList({ pageParam, option }),
+        initialPageParam: undefined,
+        getNextPageParam: (lastPage, allPages) => {
+            const nextPage = allPages.length + 1;
+            // 상품이 0개이거나 rowsPerPage보다 작을 경우 마지막 페이지로 인식한다.
+            return lastPage?.count === 0 || lastPage?.count < pageSize
+                ? undefined
+                : nextPage;
+        },
+        retry: 0,
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        refetchOnWindowFocus: false,
     });
-    return {
-        productRankingList,
-        isLoadingProductRankingList,
-        isErrorProductRankingList,
-    };
 }
 
 export function useGetProductSaleList() {

@@ -21,11 +21,11 @@ export default function ProductItem({
 }: IProductItemProps) {
     return (
         <li
-            className={`${size === 's' ? 'basis-4/12' : size === 'm' ? 'basis-6/12' : 'w-full'} ${className}`}
+            className={`${size === 's' ? 'basis-4/12' : size === 'm' ? 'basis-6/12' : 'w-full'} h-full ${className}`}
         >
             <Link
                 to={`/products/${productSeq}`}
-                className="block aspect-[1/1.1]"
+                className="block aspect-[1/1.1] h-full w-full"
             >
                 <img
                     src={image}
