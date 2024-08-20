@@ -1,5 +1,10 @@
 export type filterType = 'price' | 'sort';
 
+export interface ListType<T extends productItemType> {
+    list: T[];
+    count: number;
+}
+
 export interface productListParamsType {
     categorySeq: number;
     lowPrice?: number;
@@ -7,10 +12,8 @@ export interface productListParamsType {
     sort?: string;
 }
 
-export interface productListType {
-    list: productItemType[];
-    count: number;
-}
+export type productListType = ListType<productItemType>;
+export type cartListType = ListType<cartItemType>;
 
 export interface productItemType {
     productSeq: number;
@@ -24,18 +27,14 @@ export interface productItemType {
         saleRate: number;
     };
 }
-export interface filterStateType {
-    price: boolean;
-    sort: boolean;
-    [key: string]: boolean;
-}
 
 export interface cartItemType extends productItemType {
     checked: boolean;
     quantity: number;
 }
 
-export interface cartListType {
-    list: cartItemType[];
-    count: number;
+export interface filterStateType {
+    price: boolean;
+    sort: boolean;
+    [key: string]: boolean;
 }

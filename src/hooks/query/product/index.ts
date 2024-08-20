@@ -3,10 +3,14 @@ import {
     getProductList,
     getProductRankingList,
     getProductSaleList,
+    rowsPerPage,
 } from '@/apis/products';
 import { getProductQnaList, getQnaAnswer } from '@/apis/qna';
-import { productListParamsType } from '@/types/Product/productList';
-import { useQuery } from '@tanstack/react-query';
+import {
+    productListParamsType,
+    productListType,
+} from '@/types/Product/productList';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
 export function useGetProductList(
     params: productListParamsType,
@@ -58,19 +62,22 @@ export function useGetProductRankingList(option: string) {
 }
 
 export function useGetProductSaleList() {
-    const {
-        data: productSaleList,
-        isLoading: isLoadingProductSaleList,
-        isError: isErrorProductSaleList,
-    } = useQuery({
-        queryKey: [`productSaleList`],
-        queryFn: () => getProductSaleList(),
+    return useInfiniteQuery<productListType, Error>({
+        queryKey: ['productSale'],
+        queryFn: getProductSaleList,
+        initialPageParam: undefined,
+        getNextPageParam: (lastPage, allPages) => {
+            const nextPage = allPages.length + 1;
+            // 상품이 0개이거나 rowsPerPage보다 작을 경우 마지막 페이지로 인식한다.
+            return lastPage?.count === 0 || lastPage?.count < rowsPerPage
+                ? undefined
+                : nextPage;
+        },
+        retry: 0,
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        refetchOnWindowFocus: false,
     });
-    return {
-        productSaleList,
-        isLoadingProductSaleList,
-        isErrorProductSaleList,
-    };
 }
 
 export function useGetProductQnaList(productSeq: number) {

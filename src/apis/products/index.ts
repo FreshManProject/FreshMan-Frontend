@@ -6,6 +6,8 @@ import axios from 'axios';
 import { ProductDetailType } from '@/types/Product/productDetail';
 import { axiosAuth } from '..';
 
+export const rowsPerPage = 10;
+
 export async function getProductList(
     params: productListParamsType,
 ): Promise<productListType> {
@@ -48,11 +50,20 @@ export async function getProductRankingList(
     }
 }
 
-export async function getProductSaleList(): Promise<productListType> {
+export async function getProductSaleList({
+    pageParam = 1,
+}: {
+    pageParam?: unknown;
+}): Promise<productListType> {
     try {
-        const response = await axiosAuth.get(`/products/onsale`);
+        const response = await axios.get<productListType>('/products/onsale', {
+            params: {
+                page: pageParam,
+                limit: rowsPerPage,
+            },
+        });
         return response.data;
     } catch (error) {
-        throw Error;
+        throw new Error('Failed to fetch product sale list');
     }
 }

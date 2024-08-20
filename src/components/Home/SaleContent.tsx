@@ -1,12 +1,46 @@
+import { useCallback, useMemo, useRef } from 'react';
 import { useGetProductSaleList } from '@/hooks/query/product';
-import { ProductList } from '../Product';
+import { ProductItem } from '../Product';
 
 export default function SaleContent() {
-    const { productSaleList, isErrorProductSaleList } = useGetProductSaleList();
+    const {
+        data,
+        isLoading,
+        isError,
+        hasNextPage,
+        fetchNextPage,
+        isFetchingNextPage,
+    } = useGetProductSaleList();
 
-    if (!productSaleList) return <div>Loading...</div>;
+    const observer = useRef<IntersectionObserver | null>(null);
+    const ref = useCallback(
+        (node: HTMLDivElement | null) => {
+            if (isFetchingNextPage) return;
+            if (observer.current) observer.current.disconnect();
+            observer.current = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting && hasNextPage) {
+                    fetchNextPage();
+                }
+            });
+            if (node) observer.current.observe(node);
+        },
+        [isFetchingNextPage, fetchNextPage, hasNextPage],
+    );
 
-    if (isErrorProductSaleList) return <div>Error...</div>;
+    const list = useMemo(() => {
+        return data?.pages.flatMap((listData) => listData.list) || [];
+    }, [data]);
 
-    return <ProductList listData={productSaleList} size={'m'} />;
+    if (isLoading) return <div>Loading...</div>;
+
+    if (isError) return <div>Error...</div>;
+
+    return (
+        <ul className={'flex flex-wrap gap-y-10'}>
+            {list.map((item) => (
+                <ProductItem key={item.productSeq} {...item} size={'m'} />
+            ))}
+            {isFetchingNextPage ? <p>Loading more...</p> : <div ref={ref} />}
+        </ul>
+    );
 }

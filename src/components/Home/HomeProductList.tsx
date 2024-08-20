@@ -1,19 +1,19 @@
 import {
     useGetProductRankingList,
-    useGetProductSaleList,
+    // useGetProductSaleList,
 } from '@/hooks/query/product';
 import ProductMoreList from './ProductMoreList';
 
 export default function HomeProductList() {
     const { productRankingList, isErrorProductRankingList } =
         useGetProductRankingList('');
-    const { productSaleList, isErrorProductSaleList } = useGetProductSaleList();
+    // const { productSaleList, isErrorProductSaleList } = useGetProductSaleList();
 
-    if (!productRankingList || !productSaleList) {
+    if (!productRankingList || !productRankingList) {
         return <div>Loading...</div>;
     }
 
-    if (isErrorProductRankingList || isErrorProductSaleList)
+    if (isErrorProductRankingList || isErrorProductRankingList)
         return <div>Error...</div>;
 
     return (
@@ -23,7 +23,11 @@ export default function HomeProductList() {
                 link="/"
                 listData={productRankingList}
             />
-            <ProductMoreList title="랭킹" link="/" listData={productSaleList} />
+            <ProductMoreList
+                title="랭킹"
+                link="/"
+                listData={productRankingList}
+            />
         </div>
     );
 }
