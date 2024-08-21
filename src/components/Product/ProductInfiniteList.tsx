@@ -1,6 +1,7 @@
-import { useCallback, useMemo, useRef } from 'react';
+import { useMemo } from 'react';
 import { InfiniteData, UseInfiniteQueryResult } from '@tanstack/react-query';
 import { ListType, productItemType } from '@/types/Product/productList';
+import useView from '@/hooks/observer/useView';
 // import ProductItem from './ProductItem';
 
 interface IProductInfiniteList<T, LT> {
@@ -21,19 +22,10 @@ export default function ProductInfiniteList<
         isFetchingNextPage,
     } = result;
 
-    const observer = useRef<IntersectionObserver | null>(null);
-    const ref = useCallback(
-        (node: HTMLDivElement | null) => {
-            if (isFetchingNextPage) return;
-            if (observer.current) observer.current.disconnect();
-            observer.current = new IntersectionObserver((entries) => {
-                if (entries[0].isIntersecting && hasNextPage) {
-                    fetchNextPage();
-                }
-            });
-            if (node) observer.current.observe(node);
-        },
-        [isFetchingNextPage, fetchNextPage, hasNextPage],
+    const { view, onView } = useView(
+        isFetchingNextPage,
+        fetchNextPage,
+        hasNextPage,
     );
 
     const list = useMemo(() => {
@@ -47,7 +39,7 @@ export default function ProductInfiniteList<
     return (
         <ul className={'flex flex-wrap gap-y-10'}>
             {list.map((item) => children(item))}
-            {isFetchingNextPage ? <p>Loading more...</p> : <div ref={ref} />}
+            {view ? <p>Loading more...</p> : <div ref={onView} />}
         </ul>
     );
 }
