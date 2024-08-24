@@ -33,36 +33,37 @@ for (let i = 0; i < 32; i += 1) {
     });
 }
 
-export const dummyLikeList = [
-    {
-        image: 'https://sitem.ssgcdn.com/68/30/98/spclprc/1000282983068_sp.jpg',
-        name: 'Stussy',
-        description: 'Stussy World Tour T-Shirt White 2024',
-        price: '99,000',
-        discountRate: 0,
-    },
-    {
-        image: 'https://sitem.ssgcdn.com/68/30/98/spclprc/1000282983068_sp.jpg',
-        name: 'Stussy',
-        description: 'Stussy World Tour T-Shirt White 2024',
-        price: '99,000',
-        discountRate: 0,
-    },
-    {
-        image: 'https://sitem.ssgcdn.com/68/30/98/spclprc/1000282983068_sp.jpg',
-        name: 'Stussy',
-        description: 'Stussy World Tour T-Shirt White 2024',
-        price: '99,000',
-        discountRate: 0,
-    },
-    {
-        image: 'https://sitem.ssgcdn.com/68/30/98/spclprc/1000282983068_sp.jpg',
-        name: 'Stussy',
-        description: 'Stussy World Tour T-Shirt White 2024',
-        price: '99,000',
-        discountRate: 0,
-    },
-];
+export const dummyLikeList: productItemType[] = [];
+for (let i = 0; i < 32; i += 1) {
+    dummyLikeList.push({
+        productSeq: 3 * i,
+        name: `테스트 상품 ${3 * i}`,
+        price: 10000,
+        brand: '뉴발란스',
+        favorite: true,
+        sale: {
+            salePrice: 7000,
+            saleRate: 22,
+        },
+        image: 'https://image.msscdn.net/images/goods_img/20230214/3082569/3082569_17058889205261_500.jpg',
+    });
+    dummyLikeList.push({
+        productSeq: 3 * i + 1,
+        name: `테스트 상품 ${3 * i + 1}`,
+        price: 7000,
+        brand: '나이키',
+        favorite: true,
+        image: 'https://image.msscdn.net/images/goods_img/20230214/3082569/3082569_17058889205261_500.jpg',
+    });
+    dummyLikeList.push({
+        productSeq: 3 * i + 2,
+        name: `테스트 상품 ${3 * i + 2}`,
+        price: 500000,
+        brand: '나이키',
+        favorite: true,
+        image: 'https://image.msscdn.net/images/goods_img/20230214/3082569/3082569_17058889205261_500.jpg',
+    });
+}
 
 export const dummyInquiryList = [
     {

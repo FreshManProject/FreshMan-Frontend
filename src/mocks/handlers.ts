@@ -4,6 +4,7 @@ import {
     dummyProductList,
     dummyCartList,
     dummyReviewList,
+    dummyLikeList,
 } from './data';
 
 const handlers = [
@@ -266,8 +267,8 @@ const handlers = [
                 ctx.json({
                     status: 200,
                     message: 'success',
-                    list: dummyProductList,
-                    count: dummyProductList.length,
+                    list: dummyLikeList,
+                    count: dummyLikeList.length,
                 }),
             );
         },
