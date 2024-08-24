@@ -1,7 +1,7 @@
 import {
     deleteRecentSearch,
     getRecentSearchList,
-    getSearch,
+    getInfiniteSearchList,
 } from '@/apis/search';
 import { pageSize } from '@/constants/query';
 import {
@@ -18,7 +18,7 @@ export function useDeleteRecentSearch() {
     return mutation;
 }
 
-export function useGetSearch({
+export function useGetInfiniteSearchList({
     params,
     status,
 }: {
@@ -27,7 +27,7 @@ export function useGetSearch({
 }) {
     return useInfiniteQuery<productListType, Error>({
         queryKey: ['searchResult'],
-        queryFn: (pageParam) => getSearch({ params, pageParam }),
+        queryFn: (pageParam) => getInfiniteSearchList({ params, pageParam }),
         initialPageParam: undefined,
         getNextPageParam: (lastPage, allPages) => {
             const nextPage = allPages.length + 1;

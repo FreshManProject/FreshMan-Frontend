@@ -19,7 +19,7 @@ export async function getRecentSearchList() {
     }
 }
 
-export async function getSearch({
+export async function getInfiniteSearchList({
     params,
     pageParam = 1,
 }: {

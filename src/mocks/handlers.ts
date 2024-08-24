@@ -1,5 +1,10 @@
 import { rest, RestRequest, ResponseComposition, RestContext } from 'msw';
-import { dummyInquiryList, dummyProductList, dummyCartList } from './data';
+import {
+    dummyInquiryList,
+    dummyProductList,
+    dummyCartList,
+    dummyReviewList,
+} from './data';
 
 const handlers = [
     rest.get(
@@ -216,6 +221,17 @@ const handlers = [
                     message: 'success',
                     list: dummyProductList,
                     count: dummyProductList.length,
+                }),
+            );
+        },
+    ),
+    rest.get(
+        '/products/review/:id',
+        (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+            return res(
+                ctx.json({
+                    list: dummyReviewList,
+                    count: dummyReviewList.length,
                 }),
             );
         },

@@ -1,8 +1,8 @@
 import {
     getProductDetail,
     getProductList,
-    getProductRankingList,
-    getProductSaleList,
+    getInfiniteRankingList,
+    getInfiniteSaleList,
 } from '@/apis/products';
 import { getProductQnaList, getQnaAnswer } from '@/apis/qna';
 import { pageSize } from '@/constants/query';
@@ -45,11 +45,11 @@ export function useGetProductDetail(productSeq: number) {
     };
 }
 
-export function useGetProductRankingList(option: string) {
+export function useGetInfiniteRankingList(option: string) {
     return useInfiniteQuery<productListType, Error>({
         queryKey: ['productRanking'],
         queryFn: ({ pageParam }) =>
-            getProductRankingList({ pageParam, option }),
+            getInfiniteRankingList({ pageParam, option }),
         initialPageParam: undefined,
         getNextPageParam: (lastPage, allPages) => {
             const nextPage = allPages.length + 1;
@@ -68,7 +68,7 @@ export function useGetProductRankingList(option: string) {
 export function useGetProductSaleList() {
     return useInfiniteQuery<productListType, Error>({
         queryKey: ['productSale'],
-        queryFn: getProductSaleList,
+        queryFn: getInfiniteSaleList,
         initialPageParam: undefined,
         getNextPageParam: (lastPage, allPages) => {
             const nextPage = allPages.length + 1;

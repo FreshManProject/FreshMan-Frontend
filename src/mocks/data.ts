@@ -1,4 +1,5 @@
 import { productItemType } from '@/types/Product/productList';
+import { reviewProductType } from '@/types/Review/userReview';
 
 export const dummyProductList: productItemType[] = [];
 for (let i = 0; i < 32; i += 1) {
@@ -136,6 +137,33 @@ export const dummySearchList = [
         favorite: false,
     },
 ];
+
+export const dummyReviewList: reviewProductType[] = [];
+
+for (let i = 0; i < 32; i += 1) {
+    dummyReviewList.push({
+        rating: 2,
+        user: {
+            username: 'gogdg1234',
+        },
+        image: 'https://cosmereg.com/wp-content/uploads/2023/03/beauty-g2b308465c_1920-1.jpg',
+        option: 'ooo 매',
+        date: new Date('2023-12-22'),
+        description:
+            '대박입니다..광채가...대박입니다..광채가...대박입니다..광채가...대박입니다..광채가...대박입니다..광채가...대박입니다..광채가...대박입니다..광채가...대박입니다..광채가...재구매 의사 있어요',
+    });
+    dummyReviewList.push({
+        rating: 4.5,
+        user: {
+            username: 'gogdg1234',
+        },
+        image: 'https://cosmereg.com/wp-content/uploads/2023/03/beauty-g2b308465c_1920-1.jpg',
+        option: 'ooo 매',
+        date: new Date('2023-12-22'),
+        description:
+            '대박입니다..광채가...대박입니다..광채가...대박입니다..광채가...대박입니다..광채가...대박입니다..광채가...대박입니다..광채가...대박입니다..광채가...대박입니다..광채가...재구매 의사 있어요',
+    });
+}
 
 export const dummyCartList = dummyProductList.map((product) => ({
     ...product,

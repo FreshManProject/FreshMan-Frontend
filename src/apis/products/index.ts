@@ -37,7 +37,7 @@ export async function getProductDetail(
     }
 }
 
-export async function getProductRankingList({
+export async function getInfiniteRankingList({
     option,
     pageParam = 1,
 }: {
@@ -49,7 +49,6 @@ export async function getProductRankingList({
             params: {
                 option,
                 page: pageParam,
-                size: pageSize,
             },
         });
 
@@ -68,7 +67,7 @@ export async function getProductRankingList({
     }
 }
 
-export async function getProductSaleList({
+export async function getInfiniteSaleList({
     pageParam = 1,
 }: {
     pageParam?: unknown;

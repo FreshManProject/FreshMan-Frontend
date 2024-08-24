@@ -1,6 +1,6 @@
 export type filterType = 'price' | 'sort' | 'categorySeq';
 
-export interface ListType<T extends productItemType> {
+export interface ListType<T> {
     list: T[];
     count: number;
 }

@@ -1,4 +1,4 @@
-import { ListType, productItemType } from '@/types/Product/productList';
+import { ListType } from '@/types/Product/productList';
 import {
     FetchNextPageOptions,
     InfiniteData,
@@ -6,10 +6,7 @@ import {
 } from '@tanstack/react-query';
 import { useCallback, useRef } from 'react';
 
-export default function useView<
-    T extends productItemType,
-    LT extends ListType<T>,
->(
+export default function useView<T, LT extends ListType<T>>(
     isFetchingNextPage: boolean,
     fetchNextPage: (
         options?: FetchNextPageOptions,

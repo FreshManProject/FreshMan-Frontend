@@ -1,4 +1,4 @@
-import usePostReview from '@/hooks/query/review';
+import { usePostReview } from '@/hooks/query/review';
 import imageCompression from 'browser-images-compression';
 import { useRef, useState } from 'react';
 

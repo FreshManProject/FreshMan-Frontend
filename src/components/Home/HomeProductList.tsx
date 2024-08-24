@@ -1,13 +1,13 @@
 import { useMemo } from 'react';
 import {
-    useGetProductRankingList,
+    useGetInfiniteRankingList,
     useGetProductSaleList,
 } from '@/hooks/query/product';
 import ProductMoreList from './ProductMoreList';
 
 export default function HomeProductList() {
     const { data: rankingList, isError: isErrorProductRankingList } =
-        useGetProductRankingList('option');
+        useGetInfiniteRankingList('option');
     const { data: saleList, isError: isErrorProductSaleList } =
         useGetProductSaleList();
 

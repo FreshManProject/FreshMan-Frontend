@@ -1,5 +1,5 @@
-import { useGetSearch } from '@/hooks/query/search';
 import { useSearchParams } from 'react-router-dom';
+import { useGetInfiniteSearchList } from '@/hooks/query/search';
 import { useFilterStore } from '@/store/filter';
 import { ProductItem } from '../Product';
 import ProductInfiniteList from '../Product/ProductInfiniteList';
@@ -14,7 +14,7 @@ export default function SearchResultList() {
 
     const { enableFilter } = useFilterStore();
 
-    const result = useGetSearch({
+    const result = useGetInfiniteSearchList({
         params: { keyword, lowPrice, highPrice, categorySeq, sort },
         status: enableFilter,
     });

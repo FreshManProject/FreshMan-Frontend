@@ -11,7 +11,6 @@ export async function getInfiniteCartList({
         const response = await axiosAuth.get<cartListType>('/carts', {
             params: {
                 page: pageParam,
-                size: pageSize,
             },
         });
 
