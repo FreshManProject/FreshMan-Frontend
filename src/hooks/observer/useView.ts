@@ -1,4 +1,5 @@
-import { ListType } from '@/types/Product/productList';
+import { ListType } from '@/types/listType';
+
 import {
     FetchNextPageOptions,
     InfiniteData,

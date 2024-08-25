@@ -1,4 +1,5 @@
 import { productItemType } from '@/types/Product/productList';
+import { QnAItemType } from '@/types/QnA/QnA';
 import { reviewProductType } from '@/types/Review/userReview';
 
 export const dummyProductList: productItemType[] = [];
@@ -34,35 +35,8 @@ for (let i = 0; i < 32; i += 1) {
 }
 
 export const dummyLikeList: productItemType[] = [];
-for (let i = 0; i < 32; i += 1) {
-    dummyLikeList.push({
-        productSeq: 3 * i,
-        name: `테스트 상품 ${3 * i}`,
-        price: 10000,
-        brand: '뉴발란스',
-        favorite: true,
-        sale: {
-            salePrice: 7000,
-            saleRate: 22,
-        },
-        image: 'https://image.msscdn.net/images/goods_img/20230214/3082569/3082569_17058889205261_500.jpg',
-    });
-    dummyLikeList.push({
-        productSeq: 3 * i + 1,
-        name: `테스트 상품 ${3 * i + 1}`,
-        price: 7000,
-        brand: '나이키',
-        favorite: true,
-        image: 'https://image.msscdn.net/images/goods_img/20230214/3082569/3082569_17058889205261_500.jpg',
-    });
-    dummyLikeList.push({
-        productSeq: 3 * i + 2,
-        name: `테스트 상품 ${3 * i + 2}`,
-        price: 500000,
-        brand: '나이키',
-        favorite: true,
-        image: 'https://image.msscdn.net/images/goods_img/20230214/3082569/3082569_17058889205261_500.jpg',
-    });
+for (let i = 0; i < dummyProductList.length; i += 1) {
+    dummyLikeList.push({ ...dummyProductList[i], favorite: true });
 }
 
 export const dummyInquiryList = [
@@ -97,6 +71,18 @@ export const dummyInquiryList = [
         answer: '안녕하세요 고객님',
     },
 ];
+
+export const dummyQnAList: QnAItemType[] = [];
+for (let i = 0; i < 40; i += 1) {
+    dummyQnAList.push({
+        questionSeq: i,
+        memberName: null,
+        content: '문의 테스트 내용 ',
+        image: 'https://file-for-study.s3.ap-northeast-2.amazonaws.com/1b815211-ed73-4cba-8890-1f2c5a2a5180.jpeg',
+        isAnswered: false,
+        postedDate: new Date('2024-8-13'),
+    });
+}
 
 export const dummySearchList = [
     {

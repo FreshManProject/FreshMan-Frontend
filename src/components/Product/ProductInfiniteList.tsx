@@ -1,7 +1,8 @@
 import { useMemo } from 'react';
 import { InfiniteData, UseInfiniteQueryResult } from '@tanstack/react-query';
-import { ListType, productItemType } from '@/types/Product/productList';
+import { productItemType } from '@/types/Product/productList';
 import useView from '@/hooks/observer/useView';
+import { ListType } from '@/types/listType';
 // import ProductItem from './ProductItem';
 
 interface IProductInfiniteList<T, LT> {

@@ -1,4 +1,4 @@
-import { ListType } from '../Product/productList';
+import { ListType } from '../listType';
 
 export interface reviewParmsType {
     productSeq: number;

@@ -1,9 +1,7 @@
+import { ListType } from '../listType';
+
 export type filterType = 'price' | 'sort' | 'categorySeq';
 
-export interface ListType<T> {
-    list: T[];
-    count: number;
-}
 export interface productListParamsType {
     categorySeq?: number;
     lowPrice?: number;
@@ -28,14 +26,7 @@ export interface productItemType {
     };
 }
 
-export interface filterITemType {
-    id: number;
-    name: string;
-    value: string;
-    checked: boolean;
-}
-
-export interface filterITemType {
+export interface filterItemType {
     id: number;
     name: string;
     value: string;
