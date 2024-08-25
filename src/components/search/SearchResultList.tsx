@@ -18,6 +18,7 @@ export default function SearchResultList() {
         params: { keyword, lowPrice, highPrice, categorySeq, sort },
         status: enableFilter,
     });
+
     if (!result) return <div>노 리절트</div>;
 
     return (

@@ -27,7 +27,8 @@ export function useGetInfiniteSearchList({
 }) {
     return useInfiniteQuery<productListType, Error>({
         queryKey: ['searchResult'],
-        queryFn: (pageParam) => getInfiniteSearchList({ params, pageParam }),
+        queryFn: ({ pageParam = 1 }) =>
+            getInfiniteSearchList({ params, pageParam }),
         initialPageParam: undefined,
         getNextPageParam: (lastPage, allPages) => {
             const nextPage = allPages.length + 1;

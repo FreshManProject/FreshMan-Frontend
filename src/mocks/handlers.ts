@@ -199,6 +199,28 @@ const handlers = [
         },
     ),
     rest.get(
+        '/products',
+        (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
+            // const option = req.url.searchParams.get('categorySeq');
+            const keyword = req.url.searchParams.get('keyword');
+            const filteredList = dummyProductList;
+
+            if (keyword) {
+                filteredList.filter(
+                    (item) =>
+                        item.name.includes(keyword) ||
+                        item.brand.includes(keyword),
+                );
+            }
+
+            return res(
+                ctx.json({
+                    data: filteredList,
+                }),
+            );
+        },
+    ),
+    rest.get(
         '/products/onsale',
         (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
             return res(
@@ -421,28 +443,6 @@ const handlers = [
             }),
         );
     }),
-    rest.get(
-        '/products',
-        (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {
-            // const option = req.url.searchParams.get('categorySeq');
-            const keyword = req.url.searchParams.get('keyword');
-            const filteredList = dummyProductList;
-
-            if (keyword) {
-                filteredList.filter(
-                    (item) =>
-                        item.name.includes(keyword) ||
-                        item.brand.includes(keyword),
-                );
-            }
-
-            return res(
-                ctx.json({
-                    data: filteredList,
-                }),
-            );
-        },
-    ),
 ];
 
 export default handlers;

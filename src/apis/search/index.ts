@@ -34,6 +34,9 @@ export async function getInfiniteSearchList({
             url.searchParams.append(key, value.toString());
         }
     });
+
+    url.searchParams.append('pages', Number(pageParam).toString());
+
     try {
         const response = await axiosAuth.get(url.toString());
 
@@ -45,7 +48,6 @@ export async function getInfiniteSearchList({
             startIndex + pageSize,
         );
 
-        // TODO: return response.data;
         return { list, count: list.length };
     } catch (error) {
         throw Error;
