@@ -5,6 +5,7 @@ import {
     dummyCartList,
     dummyReviewList,
     dummyLikeList,
+    dummyQnAList,
 } from './data';
 
 const handlers = [
@@ -27,40 +28,8 @@ const handlers = [
                 ctx.json({
                     status: 200,
                     message: 'success',
-                    list: [
-                        {
-                            questionSeq: 2,
-                            memberName: null,
-                            content: '문의 테스트 내용 ',
-                            image: 'https://file-for-study.s3.ap-northeast-2.amazonaws.com/1b815211-ed73-4cba-8890-1f2c5a2a5180.jpeg',
-                            isAnswered: false,
-                            postedDate: [2024, 8, 13],
-                        },
-                        {
-                            questionSeq: 1,
-                            memberName: null,
-                            content: '문의 테스트 내용 ',
-                            image: 'https://file-for-study.s3.ap-northeast-2.amazonaws.com/02b5e0e0-b958-4f4d-a65b-765099a4835b.png',
-                            isAnswered: false,
-                            postedDate: [2024, 8, 13],
-                        },
-                        {
-                            questionSeq: 2,
-                            memberName: null,
-                            content: '문의 테스트 내용 ',
-                            image: 'https://file-for-study.s3.ap-northeast-2.amazonaws.com/1b815211-ed73-4cba-8890-1f2c5a2a5180.jpeg',
-                            isAnswered: false,
-                            postedDate: [2024, 8, 13],
-                        },
-                        {
-                            questionSeq: 1,
-                            memberName: null,
-                            content: '문의 테스트 내용 ',
-                            image: 'https://file-for-study.s3.ap-northeast-2.amazonaws.com/02b5e0e0-b958-4f4d-a65b-765099a4835b.png',
-                            isAnswered: false,
-                            postedDate: [2024, 8, 13],
-                        },
-                    ],
+                    list: dummyQnAList,
+                    count: dummyQnAList.length,
                 }),
             );
         },
@@ -73,40 +42,8 @@ const handlers = [
                 ctx.json({
                     status: 200,
                     message: 'success',
-                    list: [
-                        {
-                            questionSeq: 2,
-                            memberName: null,
-                            content: '문의 테스트 내용 ',
-                            image: 'https://file-for-study.s3.ap-northeast-2.amazonaws.com/1b815211-ed73-4cba-8890-1f2c5a2a5180.jpeg',
-                            isAnswered: false,
-                            postedDate: [2024, 8, 13],
-                        },
-                        {
-                            questionSeq: 1,
-                            memberName: null,
-                            content: '문의 테스트 내용 ',
-                            image: 'https://file-for-study.s3.ap-northeast-2.amazonaws.com/02b5e0e0-b958-4f4d-a65b-765099a4835b.png',
-                            isAnswered: false,
-                            postedDate: [2024, 8, 13],
-                        },
-                        {
-                            questionSeq: 3,
-                            memberName: null,
-                            content: '문의 테스트 내용 ',
-                            image: 'https://file-for-study.s3.ap-northeast-2.amazonaws.com/1b815211-ed73-4cba-8890-1f2c5a2a5180.jpeg',
-                            isAnswered: true,
-                            postedDate: [2024, 8, 13],
-                        },
-                        {
-                            questionSeq: 4,
-                            memberName: null,
-                            content: '문의 테스트 내용 ',
-                            image: 'https://file-for-study.s3.ap-northeast-2.amazonaws.com/02b5e0e0-b958-4f4d-a65b-765099a4835b.png',
-                            isAnswered: false,
-                            postedDate: [2024, 8, 13],
-                        },
-                    ],
+                    list: dummyQnAList,
+                    count: dummyQnAList.length,
                 }),
             );
         },

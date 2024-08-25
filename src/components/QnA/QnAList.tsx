@@ -1,13 +1,38 @@
+import { useEffect, useMemo, useState } from 'react';
 import { Accordion } from '@/components/ui/accordion';
-import { InquiryType } from '@/types/User/inquiry';
+import { InquiryListType, InquiryType } from '@/types/User/inquiry';
 import { useGetQnaAnswer } from '@/hooks/query/product';
-import { useEffect, useState } from 'react';
+import { InfiniteData, UseInfiniteQueryResult } from '@tanstack/react-query';
+import useView from '@/hooks/observer/useView';
 import QnAItem from './QnAItem';
 
-interface Iprops {
-    data: InquiryType[];
+interface IQnAList {
+    result: UseInfiniteQueryResult<
+        InfiniteData<InquiryListType, unknown>,
+        Error
+    >;
 }
-export default function QnAList({ data }: Iprops) {
+
+export default function QnAList({ result }: IQnAList) {
+    const {
+        data,
+        isLoading,
+        isError,
+        hasNextPage,
+        fetchNextPage,
+        isFetchingNextPage,
+    } = result;
+
+    const { view, onView } = useView(
+        isFetchingNextPage,
+        fetchNextPage,
+        hasNextPage,
+    );
+
+    const list = useMemo(() => {
+        return data?.pages.flatMap((listData) => listData.list) || [];
+    }, [data]);
+
     const [isFetching, setIsFetching] = useState(false);
     const [qnaId, setQnaId] = useState('');
     const { answer, isSuccessAnswer } = useGetQnaAnswer(qnaId, isFetching);
@@ -24,6 +49,10 @@ export default function QnAList({ data }: Iprops) {
         if (isSuccessAnswer) handleSuccess();
     }, [isSuccessAnswer]);
 
+    if (isLoading) return <div>Loading...</div>;
+
+    if (isError) return <div>Error...</div>;
+
     return (
         <Accordion
             type="single"
@@ -31,7 +60,7 @@ export default function QnAList({ data }: Iprops) {
             className=""
             onValueChange={(value: string) => handleToggleAnswer(value)}
         >
-            {data.map((item: InquiryType, index: number) => (
+            {list.map((item: InquiryType, index: number) => (
                 <QnAItem
                     key={index}
                     value={index}
@@ -40,6 +69,7 @@ export default function QnAList({ data }: Iprops) {
                     answer={answer && answer.content}
                 />
             ))}
+            {view ? <p>Loading more...</p> : <div ref={onView} />}
         </Accordion>
     );
 }

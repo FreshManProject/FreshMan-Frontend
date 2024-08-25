@@ -4,12 +4,13 @@ import {
     getInfiniteRankingList,
     getInfiniteSaleList,
 } from '@/apis/products';
-import { getProductQnaList, getQnaAnswer } from '@/apis/qna';
+import { getInfiniteQnaList, getQnaAnswer } from '@/apis/qna';
 import { pageSize } from '@/constants/query';
 import {
     productListParamsType,
     productListType,
 } from '@/types/Product/productList';
+import { InquiryListType } from '@/types/User/inquiry';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
 export function useGetProductList(
@@ -65,7 +66,7 @@ export function useGetInfiniteRankingList(option: string) {
     });
 }
 
-export function useGetProductSaleList() {
+export function useGetInfiniteSaleList() {
     return useInfiniteQuery<productListType, Error>({
         queryKey: ['productSale'],
         queryFn: getInfiniteSaleList,
@@ -84,20 +85,24 @@ export function useGetProductSaleList() {
     });
 }
 
-export function useGetProductQnaList(productSeq: number) {
-    const {
-        data: productQnaList,
-        isLoading: isLoadingProductQnaList,
-        isError: isErrorProductQnaList,
-    } = useQuery({
-        queryKey: [`productQnaList`],
-        queryFn: () => getProductQnaList(productSeq),
+export function useGetInfiniteQnaList(productSeq: number) {
+    return useInfiniteQuery<InquiryListType, Error>({
+        queryKey: ['productQnaList'],
+        queryFn: ({ pageParam }) =>
+            getInfiniteQnaList({ pageParam, productSeq }),
+        initialPageParam: undefined,
+        getNextPageParam: (lastPage, allPages) => {
+            const nextPage = allPages.length + 1;
+            // 상품이 0개이거나 rowsPerPage보다 작을 경우 마지막 페이지로 인식한다.
+            return lastPage?.count === 0 || lastPage?.count < pageSize
+                ? undefined
+                : nextPage;
+        },
+        retry: 0,
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        refetchOnWindowFocus: false,
     });
-    return {
-        productQnaList,
-        isLoadingProductQnaList,
-        isErrorProductQnaList,
-    };
 }
 
 // 상품 문의 답변

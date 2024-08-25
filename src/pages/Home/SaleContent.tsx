@@ -1,9 +1,9 @@
-import { useGetProductSaleList } from '@/hooks/query/product';
+import { useGetInfiniteSaleList } from '@/hooks/query/product';
 import ProductInfiniteList from '../../components/Product/ProductInfiniteList';
 import { ProductItem } from '../../components/Product';
 
 export default function SaleContent() {
-    const result = useGetProductSaleList();
+    const result = useGetInfiniteSaleList();
 
     return (
         <ProductInfiniteList result={result}>

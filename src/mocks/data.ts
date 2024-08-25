@@ -1,6 +1,6 @@
 import { productItemType } from '@/types/Product/productList';
-import { QnAItemType } from '@/types/QnA/QnA';
 import { reviewProductType } from '@/types/Review/userReview';
+import { InquiryType } from '@/types/User/inquiry';
 
 export const dummyProductList: productItemType[] = [];
 for (let i = 0; i < 32; i += 1) {
@@ -72,15 +72,15 @@ export const dummyInquiryList = [
     },
 ];
 
-export const dummyQnAList: QnAItemType[] = [];
-for (let i = 0; i < 40; i += 1) {
+export const dummyQnAList: InquiryType[] = [];
+for (let i = 0; i < 90; i += 1) {
     dummyQnAList.push({
         questionSeq: i,
         memberName: null,
         content: '문의 테스트 내용 ',
         image: 'https://file-for-study.s3.ap-northeast-2.amazonaws.com/1b815211-ed73-4cba-8890-1f2c5a2a5180.jpeg',
         isAnswered: false,
-        postedDate: new Date('2024-8-13'),
+        postedDate: [2024, 8, 13],
     });
 }
 

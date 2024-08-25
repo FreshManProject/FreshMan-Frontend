@@ -10,7 +10,7 @@ import {
     MyInformationPage,
     MyLikePage,
     MyPage,
-    MyqnaPage,
+    MyQnAPage,
 } from './pages/MyPage';
 import { LayoutWithNav, LayoutWithOutNav } from './components/common/Layout';
 import { ProductDetailPage, ProductPage } from './pages/Product';
@@ -155,7 +155,7 @@ export default function Router() {
                     children: [
                         {
                             path: '',
-                            element: <MyqnaPage />,
+                            element: <MyQnAPage />,
                         },
                         {
                             path: 'submit',
