@@ -3,7 +3,7 @@ import {
     getRecentSearchList,
     getInfiniteSearchList,
 } from '@/apis/search';
-import { pageSize } from '@/constants/query';
+import { pageSize } from '@/constants/infinitescroll';
 import {
     productListParamsType,
     productListType,
@@ -27,7 +27,7 @@ export function useGetInfiniteSearchList({
 }) {
     return useInfiniteQuery<productListType, Error>({
         queryKey: ['searchResult'],
-        queryFn: ({ pageParam = 1 }) =>
+        queryFn: ({ pageParam }) =>
             getInfiniteSearchList({ params, pageParam }),
         initialPageParam: undefined,
         getNextPageParam: (lastPage, allPages) => {

@@ -5,7 +5,7 @@ import {
     getInfiniteSaleList,
 } from '@/apis/products';
 import { getInfiniteQnaList, getQnaAnswer } from '@/apis/qna';
-import { pageSize } from '@/constants/query';
+import { pageSize } from '@/constants/infinitescroll';
 import {
     productListParamsType,
     productListType,

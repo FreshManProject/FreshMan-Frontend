@@ -2,7 +2,7 @@ import {
     productListParamsType,
     productListType,
 } from '@/types/Product/productList';
-import { pageSize } from '@/constants/query';
+import { pageSize } from '@/constants/infinitescroll';
 import axios from 'axios';
 import { ProductDetailType } from '@/types/Product/productDetail';
 import { BASE_URL, axiosAuth } from '..';
@@ -63,7 +63,7 @@ export async function getInfiniteRankingList({
         // TODO: return response.data;
         return { list, count: list.length };
     } catch (error) {
-        throw new Error('Failed to fetch product sale list');
+        throw new Error('Failed to fetch product ranking list');
     }
 }
 

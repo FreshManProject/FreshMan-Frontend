@@ -1,6 +1,6 @@
 import { getUserQnaList } from '@/apis/qna';
 import { getInfiniteLikedList, getUserInfo } from '@/apis/user';
-import { pageSize } from '@/constants/query';
+import { pageSize } from '@/constants/infinitescroll';
 import { productListType } from '@/types/Product/productList';
 import { InquiryListType } from '@/types/User/inquiry';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';

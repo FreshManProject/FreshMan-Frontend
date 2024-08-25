@@ -1,12 +1,13 @@
 import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
 import { getInfiniteReview, postReview } from '@/apis/review';
-import { pageSize } from '@/constants/query';
+import { pageSize } from '@/constants/infinitescroll';
 import { reviewListType, reviewParmsType } from '@/types/Review/userReview';
 
 export function useGetInfiniteReview(productSeq: number) {
     return useInfiniteQuery<reviewListType, Error>({
         queryKey: ['review'],
-        queryFn: () => getInfiniteReview({ productSeq }),
+        queryFn: ({ pageParam }) =>
+            getInfiniteReview({ pageParam, productSeq }),
         initialPageParam: undefined,
         getNextPageParam: (lastPage, allPages) => {
             const nextPage = allPages.length + 1;

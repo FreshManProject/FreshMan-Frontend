@@ -1,5 +1,5 @@
 import { InquiryListType } from '@/types/User/inquiry';
-import { pageSize } from '@/constants/query';
+import { pageSize } from '@/constants/infinitescroll';
 import { axiosAuth } from '..';
 
 export async function getUserQnaList({
@@ -56,7 +56,7 @@ export async function getInfiniteQnaList({
         // TODO: return response.data;
         return { list, count: list.length };
     } catch (error) {
-        throw new Error('Failed to fetch product sale list');
+        throw new Error('Failed to fetch qna list');
     }
 }
 

@@ -1,4 +1,4 @@
-import { pageSize } from '@/constants/query';
+import { pageSize } from '@/constants/infinitescroll';
 import { reviewListType, reviewParmsType } from '@/types/Review/userReview';
 import axios from 'axios';
 
@@ -30,7 +30,7 @@ export async function getInfiniteReview({
         // TODO: return response.data;
         return { list, count: list.length };
     } catch (error) {
-        throw new Error('Failed to fetch product sale list');
+        throw new Error('Failed to fetch review list');
     }
 }
 

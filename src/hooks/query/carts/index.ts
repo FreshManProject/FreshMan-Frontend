@@ -6,7 +6,7 @@ import {
     patchCartItem,
     postInCart,
 } from '@/apis/carts';
-import { pageSize } from '@/constants/query';
+import { pageSize } from '@/constants/infinitescroll';
 import { cartListType } from '@/types/Product/productList';
 import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 

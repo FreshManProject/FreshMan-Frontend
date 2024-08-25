@@ -2,7 +2,7 @@ import {
     productListParamsType,
     productListType,
 } from '@/types/Product/productList';
-import { pageSize } from '@/constants/query';
+import { pageSize } from '@/constants/infinitescroll';
 import requests from '../requests';
 import { BASE_URL, axiosAuth } from '..';
 
@@ -50,7 +50,7 @@ export async function getInfiniteSearchList({
 
         return { list, count: list.length };
     } catch (error) {
-        throw Error;
+        throw new Error('Failed to fetch search list');
     }
 }
 
