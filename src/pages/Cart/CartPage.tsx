@@ -4,10 +4,10 @@ import CartSummary from '@/components/Cart/CartSummary';
 import { useGetCartList } from '@/hooks/query/carts';
 
 export default function CartPage() {
-    const { cartList, cartListIsLoading, error } = useGetCartList();
+    const { cartList, isLoadingCartList, isErrorCartList } = useGetCartList();
 
-    if (cartListIsLoading) return <div>Loading...</div>;
-    if (!cartList || error) return <div>Error : {error?.message}</div>;
+    if (isLoadingCartList) return <div>Loading...</div>;
+    if (!cartList || isErrorCartList) return <div>Error...</div>;
     return (
         <>
             <TopHeader>

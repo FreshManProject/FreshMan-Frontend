@@ -3,4 +3,4 @@ export { default as MyLikePage } from './MyLikePage';
 export { default as MyInformationPage } from './MyInformationPage';
 export { default as EditInformationPage } from './EditInformationPage';
 export { default as EditAddressPage } from './EditAddressPage';
-export { default as MyqnaPage } from './MyqnaPage';
+export { default as MyQnAPage } from './MyQnaPage';

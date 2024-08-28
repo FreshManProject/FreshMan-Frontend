@@ -1,25 +1,48 @@
 import {
     deleteItemInCart,
+    getInfiniteCartList,
     getCartList,
     patchCart,
     patchCartItem,
     postInCart,
 } from '@/apis/carts';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { pageSize } from '@/constants/infinitescroll';
+import { cartListType } from '@/types/Product/productList';
+import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
+
+export function useGetInfiniteCartList() {
+    return useInfiniteQuery<cartListType, Error>({
+        queryKey: ['cartList'],
+        queryFn: getInfiniteCartList,
+        initialPageParam: undefined,
+        getNextPageParam: (lastPage, allPages) => {
+            const nextPage = allPages.length + 1;
+            // 상품이 0개이거나 rowsPerPage보다 작을 경우 마지막 페이지로 인식한다.
+            return lastPage?.count === 0 || lastPage?.count < pageSize
+                ? undefined
+                : nextPage;
+        },
+        retry: 0,
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        refetchOnWindowFocus: false,
+    });
+}
 
 export function useGetCartList() {
     const {
         data: cartList,
-        isLoading: cartListIsLoading,
-        error,
+        isLoading: isLoadingCartList,
+        isError: isErrorCartList,
     } = useQuery({
-        queryKey: ['cartList'],
+        queryKey: [`cartCount`],
         queryFn: getCartList,
     });
+
     return {
         cartList,
-        cartListIsLoading,
-        error,
+        isLoadingCartList,
+        isErrorCartList,
     };
 }
 

@@ -1,3 +1,5 @@
+import { ListType } from '../listType';
+
 export type filterType = 'price' | 'sort' | 'categorySeq';
 
 export interface productListParamsType {
@@ -8,10 +10,8 @@ export interface productListParamsType {
     keyword?: string;
 }
 
-export interface productListType {
-    list: productItemType[];
-    count: number;
-}
+export type productListType = ListType<productItemType>;
+export type cartListType = ListType<cartItemType>;
 
 export interface productItemType {
     productSeq: number;
@@ -21,17 +21,12 @@ export interface productItemType {
     image: string;
     favorite: boolean;
     sale?: {
-        salePrice: 35000;
-        saleRate: 22;
+        salePrice: number;
+        saleRate: number;
     };
 }
-export interface filterStateType {
-    price: boolean;
-    sort: boolean;
-    [key: string]: boolean;
-}
 
-export interface filterITemType {
+export interface filterItemType {
     id: number;
     name: string;
     value: string;
@@ -43,7 +38,8 @@ export interface cartItemType extends productItemType {
     quantity: number;
 }
 
-export interface cartListType {
-    list: cartItemType[];
-    count: number;
+export interface filterStateType {
+    price: boolean;
+    sort: boolean;
+    [key: string]: boolean;
 }

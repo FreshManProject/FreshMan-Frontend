@@ -20,7 +20,7 @@ export default function ProductMoreList({ title, link, listData }: PropsType) {
                     <IoIosArrowBack className="rotate-180 self-baseline text-body2" />
                 </Link>
             </h2>
-            <HorizontalScroll elementSize="w-40">
+            <HorizontalScroll elementSize="min-w-40 max-w-40">
                 {listData && listData.list && listData.list.length > 0 ? (
                     listData.list.map((item) => (
                         <ProductItem

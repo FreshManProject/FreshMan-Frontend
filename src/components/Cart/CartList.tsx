@@ -1,17 +1,28 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { CheckedState } from '@radix-ui/react-checkbox';
 import { cartItemType, cartListType } from '@/types/Product/productList';
-import { useDeleteItemInCart, usePatchCart } from '@/hooks/query/carts';
+import {
+    useDeleteItemInCart,
+    useGetInfiniteCartList,
+    usePatchCart,
+} from '@/hooks/query/carts';
 import { Checkbox } from '@/components/ui/checkbox';
 import CartItem from './CartItem';
+import ProductInfiniteList from '../Product/ProductInfiniteList';
 
 interface ICartListProps {
     listData: cartListType;
 }
 
 export default function CartList({ listData }: ICartListProps) {
-    const [isAllChecked, setIsAllChecked] = useState(false);
-    const [countSelected, setCountSelected] = useState(0);
+    const result = useGetInfiniteCartList();
+
+    const [isAllChecked, setIsAllChecked] = useState(
+        listData.list?.every(({ checked }: cartItemType) => checked),
+    );
+    const [countSelected, setCountSelected] = useState(
+        listData.list?.filter(({ checked }: cartItemType) => checked).length,
+    );
     const { mutatePatchCart } = usePatchCart();
     const { mutateDeleteItemInCart } = useDeleteItemInCart();
 
@@ -35,22 +46,13 @@ export default function CartList({ listData }: ICartListProps) {
         }
     };
 
-    useEffect(() => {
-        setIsAllChecked(
-            listData.list?.every(({ checked }: cartItemType) => checked),
-        );
-        setCountSelected(
-            listData.list?.filter(({ checked }: cartItemType) => checked)
-                .length,
-        );
-    }, [listData.list]);
-
     const handleDeleteSelected = () => {
         listData.list?.map(
             ({ productSeq, checked }) =>
                 checked && mutateDeleteItemInCart({ productSeq }),
         );
     };
+
     return (
         <>
             <div className="flex items-center justify-between px-4 pb-2.5 pt-1 text-body3">
@@ -71,15 +73,9 @@ export default function CartList({ listData }: ICartListProps) {
                     {'선택삭제'}
                 </button>
             </div>
-            <ul className={'flex flex-wrap'}>
-                {listData.count > 0 ? (
-                    listData.list.map((item: cartItemType, i: number) => (
-                        <CartItem key={i} {...item} />
-                    ))
-                ) : (
-                    <p>{'장바구니가 비어 있습니다.'}</p>
-                )}
-            </ul>
+            <ProductInfiniteList<cartItemType, cartListType> result={result}>
+                {(item) => <CartItem key={item.productSeq} {...item} />}
+            </ProductInfiniteList>
         </>
     );
 }

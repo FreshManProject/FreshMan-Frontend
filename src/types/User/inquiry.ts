@@ -1,3 +1,5 @@
+import { ListType } from '../listType';
+
 export interface InquiryType {
     questionSeq: number;
     memberName: null | string;
@@ -9,3 +11,5 @@ export interface InquiryType {
     productImage?: null;
     productSeq?: number;
 }
+
+export type InquiryListType = ListType<InquiryType>;

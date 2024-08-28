@@ -8,7 +8,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { filterITemType, filterType } from '@/types/Product/productList';
+import { filterItemType, filterType } from '@/types/Product/productList';
 import { filterWithCategryData, filterWithSortData } from '@/data';
 import { useFilterStore } from '@/store/filter';
 import { FilterBtn } from '../FixedFilter';
@@ -25,8 +25,8 @@ export default function SortBottomSheetContent({
     const location = useLocation();
 
     const [filterList, setFilterList] = useState<{
-        sort: filterITemType[];
-        categorySeq: filterITemType[];
+        sort: filterItemType[];
+        categorySeq: filterItemType[];
     }>({
         sort: filterWithSortData,
         categorySeq: filterWithCategryData,

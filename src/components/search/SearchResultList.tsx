@@ -1,7 +1,8 @@
-import { useGetSearch } from '@/hooks/query/search';
 import { useSearchParams } from 'react-router-dom';
+import { useGetInfiniteSearchList } from '@/hooks/query/search';
 import { useFilterStore } from '@/store/filter';
-import { ProductList } from '../Product';
+import { ProductItem } from '../Product';
+import ProductInfiniteList from '../Product/ProductInfiniteList';
 
 export default function SearchResultList() {
     const [searchParams] = useSearchParams();
@@ -13,12 +14,18 @@ export default function SearchResultList() {
 
     const { enableFilter } = useFilterStore();
 
-    const { searchResult } = useGetSearch({
+    const result = useGetInfiniteSearchList({
         params: { keyword, lowPrice, highPrice, categorySeq, sort },
         status: enableFilter,
     });
 
-    if (!searchResult) return <div>노 리절트</div>;
+    if (!result) return <div>노 리절트</div>;
 
-    return <ProductList listData={searchResult} size="m" />;
+    return (
+        <ProductInfiniteList result={result}>
+            {(item) => (
+                <ProductItem size={'m'} key={item.productSeq} {...item} />
+            )}
+        </ProductInfiniteList>
+    );
 }

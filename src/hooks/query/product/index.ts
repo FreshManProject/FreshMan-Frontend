@@ -1,12 +1,17 @@
 import {
     getProductDetail,
     getProductList,
-    getProductRankingList,
-    getProductSaleList,
+    getInfiniteRankingList,
+    getInfiniteSaleList,
 } from '@/apis/products';
-import { getProductQnaList, getQnaAnswer } from '@/apis/qna';
-import { productListParamsType } from '@/types/Product/productList';
-import { useQuery } from '@tanstack/react-query';
+import { getInfiniteQnaList, getQnaAnswer } from '@/apis/qna';
+import { pageSize } from '@/constants/infinitescroll';
+import {
+    productListParamsType,
+    productListType,
+} from '@/types/Product/productList';
+import { InquiryListType } from '@/types/User/inquiry';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
 export function useGetProductList(
     params: productListParamsType,
@@ -41,52 +46,63 @@ export function useGetProductDetail(productSeq: number) {
     };
 }
 
-export function useGetProductRankingList(option: string) {
-    const {
-        data: productRankingList,
-        isLoading: isLoadingProductRankingList,
-        isError: isErrorProductRankingList,
-    } = useQuery({
-        queryKey: [`productList&${option}`],
-        queryFn: () => getProductRankingList(option),
+export function useGetInfiniteRankingList(option: string) {
+    return useInfiniteQuery<productListType, Error>({
+        queryKey: ['productRanking'],
+        queryFn: ({ pageParam }) =>
+            getInfiniteRankingList({ pageParam, option }),
+        initialPageParam: undefined,
+        getNextPageParam: (lastPage, allPages) => {
+            const nextPage = allPages.length + 1;
+            // 상품이 0개이거나 rowsPerPage보다 작을 경우 마지막 페이지로 인식한다.
+            return lastPage?.count === 0 || lastPage?.count < pageSize
+                ? undefined
+                : nextPage;
+        },
+        retry: 0,
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        refetchOnWindowFocus: false,
     });
-    return {
-        productRankingList,
-        isLoadingProductRankingList,
-        isErrorProductRankingList,
-    };
 }
 
-export function useGetProductSaleList() {
-    const {
-        data: productSaleList,
-        isLoading: isLoadingProductSaleList,
-        isError: isErrorProductSaleList,
-    } = useQuery({
-        queryKey: [`productSaleList`],
-        queryFn: () => getProductSaleList(),
+export function useGetInfiniteSaleList() {
+    return useInfiniteQuery<productListType, Error>({
+        queryKey: ['productSale'],
+        queryFn: getInfiniteSaleList,
+        initialPageParam: undefined,
+        getNextPageParam: (lastPage, allPages) => {
+            const nextPage = allPages.length + 1;
+            // 상품이 0개이거나 rowsPerPage보다 작을 경우 마지막 페이지로 인식한다.
+            return lastPage?.count === 0 || lastPage?.count < pageSize
+                ? undefined
+                : nextPage;
+        },
+        retry: 0,
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        refetchOnWindowFocus: false,
     });
-    return {
-        productSaleList,
-        isLoadingProductSaleList,
-        isErrorProductSaleList,
-    };
 }
 
-export function useGetProductQnaList(productSeq: number) {
-    const {
-        data: productQnaList,
-        isLoading: isLoadingProductQnaList,
-        isError: isErrorProductQnaList,
-    } = useQuery({
-        queryKey: [`productQnaList`],
-        queryFn: () => getProductQnaList(productSeq),
+export function useGetInfiniteQnaList(productSeq: number) {
+    return useInfiniteQuery<InquiryListType, Error>({
+        queryKey: ['productQnaList'],
+        queryFn: ({ pageParam }) =>
+            getInfiniteQnaList({ pageParam, productSeq }),
+        initialPageParam: undefined,
+        getNextPageParam: (lastPage, allPages) => {
+            const nextPage = allPages.length + 1;
+            // 상품이 0개이거나 rowsPerPage보다 작을 경우 마지막 페이지로 인식한다.
+            return lastPage?.count === 0 || lastPage?.count < pageSize
+                ? undefined
+                : nextPage;
+        },
+        retry: 0,
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        refetchOnWindowFocus: false,
     });
-    return {
-        productQnaList,
-        isLoadingProductQnaList,
-        isErrorProductQnaList,
-    };
 }
 
 // 상품 문의 답변
