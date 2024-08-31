@@ -1,5 +1,9 @@
-import { getUserInfo, getUserInquiryList } from '@/apis/user';
-import { useQuery } from '@tanstack/react-query';
+import { getUserQnaList } from '@/apis/qna';
+import { getInfiniteLikedList, getUserInfo } from '@/apis/user';
+import { pageSize } from '@/constants/infinitescroll';
+import { productListType } from '@/types/Product/productList';
+import { InquiryListType } from '@/types/User/inquiry';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
 export function useGetUserInfo() {
     const {
@@ -17,18 +21,40 @@ export function useGetUserInfo() {
     };
 }
 
-export function useGetUserInquiryList() {
-    const {
-        data: inquiryList,
-        isLoading: isLoadingInquiryList,
-        isError: isErrorUserInquiryList,
-    } = useQuery({
-        queryKey: [`inquiryList`],
-        queryFn: () => getUserInquiryList(),
+export function useGetUserQnaList() {
+    return useInfiniteQuery<InquiryListType, Error>({
+        queryKey: ['myQnaList'],
+        queryFn: getUserQnaList,
+        initialPageParam: undefined,
+        getNextPageParam: (lastPage, allPages) => {
+            const nextPage = allPages.length + 1;
+            // 상품이 0개이거나 rowsPerPage보다 작을 경우 마지막 페이지로 인식한다.
+            return lastPage?.count === 0 || lastPage?.count < pageSize
+                ? undefined
+                : nextPage;
+        },
+        retry: 0,
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        refetchOnWindowFocus: false,
     });
-    return {
-        inquiryList,
-        isLoadingInquiryList,
-        isErrorUserInquiryList,
-    };
+}
+
+export function useGetInfiniteLikedList() {
+    return useInfiniteQuery<productListType, Error>({
+        queryKey: ['LikeList'],
+        queryFn: getInfiniteLikedList,
+        initialPageParam: undefined,
+        getNextPageParam: (lastPage, allPages) => {
+            const nextPage = allPages.length + 1;
+            // 상품이 0개이거나 rowsPerPage보다 작을 경우 마지막 페이지로 인식한다.
+            return lastPage?.count === 0 || lastPage?.count < pageSize
+                ? undefined
+                : nextPage;
+        },
+        retry: 0,
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        refetchOnWindowFocus: false,
+    });
 }

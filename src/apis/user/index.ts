@@ -1,10 +1,10 @@
 import { productListType } from '@/types/Product/productList';
-import axios from 'axios';
+import { pageSize } from '@/constants/infinitescroll';
 import { axiosAuth } from '..';
 
 export default async function getLikeList(): Promise<productListType> {
     try {
-        const response = await axios.get('/likes?orderby=latest');
+        const response = await axiosAuth.get('/likes?orderby=latest');
         if (response.data) return response.data;
         throw new Error(
             `Unexpected response : ${response.status} ${response.statusText}`,
@@ -14,25 +14,40 @@ export default async function getLikeList(): Promise<productListType> {
         throw Error;
     }
 }
-export async function getUserInquiryList() {
+
+export async function getInfiniteLikedList({
+    pageParam = 1,
+}: {
+    pageParam?: unknown;
+}): Promise<productListType> {
     try {
-        const response = await axiosAuth.get(`/questions/my-questions?page=0`);
-        if (response.data) {
-            console.log(response.data);
-            return response.data.data;
-        }
-        throw new Error(
-            `Unexpected response : ${response.status} ${response.statusText}`,
+        const response = await axiosAuth.get<productListType>(
+            '/likes?orderby=latest',
+            {
+                params: {
+                    page: pageParam,
+                },
+            },
         );
+
+        // msw 데이터 수정
+        // TODO: 백엔드 연결 후 삭제
+        const startIndex = (Number(pageParam) - 1) * pageSize;
+        const list = response.data.list.slice(
+            startIndex,
+            startIndex + pageSize,
+        );
+
+        // TODO: return response.data;
+        return { list, count: list.length };
     } catch (error) {
-        console.error(error);
-        return null;
+        throw new Error('Failed to fetch liked list');
     }
 }
 
 export async function getUserInfo() {
     try {
-        const response = await axios.get('/members');
+        const response = await axiosAuth.get('/members');
         if (response.data) {
             return response.data.data;
         }

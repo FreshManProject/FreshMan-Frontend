@@ -1,9 +1,16 @@
+import { Suspense } from 'react';
+import { useParams } from 'react-router-dom';
 import { ProductReviewScore, ReviewList } from '@/components/Review';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useGetInfiniteQnaList } from '@/hooks/query/product';
 import { QnABtn, QnAList } from '@/components/QnA';
 import TabAndContentLayout from './TabAndContentLayout';
 
 export default function TabAndContent() {
+    const { id } = useParams();
+    const result = useGetInfiniteQnaList(Number(id));
+    // const { productQnaList } = useGetProductQnaList(Number(id));
+    // console.log(productQnaList);
     return (
         <Tabs defaultValue={'productInfo'}>
             <TabsList
@@ -47,7 +54,11 @@ export default function TabAndContent() {
             <TabsContent value={'productQna'}>
                 <TabAndContentLayout
                     topComponent={<QnABtn />}
-                    bottomComponent={<QnAList />}
+                    bottomComponent={
+                        <Suspense fallback={'dd'}>
+                            <QnAList result={result} />
+                        </Suspense>
+                    }
                     subTitle="문의"
                 />
             </TabsContent>

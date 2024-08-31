@@ -20,20 +20,24 @@ export default function ProductMoreList({ title, link, listData }: PropsType) {
                     <IoIosArrowBack className="rotate-180 self-baseline text-body2" />
                 </Link>
             </h2>
-            <HorizontalScroll elementSize="w-40">
-                {listData.list.map((item) => (
-                    <ProductItem
-                        key={item.productSeq}
-                        className=""
-                        size="full"
-                        productSeq={item.productSeq}
-                        name={item.name}
-                        price={item.price}
-                        favorite={item.favorite}
-                        brand={item.brand}
-                        image={item.image}
-                    />
-                ))}
+            <HorizontalScroll elementSize="min-w-40 max-w-40">
+                {listData && listData.list && listData.list.length > 0 ? (
+                    listData.list.map((item) => (
+                        <ProductItem
+                            key={item.productSeq}
+                            className=""
+                            size="full"
+                            productSeq={item.productSeq}
+                            name={item.name}
+                            price={item.price}
+                            favorite={item.favorite}
+                            brand={item.brand}
+                            image={item.image}
+                        />
+                    ))
+                ) : (
+                    <p>현재 판매 중인 상품이 없습니다.</p>
+                )}
             </HorizontalScroll>
         </section>
     );

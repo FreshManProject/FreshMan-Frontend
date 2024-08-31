@@ -1,14 +1,15 @@
+import { ListType } from '../listType';
+
 export interface InquiryType {
-    id: number;
+    questionSeq: number;
+    memberName: null | string;
+    content: string;
     image: string;
-    date: string;
-    author: string;
-    title: string;
-    description: string;
-    product: string;
-    answer: string;
+    isAnswered: boolean;
+    postedDate: [number, number, number];
+    productName?: string;
+    productImage?: null;
+    productSeq?: number;
 }
 
-export interface InquiryListType {
-    inquiryList: InquiryType[];
-}
+export type InquiryListType = ListType<InquiryType>;
