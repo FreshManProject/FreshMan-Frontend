@@ -34,7 +34,6 @@ export interface filterItemType {
 }
 
 export interface cartItemType extends productItemType {
-    checked: boolean;
     quantity: number;
 }
 

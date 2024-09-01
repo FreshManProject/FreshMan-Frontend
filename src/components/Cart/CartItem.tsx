@@ -6,8 +6,17 @@ import { usePatchCartItem } from '@/hooks/query/carts';
 import { Checkbox } from '../ui/checkbox';
 import CartOptionCount from './CartOptionCount';
 
-export default function CartItem(items: cartItemType) {
-    const { productSeq, name, brand, image, checked, quantity } = items;
+interface ICartItemProps extends cartItemType {
+    checked: boolean;
+    handleCheckItem: () => void;
+}
+
+export default function CartItem({
+    checked,
+    handleCheckItem,
+    ...items
+}: ICartItemProps) {
+    const { productSeq, name, brand, image, quantity } = items;
     const [itemQuantity, setItemQuantity] = useState(quantity);
     const [isChecked, setIsChecked] = useState(checked);
     const { mutatePatchCartItem } = usePatchCartItem();
@@ -23,6 +32,7 @@ export default function CartItem(items: cartItemType) {
     const onCheckedChange = async (check: CheckedState) => {
         const newCheckedState = !!check;
         setIsChecked(newCheckedState);
+        handleCheckItem();
 
         try {
             handlePatchCartItem(itemQuantity, newCheckedState);

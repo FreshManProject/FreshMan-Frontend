@@ -1,36 +1,41 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { CheckedState } from '@radix-ui/react-checkbox';
-import { cartItemType, cartListType } from '@/types/Product/productList';
-import {
-    useDeleteItemInCart,
-    useGetInfiniteCartList,
-    usePatchCart,
-} from '@/hooks/query/carts';
+import { cartListType } from '@/types/Product/productList';
+import { useGetInfiniteCartList } from '@/hooks/query/carts';
+import useView from '@/hooks/observer/useView';
 import { Checkbox } from '@/components/ui/checkbox';
 import CartItem from './CartItem';
-import ProductInfiniteList from '../Product/ProductInfiniteList';
 
 interface ICartListProps {
     listData: cartListType;
 }
 
 export default function CartList({ listData }: ICartListProps) {
-    const result = useGetInfiniteCartList();
+    const {
+        data,
+        isLoading,
+        isError,
+        hasNextPage,
+        fetchNextPage,
+        isFetchingNextPage,
+    } = useGetInfiniteCartList();
 
-    const [isAllChecked, setIsAllChecked] = useState(
-        listData.list?.every(({ checked }: cartItemType) => checked),
+    const { view, onView } = useView(
+        isFetchingNextPage,
+        fetchNextPage,
+        hasNextPage,
     );
-    const [countSelected, setCountSelected] = useState(
-        listData.list?.filter(({ checked }: cartItemType) => checked).length,
-    );
-    const { mutatePatchCart } = usePatchCart();
-    const { mutateDeleteItemInCart } = useDeleteItemInCart();
 
-    const handlePatchCartItem = (newCheck: boolean) => {
-        mutatePatchCart({
-            checked: newCheck,
-        });
-    };
+    const list = useMemo(() => {
+        return data?.pages.flatMap((listData) => listData.list) || [];
+    }, [data]);
+
+    const [checkItems, setCheckItems] = useState<boolean[]>(
+        new Array(list.length).fill(false),
+    );
+    // list.every(({ checked }: cartItemType) => checked),
+    const [isAllChecked, setIsAllChecked] = useState(false);
+    const [countSelected, setCountSelected] = useState(0);
 
     const onAllCheckedChange = async (checked: CheckedState) => {
         const newCheckedState = !!checked;
@@ -38,20 +43,22 @@ export default function CartList({ listData }: ICartListProps) {
         try {
             setIsAllChecked(newCheckedState);
             setCountSelected(newCheckedState ? listData.count : 0);
-            handlePatchCartItem(newCheckedState);
+            // handlePatchCartItem(newCheckedState);
         } catch (error) {
             console.error('Failed to update cart items:', error);
             setIsAllChecked(!newCheckedState);
             setCountSelected(!newCheckedState ? listData.count : 0);
         }
     };
-
-    const handleDeleteSelected = () => {
-        listData.list?.map(
-            ({ productSeq, checked }) =>
-                checked && mutateDeleteItemInCart({ productSeq }),
-        );
+    const handleCheckItem = (i: number) => {
+        const newChecks = [...checkItems];
+        newChecks[i] = !!newChecks[i];
+        setCheckItems(newChecks);
     };
+
+    if (isLoading) return <div>Loading...</div>;
+
+    if (isError) return <div>Error...</div>;
 
     return (
         <>
@@ -67,15 +74,25 @@ export default function CartList({ listData }: ICartListProps) {
                 </div>
                 <button
                     type="button"
-                    onClick={handleDeleteSelected}
+                    onClick={() => {}}
                     className="text-center text-gray400"
                 >
                     {'선택삭제'}
                 </button>
             </div>
-            <ProductInfiniteList<cartItemType, cartListType> result={result}>
-                {(item) => <CartItem key={item.productSeq} {...item} />}
-            </ProductInfiniteList>
+            <ul className={'flex flex-wrap gap-y-10'}>
+                {list.map((item, i) => (
+                    <CartItem
+                        key={item.productSeq}
+                        checked={checkItems[i]}
+                        handleCheckItem={() => {
+                            handleCheckItem(i);
+                        }}
+                        {...item}
+                    />
+                ))}
+                {view ? <p>Loading more...</p> : <div ref={onView} />}
+            </ul>
         </>
     );
 }
