@@ -61,11 +61,8 @@ export function usePatchCart() {
 export function usePatchCartItem() {
     const { mutate: mutatePatchCartItem, isPending: isPendingPatchCarItem } =
         useMutation({
-            mutationFn: (data: {
-                productSeq: number;
-                quantity: number;
-                checked: boolean;
-            }) => patchCartItem(data),
+            mutationFn: (data: { productSeq: number; quantity: number }) =>
+                patchCartItem(data),
         });
 
     return {

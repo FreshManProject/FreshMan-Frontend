@@ -154,6 +154,5 @@ for (let i = 0; i < 32; i += 1) {
 
 export const dummyCartList = dummyProductList.map((product) => ({
     ...product,
-    checked: true,
     quantity: 1,
 }));

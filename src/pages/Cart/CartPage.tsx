@@ -1,6 +1,5 @@
 import { TopHeader } from '@/components/common';
 import CartItemList from '@/components/Cart/CartList';
-import CartSummary from '@/components/Cart/CartSummary';
 import { useGetCartList } from '@/hooks/query/carts';
 
 export default function CartPage() {
@@ -15,7 +14,6 @@ export default function CartPage() {
                 <TopHeader.Title title="장바구니" />
             </TopHeader>
             <CartItemList listData={cartList} />
-            <CartSummary listData={cartList} />
         </>
     );
 }

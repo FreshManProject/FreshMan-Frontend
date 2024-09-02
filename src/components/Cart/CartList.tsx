@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { CheckedState } from '@radix-ui/react-checkbox';
 import { cartListType } from '@/types/Product/productList';
 import { useGetInfiniteCartList } from '@/hooks/query/carts';
+import CartSummary from '@/components/Cart/CartSummary';
 import useView from '@/hooks/observer/useView';
 import { Checkbox } from '@/components/ui/checkbox';
 import CartItem from './CartItem';
@@ -30,30 +31,27 @@ export default function CartList({ listData }: ICartListProps) {
         return data?.pages.flatMap((listData) => listData.list) || [];
     }, [data]);
 
-    const [checkItems, setCheckItems] = useState<boolean[]>(
-        new Array(list.length).fill(false),
+    const [checkList, setCheckList] = useState<boolean[]>(
+        new Array(listData.count).fill(false),
     );
-    // list.every(({ checked }: cartItemType) => checked),
     const [isAllChecked, setIsAllChecked] = useState(false);
     const [countSelected, setCountSelected] = useState(0);
 
     const onAllCheckedChange = async (checked: CheckedState) => {
         const newCheckedState = !!checked;
-
-        try {
-            setIsAllChecked(newCheckedState);
-            setCountSelected(newCheckedState ? listData.count : 0);
-            // handlePatchCartItem(newCheckedState);
-        } catch (error) {
-            console.error('Failed to update cart items:', error);
-            setIsAllChecked(!newCheckedState);
-            setCountSelected(!newCheckedState ? listData.count : 0);
-        }
+        setIsAllChecked(newCheckedState);
+        setCountSelected(newCheckedState ? listData.count : 0);
+        setCheckList(checkList.fill(newCheckedState));
     };
+
     const handleCheckItem = (i: number) => {
-        const newChecks = [...checkItems];
-        newChecks[i] = !!newChecks[i];
-        setCheckItems(newChecks);
+        const newCheckList = [...checkList];
+        const newCheck = !newCheckList[i];
+        newCheckList[i] = newCheck;
+        setCheckList(newCheckList);
+
+        setCountSelected((prev) => (newCheck ? prev + 1 : prev - 1));
+        setIsAllChecked(newCheck && listData.count === countSelected + 1);
     };
 
     if (isLoading) return <div>Loading...</div>;
@@ -61,8 +59,8 @@ export default function CartList({ listData }: ICartListProps) {
     if (isError) return <div>Error...</div>;
 
     return (
-        <>
-            <div className="flex items-center justify-between px-4 pb-2.5 pt-1 text-body3">
+        <div className="relative">
+            <div className="sticky top-0 flex items-center justify-between bg-background px-4 pb-2.5 pt-1 text-body3">
                 <div className="flex h-8 items-center gap-2.5">
                     <Checkbox
                         disabled={listData.count === 0}
@@ -84,7 +82,7 @@ export default function CartList({ listData }: ICartListProps) {
                 {list.map((item, i) => (
                     <CartItem
                         key={item.productSeq}
-                        checked={checkItems[i]}
+                        checked={checkList[i]}
                         handleCheckItem={() => {
                             handleCheckItem(i);
                         }}
@@ -93,6 +91,7 @@ export default function CartList({ listData }: ICartListProps) {
                 ))}
                 {view ? <p>Loading more...</p> : <div ref={onView} />}
             </ul>
-        </>
+            <CartSummary listData={listData} checkItems={checkList} />
+        </div>
     );
 }
