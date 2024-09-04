@@ -1,41 +1,35 @@
 import { useState } from 'react';
-import { CheckedState } from '@radix-ui/react-checkbox';
 import { Link } from 'react-router-dom';
 import { cartItemType } from '@/types/Product/productList';
 import { usePatchCartItem } from '@/hooks/query/carts';
 import { Checkbox } from '../ui/checkbox';
 import CartOptionCount from './CartOptionCount';
 
-export default function CartItem(items: cartItemType) {
-    const { productSeq, name, brand, image, checked, quantity } = items;
+interface ICartItemProps extends cartItemType {
+    checked: boolean;
+    handleCheckItem: () => void;
+}
+
+export default function CartItem({
+    checked,
+    handleCheckItem,
+    ...items
+}: ICartItemProps) {
+    const { productSeq, name, brand, image, quantity } = items;
     const [itemQuantity, setItemQuantity] = useState(quantity);
-    const [isChecked, setIsChecked] = useState(checked);
     const { mutatePatchCartItem } = usePatchCartItem();
 
-    const handlePatchCartItem = (newQuantity: number, newCheck: boolean) => {
+    const handlePatchCartItem = (newQuantity: number) => {
         mutatePatchCartItem({
             productSeq,
             quantity: newQuantity,
-            checked: newCheck,
         });
-    };
-
-    const onCheckedChange = async (check: CheckedState) => {
-        const newCheckedState = !!check;
-        setIsChecked(newCheckedState);
-
-        try {
-            handlePatchCartItem(itemQuantity, newCheckedState);
-        } catch (error) {
-            console.error('Failed to update cart item:', error);
-            setIsChecked(!newCheckedState);
-        }
     };
 
     const handleAddQuantity = () => {
         setItemQuantity((prevCount) => prevCount + 1);
         try {
-            handlePatchCartItem(itemQuantity + 1, isChecked);
+            handlePatchCartItem(itemQuantity + 1);
         } catch (error) {
             console.error('Failed to update cart item:', error);
             setItemQuantity(itemQuantity + 1);
@@ -47,7 +41,7 @@ export default function CartItem(items: cartItemType) {
             return prevCount > 1 ? prevCount - 1 : prevCount;
         });
         try {
-            handlePatchCartItem(itemQuantity + 1, isChecked);
+            handlePatchCartItem(itemQuantity + 1);
         } catch (error) {
             console.error('Failed to update cart item:', error);
             setItemQuantity(itemQuantity - 1);
@@ -58,8 +52,8 @@ export default function CartItem(items: cartItemType) {
         <li className="flex w-full flex-col gap-2.5 px-4 py-3.5">
             <div className="flex justify-start gap-2.5">
                 <Checkbox
-                    checked={isChecked}
-                    onCheckedChange={onCheckedChange}
+                    checked={checked}
+                    onCheckedChange={handleCheckItem}
                     className="h-5 w-5 border-gray300 data-[state=checked]:bg-black data-[state=checked]:text-white"
                 />
                 <Link

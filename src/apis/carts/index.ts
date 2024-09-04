@@ -54,7 +54,6 @@ export async function patchCart(data: { checked: boolean }) {
 export async function patchCartItem(data: {
     productSeq: number;
     quantity: number;
-    checked: boolean;
 }) {
     try {
         const response = await axiosAuth.patch(

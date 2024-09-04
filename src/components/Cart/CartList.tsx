@@ -1,61 +1,66 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { CheckedState } from '@radix-ui/react-checkbox';
-import { cartItemType, cartListType } from '@/types/Product/productList';
-import {
-    useDeleteItemInCart,
-    useGetInfiniteCartList,
-    usePatchCart,
-} from '@/hooks/query/carts';
+import { cartListType } from '@/types/Product/productList';
+import { useGetInfiniteCartList } from '@/hooks/query/carts';
+import CartSummary from '@/components/Cart/CartSummary';
+import useView from '@/hooks/observer/useView';
 import { Checkbox } from '@/components/ui/checkbox';
 import CartItem from './CartItem';
-import ProductInfiniteList from '../Product/ProductInfiniteList';
 
 interface ICartListProps {
     listData: cartListType;
 }
 
 export default function CartList({ listData }: ICartListProps) {
-    const result = useGetInfiniteCartList();
+    const {
+        data,
+        isLoading,
+        isError,
+        hasNextPage,
+        fetchNextPage,
+        isFetchingNextPage,
+    } = useGetInfiniteCartList();
 
-    const [isAllChecked, setIsAllChecked] = useState(
-        listData.list?.every(({ checked }: cartItemType) => checked),
+    const { view, onView } = useView(
+        isFetchingNextPage,
+        fetchNextPage,
+        hasNextPage,
     );
-    const [countSelected, setCountSelected] = useState(
-        listData.list?.filter(({ checked }: cartItemType) => checked).length,
-    );
-    const { mutatePatchCart } = usePatchCart();
-    const { mutateDeleteItemInCart } = useDeleteItemInCart();
 
-    const handlePatchCartItem = (newCheck: boolean) => {
-        mutatePatchCart({
-            checked: newCheck,
-        });
-    };
+    const list = useMemo(() => {
+        return data?.pages.flatMap((listData) => listData.list) || [];
+    }, [data]);
+
+    const [checkList, setCheckList] = useState<boolean[]>(
+        new Array(listData.count).fill(false),
+    );
+    const [isAllChecked, setIsAllChecked] = useState(false);
+    const [countSelected, setCountSelected] = useState(0);
 
     const onAllCheckedChange = async (checked: CheckedState) => {
         const newCheckedState = !!checked;
-
-        try {
-            setIsAllChecked(newCheckedState);
-            setCountSelected(newCheckedState ? listData.count : 0);
-            handlePatchCartItem(newCheckedState);
-        } catch (error) {
-            console.error('Failed to update cart items:', error);
-            setIsAllChecked(!newCheckedState);
-            setCountSelected(!newCheckedState ? listData.count : 0);
-        }
+        setIsAllChecked(newCheckedState);
+        setCountSelected(newCheckedState ? listData.count : 0);
+        setCheckList(checkList.fill(newCheckedState));
     };
 
-    const handleDeleteSelected = () => {
-        listData.list?.map(
-            ({ productSeq, checked }) =>
-                checked && mutateDeleteItemInCart({ productSeq }),
-        );
+    const handleCheckItem = (i: number) => {
+        const newCheckList = [...checkList];
+        const newCheck = !newCheckList[i];
+        newCheckList[i] = newCheck;
+        setCheckList(newCheckList);
+
+        setCountSelected((prev) => (newCheck ? prev + 1 : prev - 1));
+        setIsAllChecked(newCheck && listData.count === countSelected + 1);
     };
+
+    if (isLoading) return <div>Loading...</div>;
+
+    if (isError) return <div>Error...</div>;
 
     return (
-        <>
-            <div className="flex items-center justify-between px-4 pb-2.5 pt-1 text-body3">
+        <div className="relative">
+            <div className="sticky top-0 flex items-center justify-between bg-background px-4 pb-2.5 pt-1 text-body3">
                 <div className="flex h-8 items-center gap-2.5">
                     <Checkbox
                         disabled={listData.count === 0}
@@ -67,15 +72,26 @@ export default function CartList({ listData }: ICartListProps) {
                 </div>
                 <button
                     type="button"
-                    onClick={handleDeleteSelected}
+                    onClick={() => {}}
                     className="text-center text-gray400"
                 >
                     {'선택삭제'}
                 </button>
             </div>
-            <ProductInfiniteList<cartItemType, cartListType> result={result}>
-                {(item) => <CartItem key={item.productSeq} {...item} />}
-            </ProductInfiniteList>
-        </>
+            <ul className={'flex flex-wrap gap-y-10'}>
+                {list.map((item, i) => (
+                    <CartItem
+                        key={item.productSeq}
+                        checked={checkList[i]}
+                        handleCheckItem={() => {
+                            handleCheckItem(i);
+                        }}
+                        {...item}
+                    />
+                ))}
+                {view ? <p>Loading more...</p> : <div ref={onView} />}
+            </ul>
+            <CartSummary listData={listData} checkItems={checkList} />
+        </div>
     );
 }

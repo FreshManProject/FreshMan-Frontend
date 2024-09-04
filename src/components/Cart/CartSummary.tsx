@@ -4,24 +4,25 @@ import { PrimaryBkButton } from '../common/Button';
 
 interface ICartListProps {
     listData: cartListType;
+    checkItems: boolean[];
 }
 
-export default function CartSummary({ listData }: ICartListProps) {
+export default function CartSummary({ listData, checkItems }: ICartListProps) {
     const getProductTotal = () => {
         if (!listData.list || listData.list.length === 0) return 0;
 
-        return listData.list.reduce((total, item) => {
-            return total + (item.checked ? item.price : 0);
+        return listData.list.reduce((total, item, i) => {
+            return total + (checkItems[i] ? item.price : 0);
         }, 0);
     };
 
     const getSaleTotal = () => {
         if (!listData.list || listData.list.length === 0) return 0;
 
-        return listData.list.reduce((total, item) => {
+        return listData.list.reduce((total, item, i) => {
             return (
                 total +
-                (item.checked
+                (checkItems[i]
                     ? item.sale
                         ? item.price - item.sale.salePrice
                         : 0
