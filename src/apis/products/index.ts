@@ -76,7 +76,6 @@ export async function getInfiniteSaleList({
         const response = await axios.get<productListType>('/products/onsale', {
             params: {
                 page: pageParam,
-                size: pageSize,
             },
         });
 

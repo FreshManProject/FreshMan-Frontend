@@ -1,6 +1,6 @@
 export default function SocialLoginPage() {
-    const kakaoLink = 'http://3.36.90.34:8080/oauth2/authorization/kakao';
-    const naverLink = 'http://3.36.90.34:8080/oauth2/authorization/naver';
+    const kakaoLink = `${process.env.REACT_APP_FRESHMAN_PUBLIC_API_URL}oauth2/authorization/kakao`;
+    const naverLink = `${process.env.REACT_APP_FRESHMAN_PUBLIC_API_URL}oauth2/authorization/naver`;
 
     const handleKakaoLogin = async () => {
         window.location.href = kakaoLink;
