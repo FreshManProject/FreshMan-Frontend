@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import {
+    RegisterPage,
     RegisterSuccessPage,
     SocialLoginPage,
     SocialLoginRedirectPage,
@@ -14,7 +15,6 @@ import {
 } from './pages/MyPage';
 import { LayoutWithNav, LayoutWithOutNav } from './components/common/Layout';
 import { ProductDetailPage, ProductPage } from './pages/Product';
-import RegisterForm from './components/Register/RegisterForm';
 import { SubmitReviewPage } from './pages/Review';
 import { SearchPage, SearchResultPage } from './pages/Search';
 import { HomePage } from './pages/Home';
@@ -55,15 +55,6 @@ export default function Router() {
                     ],
                 },
                 {
-                    path: '/auth',
-                    children: [
-                        {
-                            path: 'register',
-                            element: <RegisterForm />,
-                        },
-                    ],
-                },
-                {
                     path: '/review',
                     children: [
                         {
@@ -77,7 +68,7 @@ export default function Router() {
                     children: [
                         {
                             path: 'register',
-                            element: <RegisterForm />,
+                            element: <RegisterPage />,
                         },
                         {
                             path: 'success',

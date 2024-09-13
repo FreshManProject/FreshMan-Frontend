@@ -13,11 +13,14 @@ interface IEditAddress {
 }
 
 export default function EditAddressForm() {
-    const { address, addressDetail } = useAuthStore();
+    // TODO: 로컬에 저장되어 있지 않으면 api 불러오도록 로직 변경
+    const {
+        user: { address },
+    } = useAuthStore();
     const { register, handleSubmit, setValue, watch } = useForm<IEditAddress>({
         mode: 'onSubmit',
         reValidateMode: 'onSubmit',
-        defaultValues: { address, addressDetail },
+        defaultValues: { address },
     });
     const [showDaumPostCodeModal, setShowDaumPostCodeModal] =
         useState<boolean>(false);

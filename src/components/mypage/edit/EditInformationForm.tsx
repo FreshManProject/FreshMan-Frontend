@@ -9,7 +9,9 @@ interface IMyInfo {
 }
 
 export default function EditInformationForm() {
-    const { name, email } = useAuthStore();
+    const {
+        user: { name, email },
+    } = useAuthStore();
     const navigate = useNavigate();
     const {
         register,

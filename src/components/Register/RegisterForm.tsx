@@ -6,8 +6,8 @@ import {
 } from '@/types/Validation/yupRegister';
 import { Input } from '@/components/ui/input';
 import DaumPostCode from 'react-daum-postcode';
-import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { usePostJoinMember } from '@/hooks/query/user';
 import { PrimaryBkButton } from '../common/Button';
 import { Drawer, DrawerContent, DrawerTrigger } from '../ui/drawer';
 
@@ -16,27 +16,34 @@ export default function RegisterForm() {
         register,
         handleSubmit,
         setValue,
-        // watch,
         formState: { errors, isValid },
     } = useForm<RegisterUserFormData>({
         mode: 'onChange',
         reValidateMode: 'onChange',
-        defaultValues: { name: '', phone: '', address: '', addressDetail: '' },
+        defaultValues: {
+            name: '',
+            email: '',
+            phone: '',
+            address: '',
+            addressDetail: '',
+        },
         resolver: yupResolver(registerUserSchema),
     });
-    const navigate = useNavigate();
+    const { mutatePostJoinMember } = usePostJoinMember();
     const [postCodeIsOpen, setPostCodeIsOpen] = useState(false);
 
-    const onSubmit = () => {
-        // backend 통신 코드
-        navigate('/register/success');
+    const onSubmit = (data: RegisterUserFormData) => {
+        const joinData = {
+            name: data.name,
+            phone: data.phone,
+            email: data.email,
+            address: `${data.address} ${data.addressDetail}`,
+        };
+        mutatePostJoinMember(joinData);
     };
+
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="px-4 pt-10">
-            <h2 className={'text-title1_b'}>
-                기본 정보를
-                <br /> 입력해주세요.
-            </h2>
+        <form onSubmit={handleSubmit(onSubmit)} className="">
             <div className={'mb-5 mt-5'}>
                 <label className="text-body2 text-gray400" htmlFor={'name'}>
                     {'이름'}
@@ -53,6 +60,25 @@ export default function RegisterForm() {
                 {errors.name && (
                     <p className="mt-1 text-body3 text-pointRed">
                         {errors.name.message}
+                    </p>
+                )}
+            </div>
+            <div className={'mb-5 mt-5'}>
+                <label className="text-body2 text-gray400" htmlFor={'name'}>
+                    {'이메일'}
+                </label>
+                <Input
+                    id={'email'}
+                    type={'text'}
+                    placeholder={'이메일 입력'}
+                    className={
+                        'rounded-none text-body3 text-bk placeholder:text-gray300'
+                    }
+                    {...register('email')}
+                />
+                {errors.email && (
+                    <p className="mt-1 text-body3 text-pointRed">
+                        {errors.email.message}
                     </p>
                 )}
             </div>
@@ -142,7 +168,7 @@ export default function RegisterForm() {
             </div>
             <div className="fixed bottom-0 left-0 right-0 m-auto max-w-default px-4 pb-8 [&>button]:w-full">
                 <PrimaryBkButton disabled={!isValid} type="submit">
-                    다음
+                    가입하기
                 </PrimaryBkButton>
             </div>
         </form>
