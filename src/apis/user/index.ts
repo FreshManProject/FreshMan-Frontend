@@ -1,5 +1,6 @@
 import { productListType } from '@/types/Product/productList';
 import { pageSize } from '@/constants/infinitescroll';
+import { UserType } from '@/types/User/registerUser';
 import { axiosAuth } from '..';
 
 export default async function getLikeList(): Promise<productListType> {
@@ -45,11 +46,26 @@ export async function getInfiniteLikedList({
     }
 }
 
-export async function getUserInfo() {
+export async function getUserInfo(): Promise<Required<UserType>> {
     try {
         const response = await axiosAuth.get('/members');
         if (response.data) {
             return response.data.data;
+        }
+        throw new Error(
+            `Unexpected response : ${response.status} ${response.statusText}`,
+        );
+    } catch (error) {
+        console.error(error);
+        throw new Error('user 정보 불러오기에 실패했습니다');
+    }
+}
+
+export async function postMember(data: UserType) {
+    try {
+        const response = await axiosAuth.post('/members', data);
+        if (response.status !== 200) {
+            return true;
         }
         throw new Error(
             `Unexpected response : ${response.status} ${response.statusText}`,

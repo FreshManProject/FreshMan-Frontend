@@ -40,7 +40,7 @@ export default function MyPageInformation() {
                             <MdOutlineRateReview size={30} />
                             <p>나의 리뷰</p>
                             <Button className="text-[#7BDFF2]">
-                                {userInfo.review}
+                                {/* {userInfo.review} */}
                             </Button>
                         </div>
                         <div className="flex flex-col items-center justify-center">
@@ -50,7 +50,7 @@ export default function MyPageInformation() {
                                 className="text-[#7BDFF2]"
                                 onClick={() => navigate('/mypage/like')}
                             >
-                                {userInfo.heart}
+                                {/* {userInfo.heart} */}
                             </Button>
                         </div>
                     </div>

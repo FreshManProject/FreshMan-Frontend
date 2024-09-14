@@ -1,11 +1,13 @@
 import { getUserQnaList } from '@/apis/qna';
-import { getInfiniteLikedList, getUserInfo } from '@/apis/user';
+import { getInfiniteLikedList, getUserInfo, postMember } from '@/apis/user';
 import { pageSize } from '@/constants/infinitescroll';
 import { productListType } from '@/types/Product/productList';
 import { InquiryListType } from '@/types/User/inquiry';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { UserType } from '@/types/User/registerUser';
+import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 
-export function useGetUserInfo() {
+export function useGetUserInfo(status = true) {
     const {
         data: userInfo,
         isLoading: isLoadingUserInfo,
@@ -13,6 +15,7 @@ export function useGetUserInfo() {
     } = useQuery({
         queryKey: [`user`],
         queryFn: () => getUserInfo(),
+        enabled: status,
     });
     return {
         userInfo,
@@ -57,4 +60,21 @@ export function useGetInfiniteLikedList() {
         refetchOnReconnect: false,
         refetchOnWindowFocus: false,
     });
+}
+
+export function usePostJoinMember() {
+    const navigate = useNavigate();
+    const { mutate: mutatePostJoinMember, isPending: isPendingPostJoinMember } =
+        useMutation({
+            mutationFn: (data: UserType) => postMember(data),
+            onSuccess: () => {
+                navigate('/auth/success');
+            },
+            onError: () => {},
+        });
+
+    return {
+        mutatePostJoinMember,
+        isPendingPostJoinMember,
+    };
 }

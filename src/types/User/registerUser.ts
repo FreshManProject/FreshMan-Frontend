@@ -1,6 +1,7 @@
-interface User {
+export interface UserType {
     name: string;
     phone: string;
     address: string;
-    addressDetail: string;
+    email: string;
+    initialized?: boolean;
 }
