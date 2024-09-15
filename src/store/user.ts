@@ -1,3 +1,4 @@
+import { USER_AUTH_STORAGE } from '@/constants/token';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
@@ -21,7 +22,7 @@ export const useAuthStore = create(
             setUserInfo: (data: IUserState['user']) => set({ user: data }),
         }),
         {
-            name: 'userAuthStorage',
+            name: USER_AUTH_STORAGE,
         },
     ),
 );
