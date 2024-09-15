@@ -75,3 +75,18 @@ export async function postMember(data: UserType) {
         return null;
     }
 }
+
+export async function deleteMember() {
+    try {
+        const response = await axiosAuth.delete('/members');
+        if (response.status !== 200) {
+            return true;
+        }
+        throw new Error(
+            `Unexpected response : ${response.status} ${response.statusText}`,
+        );
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}

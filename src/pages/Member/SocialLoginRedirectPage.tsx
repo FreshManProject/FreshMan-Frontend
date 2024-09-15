@@ -1,3 +1,4 @@
+import { ACCESSTOKEN } from '@/constants/token';
 import { useGetUserInfo } from '@/hooks/query/user';
 import { useAuthStore } from '@/store/user';
 import { useEffect, useState } from 'react';
@@ -16,7 +17,7 @@ export default function SocialLoginRedirectPage() {
     useEffect(() => {
         if (accessToken) {
             // 로컬스토리지 저장
-            localStorage.setItem('accessToken', accessToken);
+            localStorage.setItem(ACCESSTOKEN, accessToken);
             setIsToken(true);
         } else {
             alert('로그인에 실패했습니다');

@@ -1,5 +1,10 @@
 import { getUserQnaList } from '@/apis/qna';
-import { getInfiniteLikedList, getUserInfo, postMember } from '@/apis/user';
+import {
+    deleteMember,
+    getInfiniteLikedList,
+    getUserInfo,
+    postMember,
+} from '@/apis/user';
 import { pageSize } from '@/constants/infinitescroll';
 import { productListType } from '@/types/Product/productList';
 import { InquiryListType } from '@/types/User/inquiry';
@@ -76,5 +81,22 @@ export function usePostJoinMember() {
     return {
         mutatePostJoinMember,
         isPendingPostJoinMember,
+    };
+}
+
+export function useDeleteMember() {
+    const navigate = useNavigate();
+    const { mutate: mutateDeleteMember, isPending: isPendingDeleteMember } =
+        useMutation({
+            mutationFn: () => deleteMember(),
+            onSuccess: () => {
+                navigate('/login');
+            },
+            onError: () => {},
+        });
+
+    return {
+        mutateDeleteMember,
+        isPendingDeleteMember,
     };
 }
