@@ -44,7 +44,7 @@ function TopHeaderWraper({ children }: HeaderProps) {
 
 function TopHeaderUtil({ cart }: HeaderUtilProps) {
     return (
-        <div className="absolute right-0 top-0 flex h-full items-center justify-end">
+        <div className="absolute right-2 top-0 flex h-full items-center justify-end">
             {cart && (
                 <Link
                     to="/cart"
