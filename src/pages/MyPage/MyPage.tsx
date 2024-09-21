@@ -5,7 +5,7 @@ import { useGetUserInfo } from '@/hooks/query/user';
 
 export default function MyPage() {
     const { userInfo } = useGetUserInfo();
-    console.log(userInfo);
+
     return (
         <>
             <TopHeader>

@@ -14,7 +14,7 @@ interface HeaderUtilProps {
     cart: boolean;
 }
 interface HeaderBackProps {
-    backUrl: string;
+    backUrl?: string;
 }
 
 function TopHeaderTitle({ title, logo }: HeaderTitleProps) {
@@ -72,8 +72,8 @@ function TopHeaderBack({ backUrl }: HeaderBackProps) {
         navigate(-1);
     };
 
-    const handleBack = (backUrl: string) => {
-        if (backUrl) {
+    const handleBack = (backUrl?: HeaderBackProps['backUrl']) => {
+        if (!backUrl) {
             return handleRedirectBack();
         }
         return navigate(backUrl);
