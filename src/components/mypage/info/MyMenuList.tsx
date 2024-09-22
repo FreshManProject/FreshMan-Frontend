@@ -9,6 +9,8 @@ export default function MyMenuList() {
     const navigate = useNavigate();
     const handleMemberOut = () => {
         mutateDeleteMember();
+        localStorage.removeItem(ACCESSTOKEN);
+        localStorage.removeItem(USER_AUTH_STORAGE);
     };
 
     const handleLogout = () => {
@@ -35,7 +37,7 @@ export default function MyMenuList() {
                 {
                     id: 1,
                     name: '내 정보 수정',
-                    path: '/',
+                    path: 'edit',
                     link: true,
                 },
                 {

@@ -2,13 +2,10 @@ import {
     RegisterUserFormData,
     registerUserSchema,
 } from '@/types/Validation/yupRegister';
-import DaumPostCode from 'react-daum-postcode';
-import { useState } from 'react';
 import { usePostJoinMember } from '@/hooks/query/user';
 import useMemberValidation from '@/hooks/useMemberValidation';
 import { PrimaryBkButton } from '../common/Button';
-import { Drawer, DrawerContent, DrawerTrigger } from '../ui/drawer';
-import { InputField } from '../common';
+import { InputField, PostCodeModal } from '../common';
 
 export default function RegisterForm() {
     const { register, handleSubmit, setValue, errors, isValid } =
@@ -19,16 +16,15 @@ export default function RegisterForm() {
             address: '',
             addressDetail: '',
         });
-
     const { mutatePostJoinMember } = usePostJoinMember();
-    const [postCodeIsOpen, setPostCodeIsOpen] = useState(false);
 
     const onSubmit = (data: RegisterUserFormData) => {
         const joinData = {
             name: data.name,
             phone: data.phone,
             email: data.email,
-            address: `${data.address} ${data.addressDetail}`,
+            address: data.address,
+            addressDetail: data.addressDetail,
         };
         mutatePostJoinMember(joinData);
     };
@@ -67,29 +63,7 @@ export default function RegisterForm() {
                 register={register}
                 readonly
                 errorMsg={errors.address?.message || ''}
-                inputBtn={
-                    <Drawer
-                        open={postCodeIsOpen}
-                        onOpenChange={(open) => setPostCodeIsOpen(open)}
-                    >
-                        <DrawerTrigger
-                            className="ml-3 w-24 rounded-xl bg-bk text-body1 text-white"
-                            onClick={() => setPostCodeIsOpen(true)}
-                        >
-                            우편번호
-                        </DrawerTrigger>
-                        <DrawerContent>
-                            <DaumPostCode
-                                onComplete={(data) => {
-                                    setValue('address', data.address, {
-                                        shouldValidate: false,
-                                    });
-                                    setPostCodeIsOpen(false);
-                                }}
-                            />
-                        </DrawerContent>
-                    </Drawer>
-                }
+                inputBtn={<PostCodeModal setAddress={setValue} />}
             />
             <InputField
                 type="text"

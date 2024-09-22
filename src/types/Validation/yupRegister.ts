@@ -2,6 +2,7 @@ import * as yup from 'yup';
 
 export type RegisterUserFormData = yup.InferType<typeof registerUserSchema>;
 export type PartialUserData = yup.InferType<typeof partialUserSchema>;
+export type PartialAddressData = yup.InferType<typeof partialAddressSchema>;
 
 export const registerUserSchema = yup.object().shape({
     name: yup
@@ -23,4 +24,12 @@ export const registerUserSchema = yup.object().shape({
     addressDetail: yup.string().required('상세주소를 입력해주세요.'),
 });
 
-export const partialUserSchema = registerUserSchema.pick(['name']);
+export const partialUserSchema = registerUserSchema.pick([
+    'name',
+    'email',
+    'phone',
+]);
+export const partialAddressSchema = registerUserSchema.pick([
+    'address',
+    'addressDetail',
+]);

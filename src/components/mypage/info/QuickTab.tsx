@@ -8,19 +8,19 @@ export default function QuickTab() {
         {
             id: 1,
             name: '배송지 관리',
-            path: '',
+            path: 'edit/address',
             icon: <TbTruckDelivery className="text-2xl text-black" />,
         },
         {
             id: 2,
             name: '나의 리뷰',
-            path: '',
+            path: 'review',
             icon: <MdOutlineRateReview className="text-2xl text-black" />,
         },
         {
             id: 3,
             name: '찜',
-            path: '',
+            path: 'like',
             icon: <FaHeart className="text-2xl text-bk" />,
         },
     ];

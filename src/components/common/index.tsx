@@ -3,3 +3,4 @@ export { default as LikeBtn } from './LikeBtn';
 export { default as HorizontalScroll } from './HorizontalScroll';
 export { default as SortBottomSheetContent } from './SortBottomSheetContent';
 export { default as InputField } from './InputField';
+export { default as PostCodeModal } from './PostCodeModal';

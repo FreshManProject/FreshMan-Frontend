@@ -11,7 +11,7 @@ interface Props<T extends FieldValues> {
     errorMsg: string;
     inputBtn?: React.ReactNode;
     readonly?: boolean;
-    defaultValue?: string;
+    defaultValue?: string | number;
 }
 
 export default function InputField<T extends RegisterUserFormData>({
@@ -37,7 +37,7 @@ export default function InputField<T extends RegisterUserFormData>({
                 <Input
                     id={id as string}
                     type={type}
-                    value={defaultValue}
+                    defaultValue={defaultValue}
                     placeholder={placeholder}
                     readOnly={readonly}
                     className={
