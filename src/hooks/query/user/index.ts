@@ -1,9 +1,21 @@
 import { getUserQnaList } from '@/apis/qna';
-import { getInfiniteLikedList, getUserInfo, postMember } from '@/apis/user';
+import {
+    deleteMember,
+    getInfiniteLikedList,
+    getUserInfo,
+    postMember,
+    putMember,
+    putMemberAddress,
+} from '@/apis/user';
 import { pageSize } from '@/constants/infinitescroll';
+import { useAuthStore } from '@/store/user';
 import { productListType } from '@/types/Product/productList';
 import { InquiryListType } from '@/types/User/inquiry';
-import { UserType } from '@/types/User/registerUser';
+import {
+    UserEditAddressType,
+    UserEditType,
+    UserType,
+} from '@/types/User/registerUser';
 import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
@@ -64,9 +76,13 @@ export function useGetInfiniteLikedList() {
 
 export function usePostJoinMember() {
     const navigate = useNavigate();
+    const { setUserInfo } = useAuthStore();
     const { mutate: mutatePostJoinMember, isPending: isPendingPostJoinMember } =
         useMutation({
-            mutationFn: (data: UserType) => postMember(data),
+            mutationFn: async (data: UserType) => {
+                await postMember(data);
+                setUserInfo(data);
+            },
             onSuccess: () => {
                 navigate('/auth/success');
             },
@@ -76,5 +92,54 @@ export function usePostJoinMember() {
     return {
         mutatePostJoinMember,
         isPendingPostJoinMember,
+    };
+}
+
+export function useDeleteMember() {
+    const navigate = useNavigate();
+    const { mutate: mutateDeleteMember, isPending: isPendingDeleteMember } =
+        useMutation({
+            mutationFn: () => deleteMember(),
+            onSuccess: () => {
+                navigate('/login');
+            },
+            onError: () => {},
+        });
+
+    return {
+        mutateDeleteMember,
+        isPendingDeleteMember,
+    };
+}
+
+export function usePutMember() {
+    const { mutate: mutatePutMember, isPending: isPendingPutMember } =
+        useMutation({
+            mutationFn: (data: UserEditType) => putMember(data),
+            onSuccess: () => {
+                console.log('수정 완료');
+            },
+            onError: () => {},
+        });
+
+    return {
+        mutatePutMember,
+        isPendingPutMember,
+    };
+}
+
+export function usePutMemberAddress() {
+    const { mutate: mutatePutAddress, isPending: isPendingPutAddress } =
+        useMutation({
+            mutationFn: (data: UserEditAddressType) => putMemberAddress(data),
+            onSuccess: () => {
+                console.log('수정 완료');
+            },
+            onError: () => {},
+        });
+
+    return {
+        mutatePutAddress,
+        isPendingPutAddress,
     };
 }

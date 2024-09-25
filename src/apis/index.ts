@@ -1,3 +1,4 @@
+import { ACCESSTOKEN } from '@/constants/token';
 import axios, { AxiosRequestConfig } from 'axios';
 
 export const BASE_URL = process.env.REACT_APP_FRESHMAN_PUBLIC_API_URL;
@@ -48,7 +49,7 @@ const retryRequestWithNewToken = async (
     originalRequest: AxiosRequestConfig,
     newAccessToken: string,
 ) => {
-    localStorage.setItem('accessToken', newAccessToken);
+    localStorage.setItem(ACCESSTOKEN, newAccessToken);
 
     const modifiedConfig = { ...originalRequest };
     modifiedConfig.headers = originalRequest.headers || {};
@@ -65,7 +66,7 @@ const retryRequestWithNewToken = async (
 axiosAuth.interceptors.request.use(
     async (config) => {
         const modifiedConfig = { ...config };
-        const accessToken = localStorage.getItem('accessToken');
+        const accessToken = localStorage.getItem(ACCESSTOKEN);
 
         if (accessToken) {
             modifiedConfig.headers.Authorization = `Bearer ${accessToken}`;

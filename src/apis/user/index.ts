@@ -1,6 +1,10 @@
 import { productListType } from '@/types/Product/productList';
 import { pageSize } from '@/constants/infinitescroll';
-import { UserType } from '@/types/User/registerUser';
+import {
+    UserEditAddressType,
+    UserEditType,
+    UserType,
+} from '@/types/User/registerUser';
 import { axiosAuth } from '..';
 
 export default async function getLikeList(): Promise<productListType> {
@@ -64,6 +68,51 @@ export async function getUserInfo(): Promise<Required<UserType>> {
 export async function postMember(data: UserType) {
     try {
         const response = await axiosAuth.post('/members', data);
+        if (response.status !== 200) {
+            return true;
+        }
+        throw new Error(
+            `Unexpected response : ${response.status} ${response.statusText}`,
+        );
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}
+
+export async function deleteMember() {
+    try {
+        const response = await axiosAuth.delete('/members');
+        if (response.status !== 200) {
+            return true;
+        }
+        throw new Error(
+            `Unexpected response : ${response.status} ${response.statusText}`,
+        );
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}
+
+export async function putMember(data: UserEditType) {
+    try {
+        const response = await axiosAuth.put('/members/personal-info', data);
+        if (response.status !== 200) {
+            return true;
+        }
+        throw new Error(
+            `Unexpected response : ${response.status} ${response.statusText}`,
+        );
+    } catch (error) {
+        console.error(error);
+        return null;
+    }
+}
+
+export async function putMemberAddress(data: UserEditAddressType) {
+    try {
+        const response = await axiosAuth.put('/members/address', data);
         if (response.status !== 200) {
             return true;
         }

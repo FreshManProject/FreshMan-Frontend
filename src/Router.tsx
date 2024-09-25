@@ -8,10 +8,10 @@ import {
 import {
     EditAddressPage,
     EditInformationPage,
-    MyInformationPage,
     MyLikePage,
     MyPage,
     MyQnAPage,
+    MyReviewPage,
 } from './pages/MyPage';
 import { LayoutWithNav, LayoutWithOutNav } from './components/common/Layout';
 import { ProductDetailPage, ProductPage } from './pages/Product';
@@ -116,18 +116,23 @@ export default function Router() {
                             element: <EditAddressPage />,
                         },
                         {
+                            path: 'review',
+                            element: <MyReviewPage />,
+                        },
+                        {
                             path: 'like',
                             element: <MyLikePage />,
                         },
                         {
-                            path: 'info',
+                            path: 'edit',
                             children: [
                                 {
-                                    element: <MyInformationPage />,
+                                    path: '',
+                                    element: <EditInformationPage />,
                                 },
                                 {
-                                    path: 'edit',
-                                    element: <EditInformationPage />,
+                                    path: 'address',
+                                    element: <EditAddressPage />,
                                 },
                             ],
                         },

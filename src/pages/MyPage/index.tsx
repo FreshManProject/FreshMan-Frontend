@@ -4,3 +4,4 @@ export { default as MyInformationPage } from './MyInformationPage';
 export { default as EditInformationPage } from './EditInformationPage';
 export { default as EditAddressPage } from './EditAddressPage';
 export { default as MyQnAPage } from './MyQnAPage';
+export { default as MyReviewPage } from './MyReviewPage';
