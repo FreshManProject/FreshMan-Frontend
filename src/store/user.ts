@@ -1,4 +1,4 @@
-import { USER_AUTH_STORAGE } from '@/constants/token';
+import { USER_AUTH_STORAGE } from '@/constants/storage';
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 

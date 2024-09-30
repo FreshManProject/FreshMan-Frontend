@@ -12,7 +12,7 @@ export default function ProductBuyBtn() {
     return (
         <div
             className={
-                'fixed bottom-0 left-0 right-0 z-40 z-[21] m-auto flex max-w-default items-center justify-between bg-white px-2 py-4 shadow-top [&>#likeBtn]:basis-16 [&>#primaryBtn]:flex-1'
+                'fixed bottom-0 left-0 right-0 z-40 m-auto flex max-w-default items-center justify-between bg-white px-2 py-4 shadow-top [&>#likeBtn]:basis-16 [&>#primaryBtn]:flex-1'
             }
         >
             <LikeBtn favorite={false} size={'lg'} />

@@ -109,7 +109,7 @@ export function useGetInfiniteSaleList() {
     });
 }
 
-export function useGetInfiniteQnaList(productSeq: number) {
+export function useGetInfiniteQnaList(productSeq: number, isActive: boolean) {
     return useInfiniteQuery<InquiryListType, Error>({
         queryKey: ['productQnaList'],
         queryFn: ({ pageParam }) =>
@@ -126,6 +126,7 @@ export function useGetInfiniteQnaList(productSeq: number) {
         refetchOnMount: false,
         refetchOnReconnect: false,
         refetchOnWindowFocus: false,
+        enabled: isActive,
     });
 }
 

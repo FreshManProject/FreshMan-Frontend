@@ -3,7 +3,7 @@ import { getInfiniteReview, postReview } from '@/apis/review';
 import { pageSize } from '@/constants/infinitescroll';
 import { reviewListType, reviewParmsType } from '@/types/Review/userReview';
 
-export function useGetInfiniteReview(productSeq: number) {
+export function useGetInfiniteReview(productSeq: number, isActive: boolean) {
     return useInfiniteQuery<reviewListType, Error>({
         queryKey: ['review'],
         queryFn: ({ pageParam }) =>
@@ -20,6 +20,7 @@ export function useGetInfiniteReview(productSeq: number) {
         refetchOnMount: false,
         refetchOnReconnect: false,
         refetchOnWindowFocus: false,
+        enabled: isActive,
     });
 }
 

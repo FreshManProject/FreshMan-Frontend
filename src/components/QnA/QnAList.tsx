@@ -51,6 +51,8 @@ export default function QnAList({ result }: IQnAList) {
 
     if (isLoading) return <div>Loading...</div>;
 
+    if (!data) return null;
+
     if (isError) return <div>Error...</div>;
 
     return (
