@@ -1,4 +1,5 @@
 import {
+    GetProductListParams,
     productListParamsType,
     productListType,
 } from '@/types/Product/productList';
@@ -20,6 +21,30 @@ export async function getProductList(
     });
     try {
         const response = await axios.get(url.toString());
+        return response.data;
+    } catch (error) {
+        throw Error;
+    }
+}
+
+export async function getProductList2(
+    params: GetProductListParams,
+    pageParam = 1,
+): Promise<productListType> {
+    // categorySeq: number, lowPrice?: number, highPrice?: number, sort?: string
+    const url = new URL(`/products`, BASE_URL);
+
+    Object.entries(params).forEach(([key, value]) => {
+        if (value) {
+            url.searchParams.append(key, value.toString());
+        }
+    });
+
+    console.log(url.toString(), params);
+    try {
+        const response = await axios.get(
+            `${url.toString()}?pages=${pageParam}`,
+        );
         return response.data;
     } catch (error) {
         throw Error;

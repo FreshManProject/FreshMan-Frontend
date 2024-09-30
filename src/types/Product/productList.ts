@@ -10,6 +10,10 @@ export interface productListParamsType {
     keyword?: string;
 }
 
+export type GetProductListParams = productListParamsType & {
+    pageParam: unknown;
+};
+
 export type productListType = ListType<productItemType>;
 export type cartListType = ListType<cartItemType>;
 
