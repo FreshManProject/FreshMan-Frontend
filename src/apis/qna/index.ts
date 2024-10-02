@@ -1,12 +1,12 @@
-import { InquiryListType } from '@/types/User/inquiry';
 import { pageSize } from '@/constants/infinitescroll';
+import { QnaListType } from '@/types/User/qna';
 import { axiosAuth } from '..';
 
 export async function getUserQnaList({
     pageParam = 1,
 }: {
     pageParam?: unknown;
-}): Promise<InquiryListType> {
+}): Promise<QnaListType> {
     try {
         const response = await axiosAuth.get(`/questions/my-questions`, {
             params: {
@@ -34,9 +34,9 @@ export async function getInfiniteQnaList({
 }: {
     productSeq: number;
     pageParam?: unknown;
-}): Promise<InquiryListType> {
+}): Promise<QnaListType> {
     try {
-        const response = await axiosAuth.get<InquiryListType>(
+        const response = await axiosAuth.get<QnaListType>(
             `/questions/products/${productSeq}`,
             {
                 params: {
@@ -57,6 +57,30 @@ export async function getQnaAnswer(
         const response = await axiosAuth.get(`/answers/${questionSeq}`);
         return response.data;
     } catch (error) {
+        throw Error;
+    }
+}
+
+export async function postQnaAnswer(data: {
+    productSeq: number;
+    body: unknown;
+}) {
+    try {
+        const response = await axiosAuth.post(
+            `/questions/products/${data.productSeq}`,
+            data.body,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            },
+        );
+        if (response.status === 200) return true;
+        throw new Error(
+            `Unexpected response : ${response.status} ${response.statusText}`,
+        );
+    } catch (error) {
+        console.error(error);
         throw Error;
     }
 }
