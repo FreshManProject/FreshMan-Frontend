@@ -3,6 +3,7 @@ import * as yup from 'yup';
 export type RegisterUserFormData = yup.InferType<typeof registerUserSchema>;
 export type PartialUserData = yup.InferType<typeof partialUserSchema>;
 export type PartialAddressData = yup.InferType<typeof partialAddressSchema>;
+export type imageFileData = yup.InferType<typeof imageFileSchema>;
 
 export const registerUserSchema = yup.object().shape({
     name: yup
@@ -33,3 +34,22 @@ export const partialAddressSchema = registerUserSchema.pick([
     'address',
     'addressDetail',
 ]);
+
+export const qnaSchema = yup.object().shape({
+    type: yup.string().required('문의 유형을 선택해주세요.'),
+    content: yup
+        .string()
+        .required('문의 내용을 입력해주세요.')
+        .min(20, '문의 내용은 최소 20자 이상이어야 합니다.'),
+});
+
+export const imageFileSchema = yup.object().shape({
+    image: yup
+        .mixed()
+        .required('이미지를 입력해주세요.')
+        .test('file', '파일 크기는 2MB 이하이어야 합니다.', (value) => {
+            if (value instanceof File)
+                return value && value.size <= 2 * 1024 * 1024;
+            return false;
+        }),
+});

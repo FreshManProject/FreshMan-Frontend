@@ -10,7 +10,7 @@ import {
 import { pageSize } from '@/constants/infinitescroll';
 import { useAuthStore } from '@/store/user';
 import { productListType } from '@/types/Product/productList';
-import { InquiryListType } from '@/types/User/inquiry';
+import { QnaListType } from '@/types/User/qna';
 import {
     UserEditAddressType,
     UserEditType,
@@ -37,7 +37,7 @@ export function useGetUserInfo(status = true) {
 }
 
 export function useGetUserQnaList() {
-    return useInfiniteQuery<InquiryListType, Error>({
+    return useInfiniteQuery<QnaListType, Error>({
         queryKey: ['myQnaList'],
         queryFn: getUserQnaList,
         initialPageParam: undefined,

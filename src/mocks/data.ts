@@ -1,6 +1,6 @@
 import { productItemType } from '@/types/Product/productList';
 import { reviewProductType } from '@/types/Review/userReview';
-import { InquiryType } from '@/types/User/inquiry';
+import { QnaItemType } from '@/types/User/qna';
 
 export const dummyProductList: productItemType[] = [];
 for (let i = 0; i < 32; i += 1) {
@@ -72,7 +72,7 @@ export const dummyInquiryList = [
     },
 ];
 
-export const dummyQnAList: InquiryType[] = [];
+export const dummyQnAList: QnaItemType[] = [];
 for (let i = 0; i < 90; i += 1) {
     dummyQnAList.push({
         questionSeq: i,
