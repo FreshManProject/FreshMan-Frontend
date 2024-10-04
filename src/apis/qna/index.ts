@@ -3,7 +3,7 @@ import { pageSize } from '@/constants/infinitescroll';
 import { axiosAuth } from '..';
 
 export async function getUserQnaList({
-    pageParam = 1,
+    pageParam = 0,
 }: {
     pageParam?: unknown;
 }): Promise<InquiryListType> {
@@ -13,16 +13,17 @@ export async function getUserQnaList({
                 page: pageParam,
             },
         });
-        // msw 데이터 수정
-        // TODO: 백엔드 연결 후 삭제
-        const startIndex = (Number(pageParam) - 1) * pageSize;
-        const list = response.data.list.slice(
-            startIndex,
-            startIndex + pageSize,
-        );
+        // // msw 데이터 수정
+        // // TODO: 백엔드 연결 후 삭제
+        // const startIndex = (Number(pageParam) - 1) * pageSize;
+        // const list = response.data.list.slice(
+        //     startIndex,
+        //     startIndex + pageSize,
+        // );
 
-        // TODO: return response.data;
-        return { list, count: list.length };
+        // TODO:
+        return response.data;
+        // return { list, count: list.length };
     } catch (error) {
         throw new Error('Failed to fetch questions mypage list');
     }

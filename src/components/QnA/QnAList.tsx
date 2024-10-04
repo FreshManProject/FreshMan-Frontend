@@ -65,7 +65,7 @@ export default function QnAList({ result }: IQnAList) {
                     key={index}
                     value={index}
                     item={item}
-                    disabled={!item.isAnswered}
+                    // disabled={!item.isAnswered}
                     answer={answer && answer.content}
                 />
             ))}

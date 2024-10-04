@@ -10,14 +10,27 @@ import {
 
 import { useState } from 'react';
 import { ProductOptionType } from '@/types/Product/productDetail';
+import { usePostInCart } from '@/hooks/query/carts';
+import { useParams } from 'react-router-dom';
 
 import { GrayBorderButton, PrimaryBkButton } from '../common/Button';
 import { OptionCount } from './ProductDetail';
 
 export default function ProductOption() {
+    const { id } = useParams();
+    const { mutatePostInCart } = usePostInCart();
     const [selectedList, setSelectedList] = useState<ProductOptionType[]>([]);
 
-    const handleClickBuy = () => {};
+    const handleClickBuy = () => {
+        if (id !== undefined) {
+            mutatePostInCart({
+                quantity: selectedList.length,
+                productSeq: Number(id),
+            });
+        }
+    };
+
+    const handleClickCart = () => {};
     const handleChangeOption = (value: string) => {
         setSelectedList((prevList) => [
             ...prevList,
@@ -75,7 +88,9 @@ export default function ProductOption() {
                     <dd className={'text-title3_b'}>{'총 812,222원'}</dd>
                 </dl>
                 <div className={'flex gap-2.5 [&>button]:flex-1'}>
-                    <GrayBorderButton>장바구니</GrayBorderButton>
+                    <GrayBorderButton onClick={handleClickCart}>
+                        장바구니
+                    </GrayBorderButton>
                     <PrimaryBkButton
                         handleClick={handleClickBuy}
                         primary

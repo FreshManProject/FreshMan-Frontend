@@ -9,19 +9,19 @@ interface IQnAItemProps {
     value: number;
     item: InquiryType;
     answer?: string;
-    disabled: boolean;
+    // disabled: boolean;
 }
 
 export default function QnAItem({
     value,
     item,
     answer,
-    disabled,
+    // disabled,
 }: IQnAItemProps) {
     return (
         <AccordionItem
             value={`item-${value}`}
-            disabled={disabled}
+            // disabled={disabled}
             className="qnaGroup px-4 data-[state=open]:bg-gray100"
         >
             <AccordionTrigger className="items-start">
