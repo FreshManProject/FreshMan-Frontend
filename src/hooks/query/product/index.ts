@@ -5,14 +5,16 @@ import {
     getInfiniteSaleList,
     getProductList2,
 } from '@/apis/products';
-import { getInfiniteQnaList, getQnaAnswer } from '@/apis/qna';
+import { getInfiniteQnaList, getQnaAnswer, postQnaAnswer } from '@/apis/qna';
 import { pageSize } from '@/constants/infinitescroll';
 import {
     productListParamsType,
     productListType,
 } from '@/types/Product/productList';
-import { InquiryListType } from '@/types/User/inquiry';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { QnaListType, QnaParamsType } from '@/types/User/qna';
+import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export function useGetProductDetail(productSeq: number) {
     const {
@@ -109,8 +111,8 @@ export function useGetInfiniteSaleList() {
     });
 }
 
-export function useGetInfiniteQnaList(productSeq: number, isActive: boolean) {
-    return useInfiniteQuery<InquiryListType, Error>({
+export function useGetInfiniteQnaList(productSeq: number) {
+    return useInfiniteQuery<QnaListType, Error>({
         queryKey: ['productQnaList'],
         queryFn: ({ pageParam }) =>
             getInfiniteQnaList({ pageParam, productSeq }),
@@ -126,7 +128,7 @@ export function useGetInfiniteQnaList(productSeq: number, isActive: boolean) {
         refetchOnMount: false,
         refetchOnReconnect: false,
         refetchOnWindowFocus: false,
-        enabled: isActive,
+        // enabled: isActive,
     });
 }
 
@@ -150,5 +152,24 @@ export function useGetQnaAnswer(
         isLoadingAnswer,
         isErrorAnswer,
         isSuccessAnswer,
+    };
+}
+
+export function usePostQnA() {
+    const navigate = useNavigate();
+    const [productSeq, setProductSeq] = useState(0);
+    const { isPending: isPendingPostQnA, mutate: mutatePostQnA } = useMutation({
+        mutationFn: (data: QnaParamsType) => {
+            setProductSeq(data.productSeq);
+            return postQnaAnswer(data);
+        },
+        onSuccess: () => {
+            navigate(`/products/${productSeq}`);
+        },
+    });
+
+    return {
+        mutatePostQnA,
+        isPendingPostQnA,
     };
 }

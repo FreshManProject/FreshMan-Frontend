@@ -1,6 +1,6 @@
 import { ListType } from '../listType';
 
-export interface InquiryType {
+export interface QnaItemType {
     questionSeq: number;
     memberName: null | string;
     content: string;
@@ -12,4 +12,9 @@ export interface InquiryType {
     productSeq?: number;
 }
 
-export type InquiryListType = ListType<InquiryType>;
+export type QnaListType = ListType<QnaItemType>;
+
+export interface QnaParamsType {
+    productSeq: number;
+    body: FormData;
+}

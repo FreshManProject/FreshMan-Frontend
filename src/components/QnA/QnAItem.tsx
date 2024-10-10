@@ -3,11 +3,11 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from '@/components/ui/accordion';
-import { InquiryType } from '@/types/User/inquiry';
+import { QnaItemType } from '@/types/User/qna';
 
 interface IQnAItemProps {
     value: number;
-    item: InquiryType;
+    item: QnaItemType;
     answer?: string;
     disabled: boolean;
 }

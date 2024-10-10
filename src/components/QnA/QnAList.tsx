@@ -1,16 +1,13 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Accordion } from '@/components/ui/accordion';
-import { InquiryListType, InquiryType } from '@/types/User/inquiry';
 import { useGetQnaAnswer } from '@/hooks/query/product';
 import { InfiniteData, UseInfiniteQueryResult } from '@tanstack/react-query';
 import useView from '@/hooks/observer/useView';
+import { QnaItemType, QnaListType } from '@/types/User/qna';
 import QnAItem from './QnAItem';
 
 interface IQnAList {
-    result: UseInfiniteQueryResult<
-        InfiniteData<InquiryListType, unknown>,
-        Error
-    >;
+    result: UseInfiniteQueryResult<InfiniteData<QnaListType, unknown>, Error>;
 }
 
 export default function QnAList({ result }: IQnAList) {
@@ -62,7 +59,7 @@ export default function QnAList({ result }: IQnAList) {
             className=""
             onValueChange={(value: string) => handleToggleAnswer(value)}
         >
-            {list.map((item: InquiryType, index: number) => (
+            {list.map((item: QnaItemType, index: number) => (
                 <QnAItem
                     key={index}
                     value={index}
