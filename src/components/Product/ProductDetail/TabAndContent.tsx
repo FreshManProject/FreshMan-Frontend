@@ -70,7 +70,7 @@ export default function TabAndContent() {
             </TabsContent>
             <TabsContent value={tabs[2].name}>
                 <TabAndContentLayout
-                    topComponent={<QnABtn />}
+                    topComponent={<QnABtn productSeq={id || ''} />}
                     bottomComponent={
                         <Suspense fallback={'dd'}>
                             <QnAList qnaData={qnaData} />
