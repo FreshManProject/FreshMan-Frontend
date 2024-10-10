@@ -3,22 +3,27 @@ import { Accordion } from '@/components/ui/accordion';
 import { useGetQnaAnswer } from '@/hooks/query/product';
 import { InfiniteData, UseInfiniteQueryResult } from '@tanstack/react-query';
 import useView from '@/hooks/observer/useView';
-import { QnaItemType, QnaListType } from '@/types/User/qna';
+import { QnaItemType } from '@/types/User/qna';
 import QnAItem from './QnAItem';
+// import QnAItem from './QnAItem';
+// import QnAItem from './QnAItem';
 
 interface IQnAList {
-    result: UseInfiniteQueryResult<InfiniteData<QnaListType, unknown>, Error>;
+    qnaData: UseInfiniteQueryResult<
+        InfiniteData<QnaItemType[], unknown>,
+        Error
+    >;
 }
 
-export default function QnAList({ result }: IQnAList) {
+export default function QnAList({ qnaData }: IQnAList) {
     const {
-        data,
+        data: qnaList,
         isLoading,
         isError,
         hasNextPage,
         fetchNextPage,
         isFetchingNextPage,
-    } = result;
+    } = qnaData;
 
     const { view, onView } = useView(
         isFetchingNextPage,
@@ -27,12 +32,13 @@ export default function QnAList({ result }: IQnAList) {
     );
 
     const list = useMemo(() => {
-        return data?.pages.flatMap((listData) => listData.list) || [];
-    }, [data]);
+        return qnaList?.pages.flatMap((listData) => listData || []) || [];
+    }, [qnaList]);
 
+    console.log(list, 'qna', qnaList);
     const [isFetching, setIsFetching] = useState(false);
     const [qnaId, setQnaId] = useState('');
-    const { answer, isSuccessAnswer } = useGetQnaAnswer(qnaId, isFetching);
+    const { isSuccessAnswer } = useGetQnaAnswer(qnaId, isFetching);
     const handleSuccess = () => {
         setIsFetching(false); // 데이터 가져온 후 다시 false로 설정
     };
@@ -48,7 +54,7 @@ export default function QnAList({ result }: IQnAList) {
 
     if (isLoading) return <div>Loading...</div>;
 
-    if (!data) return null;
+    if (!qnaData) return null;
 
     if (isError) return <div>Error...</div>;
 
@@ -59,15 +65,20 @@ export default function QnAList({ result }: IQnAList) {
             className=""
             onValueChange={(value: string) => handleToggleAnswer(value)}
         >
-            {list.map((item: QnaItemType, index: number) => (
-                <QnAItem
-                    key={index}
-                    value={index}
-                    item={item}
-                    disabled={!item.isAnswered}
-                    answer={answer && answer.content}
-                />
-            ))}
+            {list.length === 0 ? (
+                <p className="text-center text-sm text-gray400">
+                    등록된 문의가 없습니다.
+                </p>
+            ) : (
+                list?.map((item: QnaItemType, index: number) => (
+                    <QnAItem
+                        key={index}
+                        value={index}
+                        item={item}
+                        // answer={answer && answer.content}
+                    />
+                ))
+            )}
             {view ? <p>Loading more...</p> : <div ref={onView} />}
         </Accordion>
     );

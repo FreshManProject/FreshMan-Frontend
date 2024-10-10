@@ -2,9 +2,9 @@ import { Suspense, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { ProductReviewScore, ReviewList } from '@/components/Review';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { useGetInfiniteQnaList } from '@/hooks/query/product';
 import { QnABtn, QnAList } from '@/components/QnA';
 import { useProductStore } from '@/store/product';
+import { useGetProductQnaList } from '@/hooks/query/product';
 import TabAndContentLayout from './TabAndContentLayout';
 
 export default function TabAndContent() {
@@ -21,7 +21,7 @@ export default function TabAndContent() {
         ),
     );
     const { description } = useProductStore();
-    const result = useGetInfiniteQnaList(Number(id), isTabChange.productQnA);
+    const qnaData = useGetProductQnaList(Number(id), isTabChange.productQnA);
 
     // 처음 상세정보만 api 가져 온 후 탭 이동시 관련 api 호출
 
@@ -73,7 +73,7 @@ export default function TabAndContent() {
                     topComponent={<QnABtn />}
                     bottomComponent={
                         <Suspense fallback={'dd'}>
-                            <QnAList result={result} />
+                            <QnAList qnaData={qnaData} />
                         </Suspense>
                     }
                     subTitle="문의"

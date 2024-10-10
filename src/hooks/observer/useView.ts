@@ -1,5 +1,3 @@
-import { ListType } from '@/types/listType';
-
 import {
     FetchNextPageOptions,
     InfiniteData,
@@ -7,17 +5,21 @@ import {
 } from '@tanstack/react-query';
 import { useCallback, useRef } from 'react';
 
-export default function useView<T, LT extends ListType<T>>(
+export default function useView(
     isFetchingNextPage: boolean,
     fetchNextPage: (
         options?: FetchNextPageOptions,
-    ) => Promise<InfiniteQueryObserverResult<InfiniteData<LT, unknown>, Error>>,
+    ) => Promise<
+        InfiniteQueryObserverResult<InfiniteData<unknown, unknown>, Error>
+    >,
     hasNextPage: boolean,
 ) {
     const observer = useRef<IntersectionObserver | null>(null);
     const ref = useCallback(
         (node: HTMLDivElement | null) => {
-            if (isFetchingNextPage) return;
+            if (!isFetchingNextPage) {
+                return;
+            }
             if (observer.current) observer.current.disconnect();
             observer.current = new IntersectionObserver((entries) => {
                 if (entries[0].isIntersecting && hasNextPage) {

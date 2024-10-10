@@ -1,5 +1,5 @@
-import { pageSize } from '@/constants/infinitescroll';
-import { QnaListType } from '@/types/User/qna';
+// import { pageSize } from '@/constants/infinitescroll';
+import { QnaItemType, QnaListType } from '@/types/User/qna';
 import { axiosAuth } from '..';
 
 export async function getUserQnaList({
@@ -15,28 +15,29 @@ export async function getUserQnaList({
         });
         // msw 데이터 수정
         // TODO: 백엔드 연결 후 삭제
-        const startIndex = (Number(pageParam) - 1) * pageSize;
-        const list = response.data.list.slice(
-            startIndex,
-            startIndex + pageSize,
-        );
+        // const startIndex = (Number(pageParam) - 1) * pageSize;
+        // const list = response.data.list.slice(
+        //     startIndex,
+        //     startIndex + pageSize,
+        // );
 
         // TODO: return response.data;
-        return { list, count: list.length };
+        console.log(response.data, 'dd응답');
+        return response.data;
     } catch (error) {
         throw new Error('Failed to fetch questions mypage list');
     }
 }
 
-export async function getInfiniteQnaList({
+export async function getProductQnaList({
     productSeq,
     pageParam = 1,
 }: {
     productSeq: number;
     pageParam?: unknown;
-}): Promise<QnaListType> {
+}): Promise<QnaItemType[]> {
     try {
-        const response = await axiosAuth.get<QnaListType>(
+        const response = await axiosAuth.get(
             `/questions/products/${productSeq}`,
             {
                 params: {

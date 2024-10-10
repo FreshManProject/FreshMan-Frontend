@@ -5,13 +5,13 @@ import {
     getInfiniteSaleList,
     getProductList2,
 } from '@/apis/products';
-import { getInfiniteQnaList, getQnaAnswer, postQnaAnswer } from '@/apis/qna';
+import { getProductQnaList, getQnaAnswer, postQnaAnswer } from '@/apis/qna';
 import { pageSize } from '@/constants/infinitescroll';
 import {
     productListParamsType,
     productListType,
 } from '@/types/Product/productList';
-import { QnaListType, QnaParamsType } from '@/types/User/qna';
+import { QnaItemType, QnaParamsType } from '@/types/User/qna';
 import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -111,16 +111,15 @@ export function useGetInfiniteSaleList() {
     });
 }
 
-export function useGetInfiniteQnaList(productSeq: number) {
-    return useInfiniteQuery<QnaListType, Error>({
+export function useGetProductQnaList(productSeq: number, isActive: boolean) {
+    return useInfiniteQuery<QnaItemType[], Error>({
         queryKey: ['productQnaList'],
         queryFn: ({ pageParam }) =>
-            getInfiniteQnaList({ pageParam, productSeq }),
-        initialPageParam: undefined,
+            getProductQnaList({ pageParam, productSeq }),
+        initialPageParam: 0,
         getNextPageParam: (lastPage, allPages) => {
             const nextPage = allPages.length + 1;
-            // 상품이 0개이거나 rowsPerPage보다 작을 경우 마지막 페이지로 인식한다.
-            return lastPage?.count === 0 || lastPage?.count < pageSize
+            return lastPage?.length === 0 || lastPage?.length < pageSize
                 ? undefined
                 : nextPage;
         },
@@ -128,7 +127,7 @@ export function useGetInfiniteQnaList(productSeq: number) {
         refetchOnMount: false,
         refetchOnReconnect: false,
         refetchOnWindowFocus: false,
-        // enabled: isActive,
+        enabled: isActive,
     });
 }
 
