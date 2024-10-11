@@ -38,19 +38,9 @@ export default function HomeProductList() {
             <ProductMoreList
                 title="랭킹"
                 link="/"
-                listData={{
-                    list: productRankingList,
-                    count: productRankingList.length,
-                }}
+                listData={productRankingList}
             />
-            <ProductMoreList
-                title="랭킹"
-                link="/"
-                listData={{
-                    list: productSaleList,
-                    count: productSaleList.length,
-                }}
-            />
+            <ProductMoreList title="랭킹" link="/" listData={productSaleList} />
         </div>
     );
 }

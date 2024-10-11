@@ -1,9 +1,7 @@
 import {
-    GetProductListParams,
     productListParamsType,
     productListType,
 } from '@/types/Product/productList';
-import { pageSize } from '@/constants/infinitescroll';
 import axios from 'axios';
 import { ProductDetailType } from '@/types/Product/productDetail';
 import { BASE_URL, axiosAuth } from '..';
@@ -28,23 +26,20 @@ export async function getProductList(
 }
 
 export async function getProductList2(
-    params: GetProductListParams,
-    pageParam = 1,
+    params: productListParamsType,
+    pageParam: unknown,
 ): Promise<productListType> {
     // categorySeq: number, lowPrice?: number, highPrice?: number, sort?: string
     const url = new URL(`/products`, BASE_URL);
-
+    console.log(pageParam, 'pageparam');
     Object.entries(params).forEach(([key, value]) => {
-        if (value) {
+        if (value && key !== 'pageParam') {
             url.searchParams.append(key, value.toString());
         }
     });
 
-    console.log(url.toString(), params);
     try {
-        const response = await axios.get(
-            `${url.toString()}?pages=${pageParam}`,
-        );
+        const response = await axios.get(`${url.toString()}&page=${pageParam}`);
         return response.data;
     } catch (error) {
         throw Error;
@@ -79,14 +74,14 @@ export async function getInfiniteRankingList({
 
         // msw 데이터 수정
         // TODO: 백엔드 연결 후 삭제
-        const startIndex = (Number(pageParam) - 1) * pageSize;
-        const list = response.data.list.slice(
-            startIndex,
-            startIndex + pageSize,
-        );
+        // const startIndex = (Number(pageParam) - 1) * pageSize;
+        // const list = response.data.list.slice(
+        //     startIndex,
+        //     startIndex + pageSize,
+        // );
 
-        // TODO: return response.data;
-        return { list, count: list.length };
+        return response.data;
+        // return { list, count: list.length };
     } catch (error) {
         throw new Error('Failed to fetch product ranking list');
     }
@@ -106,14 +101,13 @@ export async function getInfiniteSaleList({
 
         // msw 데이터 수정
         // TODO: 백엔드 연결 후 삭제
-        const startIndex = (Number(pageParam) - 1) * pageSize;
-        const list = response.data.list.slice(
-            startIndex,
-            startIndex + pageSize,
-        );
+        // const startIndex = (Number(pageParam) - 1) * pageSize;
+        // const list = response.data.list.slice(
+        //     startIndex,
+        //     startIndex + pageSize,
+        // );
 
-        // TODO: return response.data;
-        return { list, count: list.length };
+        return response.data;
     } catch (error) {
         throw new Error('Failed to fetch product sale list');
     }

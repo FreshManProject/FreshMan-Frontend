@@ -17,12 +17,14 @@ export default function useView(
     const observer = useRef<IntersectionObserver | null>(null);
     const ref = useCallback(
         (node: HTMLDivElement | null) => {
-            if (!isFetchingNextPage) {
-                return;
-            }
+            console.log(fetchNextPage, hasNextPage);
+            // if (!isFetchingNextPage) {
+            //     return;
+            // }
             if (observer.current) observer.current.disconnect();
             observer.current = new IntersectionObserver((entries) => {
                 if (entries[0].isIntersecting && hasNextPage) {
+                    console.log(hasNextPage);
                     fetchNextPage();
                 }
             });

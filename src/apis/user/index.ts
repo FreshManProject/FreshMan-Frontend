@@ -1,5 +1,4 @@
 import { productListType } from '@/types/Product/productList';
-import { pageSize } from '@/constants/infinitescroll';
 import {
     UserEditAddressType,
     UserEditType,
@@ -34,17 +33,7 @@ export async function getInfiniteLikedList({
                 },
             },
         );
-
-        // msw 데이터 수정
-        // TODO: 백엔드 연결 후 삭제
-        const startIndex = (Number(pageParam) - 1) * pageSize;
-        const list = response.data.list.slice(
-            startIndex,
-            startIndex + pageSize,
-        );
-
-        // TODO: return response.data;
-        return { list, count: list.length };
+        return response.data;
     } catch (error) {
         throw new Error('Failed to fetch liked list');
     }
