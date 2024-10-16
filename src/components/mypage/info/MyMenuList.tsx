@@ -1,5 +1,6 @@
 import { BasicAlert } from '@/components/common/Alert';
-import { ACCESSTOKEN, USER_AUTH_STORAGE } from '@/constants/token';
+import { USER_AUTH_STORAGE } from '@/constants/storage';
+import { ACCESSTOKEN } from '@/constants/token';
 import { useDeleteMember } from '@/hooks/query/user';
 import { IoIosArrowForward } from 'react-icons/io';
 import { Link, useNavigate } from 'react-router-dom';

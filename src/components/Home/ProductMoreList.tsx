@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { productListType } from '@/types/Product/productList';
+import { productItemType } from '@/types/Product/productList';
 import { IoIosArrowBack } from 'react-icons/io';
 import { ProductItem } from '../Product';
 import { HorizontalScroll } from '../common';
@@ -7,7 +7,7 @@ import { HorizontalScroll } from '../common';
 interface PropsType {
     title: string;
     link: string;
-    listData: productListType;
+    listData: productItemType[];
 }
 
 export default function ProductMoreList({ title, link, listData }: PropsType) {
@@ -21,8 +21,8 @@ export default function ProductMoreList({ title, link, listData }: PropsType) {
                 </Link>
             </h2>
             <HorizontalScroll elementSize="min-w-40 max-w-40">
-                {listData && listData.list && listData.list.length > 0 ? (
-                    listData.list.map((item) => (
+                {listData && listData && listData.length > 0 ? (
+                    listData.map((item) => (
                         <ProductItem
                             key={item.productSeq}
                             className=""

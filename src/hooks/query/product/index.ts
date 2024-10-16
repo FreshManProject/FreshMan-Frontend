@@ -3,34 +3,18 @@ import {
     getProductList,
     getInfiniteRankingList,
     getInfiniteSaleList,
+    getProductList2,
 } from '@/apis/products';
-import { getInfiniteQnaList, getQnaAnswer, postQnaAnswer } from '@/apis/qna';
+import { getProductQnaList, getQnaAnswer, postQnaAnswer } from '@/apis/qna';
 import { pageSize } from '@/constants/infinitescroll';
 import {
     productListParamsType,
     productListType,
 } from '@/types/Product/productList';
-import { QnaListType, QnaParamsType } from '@/types/User/qna';
+import { QnaItemType, QnaParamsType } from '@/types/User/qna';
 import { useInfiniteQuery, useMutation, useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-export function useGetProductList(
-    params: productListParamsType,
-    status: boolean = true,
-) {
-    const { data: productList, isLoading: isLoadingProductList } = useQuery({
-        queryKey: [
-            `productList&${params.categorySeq}&${params.lowPrice}&${params.highPrice}&${params.sort}`,
-        ],
-        queryFn: () => getProductList(params),
-        enabled: status,
-    });
-    return {
-        productList,
-        isLoadingProductList,
-    };
-}
 
 export function useGetProductDetail(productSeq: number) {
     const {
@@ -45,6 +29,45 @@ export function useGetProductDetail(productSeq: number) {
         productInfo,
         isErrorProductInfo,
         isLoadingProductInfo,
+    };
+}
+
+export function useGetInfiniteProductList(
+    params: productListParamsType,
+    status: boolean = true,
+) {
+    return useInfiniteQuery<productListType, Error>({
+        queryKey: ['product'],
+        queryFn: ({ pageParam }) => getProductList2(params, pageParam),
+        initialPageParam: 0,
+        getNextPageParam: (lastPage, allPages) => {
+            const nextPage = allPages.length;
+            // 상품이 0개이거나 rowsPerPage보다 작을 경우 마지막 페이지로 인식한다.
+            console.log(nextPage, 'nextpage');
+            return lastPage.count === 10 ? nextPage : undefined;
+        },
+        retry: 0,
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        refetchOnWindowFocus: false,
+        enabled: status,
+    });
+}
+
+export function useGetProductList(
+    params: productListParamsType,
+    status: boolean,
+) {
+    const { data: productList, isLoading: isLoadingProductList } = useQuery({
+        queryKey: [
+            `productList&${params.categorySeq}&${params.lowPrice}&${params.highPrice}&${params.sort}`,
+        ],
+        queryFn: () => getProductList(params),
+        enabled: status,
+    });
+    return {
+        productList,
+        isLoadingProductList,
     };
 }
 
@@ -87,16 +110,15 @@ export function useGetInfiniteSaleList() {
     });
 }
 
-export function useGetInfiniteQnaList(productSeq: number) {
-    return useInfiniteQuery<QnaListType, Error>({
+export function useGetProductQnaList(productSeq: number, isActive: boolean) {
+    return useInfiniteQuery<QnaItemType[], Error>({
         queryKey: ['productQnaList'],
         queryFn: ({ pageParam }) =>
-            getInfiniteQnaList({ pageParam, productSeq }),
-        initialPageParam: undefined,
+            getProductQnaList({ pageParam, productSeq }),
+        initialPageParam: 0,
         getNextPageParam: (lastPage, allPages) => {
             const nextPage = allPages.length + 1;
-            // 상품이 0개이거나 rowsPerPage보다 작을 경우 마지막 페이지로 인식한다.
-            return lastPage?.count === 0 || lastPage?.count < pageSize
+            return lastPage?.length === 0 || lastPage?.length < pageSize
                 ? undefined
                 : nextPage;
         },
@@ -104,6 +126,7 @@ export function useGetInfiniteQnaList(productSeq: number) {
         refetchOnMount: false,
         refetchOnReconnect: false,
         refetchOnWindowFocus: false,
+        enabled: isActive,
     });
 }
 

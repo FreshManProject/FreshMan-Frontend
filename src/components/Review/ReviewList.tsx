@@ -14,7 +14,7 @@ export default function ReviewList() {
         hasNextPage,
         fetchNextPage,
         isFetchingNextPage,
-    } = useGetInfiniteReview(Number(id));
+    } = useGetInfiniteReview(Number(id), true);
 
     console.log(data?.pages);
 

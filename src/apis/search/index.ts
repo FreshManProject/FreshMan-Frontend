@@ -2,7 +2,6 @@ import {
     productListParamsType,
     productListType,
 } from '@/types/Product/productList';
-import { pageSize } from '@/constants/infinitescroll';
 import requests from '../requests';
 import { BASE_URL, axiosAuth } from '..';
 
@@ -39,16 +38,7 @@ export async function getInfiniteSearchList({
 
     try {
         const response = await axiosAuth.get(url.toString());
-
-        // msw 데이터 수정
-        // TODO: 백엔드 연결 후 삭제
-        const startIndex = (Number(pageParam) - 1) * pageSize;
-        const list = response.data.list.slice(
-            startIndex,
-            startIndex + pageSize,
-        );
-
-        return { list, count: list.length };
+        return response.data;
     } catch (error) {
         throw new Error('Failed to fetch search list');
     }

@@ -1,14 +1,17 @@
 import { useNavigate } from 'react-router-dom';
 
-export default function QnABtn() {
+interface Props {
+    productSeq: string;
+}
+export default function QnABtn({ productSeq }: Props) {
     const navigate = useNavigate();
 
     return (
-        <div>
+        <div className="my-5 px-4">
             <button
                 type="button"
-                className="text-wh h-12 w-full bg-bk text-body2_b"
-                onClick={() => navigate('/qna/write')}
+                className="text-wh h-12 w-full rounded-md bg-bk text-body2_b text-white"
+                onClick={() => navigate(`/qna/submit?id=${productSeq}`)}
             >
                 문의하기
             </button>

@@ -12,10 +12,13 @@ import { Controller, useForm } from 'react-hook-form';
 import useUploadPhoto from '@/hooks/useUploadPhoto';
 import { usePostQnA } from '@/hooks/query/product';
 import { ForwardedRef, forwardRef } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { GrayBorderButton, PrimaryBkButton } from '../common/Button';
 import UploadPhoto from '../common/UploadPhoto';
 
 export default function QnAForm() {
+    const [params] = useSearchParams();
+    const productSeq = params.get('id');
     const {
         file,
         previewImage,
@@ -47,7 +50,7 @@ export default function QnAForm() {
         if (file) formdata.append('image', file);
         mutatePostQnA({
             // TODO: 상세 정보 작업 완료 후 수정 예정
-            productSeq: 1,
+            productSeq: Number(productSeq),
             body: formdata,
         });
     };

@@ -8,21 +8,14 @@ import { QnaItemType } from '@/types/User/qna';
 interface IQnAItemProps {
     value: number;
     item: QnaItemType;
-    answer?: string;
-    disabled: boolean;
 }
 
-export default function QnAItem({
-    value,
-    item,
-    answer,
-    disabled,
-}: IQnAItemProps) {
+export default function QnAItem({ value, item }: IQnAItemProps) {
     return (
         <AccordionItem
             value={`item-${value}`}
-            disabled={disabled}
-            className="qnaGroup px-4 data-[state=open]:bg-gray100"
+            disabled={!item.isAnswered}
+            className="qnaGroup data-[state=open]:bg-gray100"
         >
             <AccordionTrigger className="items-start">
                 <div className="flex flex-1 flex-col items-start gap-3">
@@ -44,10 +37,12 @@ export default function QnAItem({
                     </div>
                 </div>
             </AccordionTrigger>
-            <AccordionContent className="pt-5">
-                <h4 className="mb-7 text-body2_b">답변</h4>
-                <p>{answer}</p>
-            </AccordionContent>
+            {item.isAnswered && (
+                <AccordionContent className="pt-5">
+                    <h4 className="mb-7 text-body2_b">답변</h4>
+                    {/* <p>{answer}</p> */}
+                </AccordionContent>
+            )}
         </AccordionItem>
     );
 }
