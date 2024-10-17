@@ -39,7 +39,14 @@ export default function ProductInfiniteList<
 
     return (
         <ul className={'flex flex-wrap gap-y-10'}>
-            {list.map((item) => children(item))}
+            {!list.length ? (
+                <div className="w-full pt-5 text-center text-sm text-gray400">
+                    검색 결과가 없습니다.
+                </div>
+            ) : (
+                <>{list.map((item) => children(item))}</>
+            )}
+
             {view ? <p>Loading more...</p> : <div ref={onView} />}
         </ul>
     );
