@@ -90,12 +90,16 @@ export default function SortBottomSheetContent({
     return (
         <>
             <DrawerTrigger>
-                <FilterBtn
-                    close={false}
-                    active={filters[filterName].checked}
-                    filterName={currentFilter[currentFilterItem - 1].name}
-                />
+                {/* 검색 페이지에서는 필터버튼 제외 */}
+                {location.pathname !== '/search' && (
+                    <FilterBtn
+                        close={false}
+                        active={filters[filterName].checked}
+                        filterName={currentFilter[currentFilterItem - 1].name}
+                    />
+                )}
             </DrawerTrigger>
+
             <DrawerPortal>
                 <DrawerContent className="bg-white px-4">
                     <div className="py-8">

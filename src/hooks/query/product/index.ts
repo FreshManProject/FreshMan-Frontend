@@ -36,14 +36,20 @@ export function useGetInfiniteProductList(
     params: productListParamsType,
     status: boolean = true,
 ) {
-    return useInfiniteQuery<productListType, Error>({
+    const {
+        data: list,
+        isLoading,
+        isError,
+        isFetchingNextPage,
+        fetchNextPage,
+        hasNextPage,
+    } = useInfiniteQuery<productListType, Error>({
         queryKey: ['product'],
         queryFn: ({ pageParam }) => getProductList2(params, pageParam),
         initialPageParam: 0,
         getNextPageParam: (lastPage, allPages) => {
             const nextPage = allPages.length;
             // 상품이 0개이거나 rowsPerPage보다 작을 경우 마지막 페이지로 인식한다.
-            console.log(nextPage, 'nextpage');
             return lastPage.count === 10 ? nextPage : undefined;
         },
         retry: 0,
@@ -52,6 +58,17 @@ export function useGetInfiniteProductList(
         refetchOnWindowFocus: false,
         enabled: status,
     });
+
+    const productList = list?.pages.flatMap((listData) => listData.list) || [];
+
+    return {
+        productList,
+        isLoading,
+        isError,
+        isFetchingNextPage,
+        fetchNextPage,
+        hasNextPage,
+    };
 }
 
 export function useGetProductList(

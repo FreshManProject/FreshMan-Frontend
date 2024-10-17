@@ -3,7 +3,6 @@ import {
     getRecentSearchList,
     getInfiniteSearchList,
 } from '@/apis/search';
-import { pageSize } from '@/constants/infinitescroll';
 import {
     productListParamsType,
     productListType,
@@ -26,16 +25,14 @@ export function useGetInfiniteSearchList({
     status: boolean;
 }) {
     return useInfiniteQuery<productListType, Error>({
-        queryKey: ['searchResult'],
+        queryKey: ['searchResult', JSON.stringify(params)],
         queryFn: ({ pageParam }) =>
             getInfiniteSearchList({ params, pageParam }),
-        initialPageParam: undefined,
+        initialPageParam: 0,
         getNextPageParam: (lastPage, allPages) => {
-            const nextPage = allPages.length + 1;
+            const nextPage = allPages.length;
             // 상품이 0개이거나 rowsPerPage보다 작을 경우 마지막 페이지로 인식한다.
-            return lastPage?.count === 0 || lastPage?.count < pageSize
-                ? undefined
-                : nextPage;
+            return lastPage.count === 10 ? nextPage : undefined;
         },
         enabled: status,
         retry: 0,
