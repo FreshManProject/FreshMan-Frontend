@@ -6,6 +6,7 @@ interface IGrayBorderToggleButtonProps {
     onClick?: () => void;
     close: boolean;
     active?: boolean;
+    removeKeywordList?: () => void;
 }
 
 export default function GrayBorderToggleButton({
@@ -13,7 +14,14 @@ export default function GrayBorderToggleButton({
     onClick,
     close,
     active,
+    removeKeywordList,
 }: IGrayBorderToggleButtonProps) {
+    const handleKeywordRemove = () => {
+        if (removeKeywordList) {
+            removeKeywordList();
+        }
+    };
+
     return (
         <button
             type={'button'}
@@ -24,6 +32,7 @@ export default function GrayBorderToggleButton({
 
             {close ? (
                 <IoCloseOutline
+                    onClick={handleKeywordRemove}
                     className={`${active ? 'text-white' : 'text-bk'}`}
                 />
             ) : (

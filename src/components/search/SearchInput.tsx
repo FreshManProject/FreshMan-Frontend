@@ -5,6 +5,7 @@ import { FormEvent, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { IoSearchOutline } from 'react-icons/io5';
 import { useFilterStore } from '@/store/filter';
+import { useKeywordStore } from '@/store/keyword';
 import { SortBottomSheetContent, TopHeader } from '../common';
 import { Drawer, DrawerPortal, DrawerTrigger } from '../ui/drawer';
 
@@ -25,6 +26,7 @@ export default function SearchInput({ result }: IProps) {
 
     const [searchFilter, setSearchFilter] = useState({ categorySeq: false });
     const { setEnableFilter } = useFilterStore();
+    const { setInsertKeywordList } = useKeywordStore();
 
     const toggleFilter = (filterName: string, open: boolean) => {
         setSearchFilter({
@@ -35,7 +37,6 @@ export default function SearchInput({ result }: IProps) {
 
     const handleSubmitToSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(inputKeyword);
         if (inputKeyword === '') return alert('검색어를 입력해주세요.');
 
         const filters = {
@@ -54,6 +55,7 @@ export default function SearchInput({ result }: IProps) {
         });
         navigate(`/search/result${queries}`);
         setEnableFilter(true);
+        setInsertKeywordList(inputKeyword);
 
         return null;
     };
