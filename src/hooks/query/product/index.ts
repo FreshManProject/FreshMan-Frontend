@@ -5,7 +5,7 @@ import {
     getInfiniteSaleList,
     getProductList2,
 } from '@/apis/products';
-import { getProductQnaList, getQnaAnswer, postQnaAnswer } from '@/apis/qna';
+import { getProductQnaList, getQnaAnswer, postQna } from '@/apis/qna';
 import { pageSize } from '@/constants/infinitescroll';
 import {
     productListParamsType,
@@ -176,7 +176,7 @@ export function usePostQnA() {
     const { isPending: isPendingPostQnA, mutate: mutatePostQnA } = useMutation({
         mutationFn: (data: QnaParamsType) => {
             setProductSeq(data.productSeq);
-            return postQnaAnswer(data);
+            return postQna(data);
         },
         onSuccess: () => {
             navigate(`/products/${productSeq}`);

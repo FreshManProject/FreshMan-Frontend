@@ -2,6 +2,7 @@ import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
 import { getInfiniteReview, postReview } from '@/apis/review';
 import { pageSize } from '@/constants/infinitescroll';
 import { reviewListType, reviewParmsType } from '@/types/Review/userReview';
+import { useNavigate } from 'react-router-dom';
 
 export function useGetInfiniteReview(productSeq: number, isActive: boolean) {
     return useInfiniteQuery<reviewListType, Error>({
@@ -25,9 +26,14 @@ export function useGetInfiniteReview(productSeq: number, isActive: boolean) {
 }
 
 export function usePostReview() {
+    const navigate = useNavigate();
     const { isPending: isPendingPostReview, mutate: mutatePostReview } =
         useMutation({
             mutationFn: (data: reviewParmsType) => postReview(data),
+            onSuccess(data, variables) {
+                const productSeq = variables.body.get('productSeq');
+                navigate(`/products/${productSeq}`);
+            },
         });
 
     return {

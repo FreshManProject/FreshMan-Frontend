@@ -1,10 +1,7 @@
 import { ListType } from '../listType';
 
 export interface reviewParmsType {
-    productSeq: number;
-    content: string;
-    score: number;
-    type: 'N' | 'I' | 'S';
+    body: FormData;
 }
 
 // 임시 타입

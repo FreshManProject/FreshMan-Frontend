@@ -1,10 +1,11 @@
 import { Suspense, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { ProductReviewScore, ReviewList } from '@/components/Review';
+import { ReviewList } from '@/components/Review';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { QnABtn, QnAList } from '@/components/QnA';
+import { QnAList } from '@/components/QnA';
 import { useProductStore } from '@/store/product';
 import { useGetProductQnaList } from '@/hooks/query/product';
+import { SendProductIdButton } from '@/components/common';
 import TabAndContentLayout from './TabAndContentLayout';
 
 export default function TabAndContent() {
@@ -63,14 +64,26 @@ export default function TabAndContent() {
             </TabsContent>
             <TabsContent value={tabs[1].name}>
                 <TabAndContentLayout
-                    topComponent={<ProductReviewScore />}
+                    topComponent={
+                        <SendProductIdButton
+                            path="/review/submit"
+                            productSeq={id || ''}
+                            name="리뷰쓰기"
+                        />
+                    }
                     bottomComponent={<ReviewList />}
                     subTitle="리뷰"
                 />
             </TabsContent>
             <TabsContent value={tabs[2].name}>
                 <TabAndContentLayout
-                    topComponent={<QnABtn productSeq={id || ''} />}
+                    topComponent={
+                        <SendProductIdButton
+                            path="/qna/submit"
+                            productSeq={id || ''}
+                            name="문의하기"
+                        />
+                    }
                     bottomComponent={
                         <Suspense fallback={'dd'}>
                             <QnAList qnaData={qnaData} />

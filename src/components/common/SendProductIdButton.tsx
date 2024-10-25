@@ -2,8 +2,10 @@ import { useNavigate } from 'react-router-dom';
 
 interface Props {
     productSeq: string;
+    path: string;
+    name: string;
 }
-export default function QnABtn({ productSeq }: Props) {
+export default function SendProductIdButton({ productSeq, path, name }: Props) {
     const navigate = useNavigate();
 
     return (
@@ -11,9 +13,9 @@ export default function QnABtn({ productSeq }: Props) {
             <button
                 type="button"
                 className="text-wh h-12 w-full rounded-md bg-bk text-body2_b text-white"
-                onClick={() => navigate(`/qna/submit?id=${productSeq}`)}
+                onClick={() => navigate(`${path}?id=${productSeq}`)}
             >
-                문의하기
+                {name}
             </button>
         </div>
     );

@@ -62,10 +62,7 @@ export async function getQnaAnswer(
     }
 }
 
-export async function postQnaAnswer(data: {
-    productSeq: number;
-    body: unknown;
-}) {
+export async function postQna(data: { productSeq: number; body: unknown }) {
     try {
         const response = await axiosAuth.post(
             `/questions/products/${data.productSeq}`,
