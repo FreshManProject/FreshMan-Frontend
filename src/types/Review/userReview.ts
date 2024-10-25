@@ -4,16 +4,12 @@ export interface reviewParmsType {
     body: FormData;
 }
 
-// 임시 타입
 export interface reviewProductType {
-    rating: number;
-    user: {
-        username: string;
-    };
-    image: string;
-    option: string;
-    date: Date;
-    description: string;
+    reviewSeq: number;
+    userName: string;
+    content: string;
+    score: number;
+    createdAt: [number, number, number, number, number, number];
 }
 
 export type reviewListType = ListType<reviewProductType>;

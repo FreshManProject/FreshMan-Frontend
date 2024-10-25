@@ -1,6 +1,5 @@
 import { useInfiniteQuery, useMutation } from '@tanstack/react-query';
 import { getInfiniteReview, postReview } from '@/apis/review';
-import { pageSize } from '@/constants/infinitescroll';
 import { reviewListType, reviewParmsType } from '@/types/Review/userReview';
 import { useNavigate } from 'react-router-dom';
 
@@ -9,13 +8,11 @@ export function useGetInfiniteReview(productSeq: number, isActive: boolean) {
         queryKey: ['review'],
         queryFn: ({ pageParam }) =>
             getInfiniteReview({ pageParam, productSeq }),
-        initialPageParam: undefined,
+        initialPageParam: 0,
         getNextPageParam: (lastPage, allPages) => {
-            const nextPage = allPages.length + 1;
+            const nextPage = allPages.length;
             // 상품이 0개이거나 rowsPerPage보다 작을 경우 마지막 페이지로 인식한다.
-            return lastPage?.count === 0 || lastPage?.count < pageSize
-                ? undefined
-                : nextPage;
+            return lastPage.count === 10 ? nextPage : undefined;
         },
         retry: 0,
         refetchOnMount: false,

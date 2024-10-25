@@ -1,12 +1,17 @@
 import { useMemo } from 'react';
-import { useParams } from 'react-router-dom';
 import useView from '@/hooks/observer/useView';
-import { useGetInfiniteReview } from '@/hooks/query/review';
+import { reviewListType } from '@/types/Review/userReview';
+import { InfiniteData, UseInfiniteQueryResult } from '@tanstack/react-query';
 import ReviewItem from './ReviewItem';
 
-export default function ReviewList() {
-    const { id } = useParams();
+interface Props {
+    reviewData: UseInfiniteQueryResult<
+        InfiniteData<reviewListType, unknown>,
+        Error
+    >;
+}
 
+export default function ReviewList({ reviewData }: Props) {
     const {
         data,
         isLoading,
@@ -14,9 +19,7 @@ export default function ReviewList() {
         hasNextPage,
         fetchNextPage,
         isFetchingNextPage,
-    } = useGetInfiniteReview(Number(id), true);
-
-    console.log(data?.pages);
+    } = reviewData;
 
     const { view, onView } = useView(
         isFetchingNextPage,
@@ -24,7 +27,7 @@ export default function ReviewList() {
         hasNextPage,
     );
 
-    const list = useMemo(() => {
+    const reviewList = useMemo(() => {
         return data?.pages.flatMap((listData) => listData.list) || [];
     }, [data]);
 
@@ -34,9 +37,15 @@ export default function ReviewList() {
 
     return (
         <ul className="flex flex-col gap-9">
-            {list.map((item, index) => (
-                <ReviewItem key={index} {...item} />
-            ))}
+            {reviewList.length === 0 ? (
+                <p className="text-center text-sm text-gray400">
+                    등록된 리뷰가 없습니다.
+                </p>
+            ) : (
+                reviewList.map((item, index) => (
+                    <ReviewItem key={index} {...item} />
+                ))
+            )}
             {view ? <p>Loading more...</p> : <div ref={onView} />}
         </ul>
     );

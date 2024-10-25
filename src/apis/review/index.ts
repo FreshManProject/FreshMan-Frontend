@@ -1,17 +1,16 @@
 import { reviewListType, reviewParmsType } from '@/types/Review/userReview';
-import axios from 'axios';
 import { axiosAuth } from '..';
 
 export async function getInfiniteReview({
     productSeq,
-    pageParam = 1,
+    pageParam = 0,
 }: {
     productSeq: number;
     pageParam?: unknown;
 }): Promise<reviewListType> {
     try {
-        const response = await axios.get<reviewListType>(
-            `/products/review/${productSeq}`,
+        const response = await axiosAuth.get<reviewListType>(
+            `/products/${productSeq}/reviews`,
             {
                 params: {
                     page: pageParam,
