@@ -9,6 +9,7 @@ export interface reviewProductType {
     userName: string;
     content: string;
     score: number;
+    imagePath: string;
     createdAt: [number, number, number, number, number, number];
 }
 
