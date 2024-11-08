@@ -1,4 +1,4 @@
-import { usePostReview } from '@/hooks/query/review';
+// import { usePostReview } from '@/hooks/query/review';
 import imageCompression from 'browser-images-compression';
 import { useRef, useState } from 'react';
 
@@ -6,16 +6,16 @@ export default function useSubmitReview() {
     // const [url, setUrl] = useState<string | ArrayBuffer | null>();
     const inputFileRef = useRef<HTMLInputElement>(null);
     const [reviewText, setReviewText] = useState('');
-    const { mutatePostReview } = usePostReview();
+    // const { mutatePostReview } = usePostReview();
 
     const handleSubmit = () => {
         // console.log(reviewText);
-        mutatePostReview({
-            productSeq: 1,
-            content: reviewText,
-            score: 5,
-            type: 'N',
-        });
+        // mutatePostReview({
+        //     productSeq: 1,
+        //     content: reviewText,
+        //     score: 5,
+        //     type: 'N',
+        // });
     };
 
     const handleChangeText = (

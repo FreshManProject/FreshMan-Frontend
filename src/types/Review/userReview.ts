@@ -1,22 +1,16 @@
 import { ListType } from '../listType';
 
 export interface reviewParmsType {
-    productSeq: number;
-    content: string;
-    score: number;
-    type: 'N' | 'I' | 'S';
+    body: FormData;
 }
 
-// 임시 타입
 export interface reviewProductType {
-    rating: number;
-    user: {
-        username: string;
-    };
-    image: string;
-    option: string;
-    date: Date;
-    description: string;
+    reviewSeq: number;
+    userName: string;
+    content: string;
+    score: number;
+    imagePath: string;
+    createdAt: [number, number, number, number, number, number];
 }
 
 export type reviewListType = ListType<reviewProductType>;

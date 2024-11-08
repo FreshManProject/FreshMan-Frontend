@@ -43,6 +43,14 @@ export const qnaSchema = yup.object().shape({
         .min(20, '문의 내용은 최소 20자 이상이어야 합니다.'),
 });
 
+export const reviewSchema = yup.object().shape({
+    score: yup.number().required('별점을 선택해주세요.'),
+    content: yup
+        .string()
+        .required('리뷰 내용을 입력해주세요.')
+        .min(20, '리뷰 내용은 최소 20자 이상이어야 합니다.'),
+});
+
 export const imageFileSchema = yup.object().shape({
     image: yup
         .mixed()

@@ -35,7 +35,6 @@ export default function QnAList({ qnaData }: IQnAList) {
         return qnaList?.pages.flatMap((listData) => listData || []) || [];
     }, [qnaList]);
 
-    console.log(list, 'qna', qnaList);
     const [isFetching, setIsFetching] = useState(false);
     const [qnaId, setQnaId] = useState('');
     const { isSuccessAnswer } = useGetQnaAnswer(qnaId, isFetching);

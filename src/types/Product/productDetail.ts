@@ -13,5 +13,5 @@ export interface ProductDetailType {
     };
     description: string;
     brand: string;
-    imageList: [];
+    imageList: string[];
 }

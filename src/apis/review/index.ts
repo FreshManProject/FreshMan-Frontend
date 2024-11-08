@@ -1,16 +1,16 @@
 import { reviewListType, reviewParmsType } from '@/types/Review/userReview';
-import axios from 'axios';
+import { axiosAuth } from '..';
 
 export async function getInfiniteReview({
     productSeq,
-    pageParam = 1,
+    pageParam = 0,
 }: {
     productSeq: number;
     pageParam?: unknown;
 }): Promise<reviewListType> {
     try {
-        const response = await axios.get<reviewListType>(
-            `/products/review/${productSeq}`,
+        const response = await axiosAuth.get<reviewListType>(
+            `/products/${productSeq}/reviews`,
             {
                 params: {
                     page: pageParam,
@@ -26,7 +26,11 @@ export async function getInfiniteReview({
 
 export async function postReview(data: reviewParmsType) {
     try {
-        const response = await axios.post('/products/reviews', data);
+        const response = await axiosAuth.post('/products/reviews', data.body, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
         if (response.data) return response.data;
         throw new Error(
             `Unexpected response : ${response.status} ${response.statusText}`,

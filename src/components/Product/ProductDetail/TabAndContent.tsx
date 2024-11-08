@@ -1,10 +1,12 @@
 import { Suspense, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { ProductReviewScore, ReviewList } from '@/components/Review';
+import { ReviewList } from '@/components/Review';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { QnABtn, QnAList } from '@/components/QnA';
+import { QnAList } from '@/components/QnA';
 import { useProductStore } from '@/store/product';
 import { useGetProductQnaList } from '@/hooks/query/product';
+import { SendProductIdButton } from '@/components/common';
+import { useGetInfiniteReview } from '@/hooks/query/review';
 import TabAndContentLayout from './TabAndContentLayout';
 
 export default function TabAndContent() {
@@ -22,6 +24,10 @@ export default function TabAndContent() {
     );
     const { description } = useProductStore();
     const qnaData = useGetProductQnaList(Number(id), isTabChange.productQnA);
+    const reviewData = useGetInfiniteReview(
+        Number(id),
+        isTabChange.productReview,
+    );
 
     // 처음 상세정보만 api 가져 온 후 탭 이동시 관련 api 호출
 
@@ -63,14 +69,26 @@ export default function TabAndContent() {
             </TabsContent>
             <TabsContent value={tabs[1].name}>
                 <TabAndContentLayout
-                    topComponent={<ProductReviewScore />}
-                    bottomComponent={<ReviewList />}
+                    topComponent={
+                        <SendProductIdButton
+                            path="/review/submit"
+                            productSeq={id || ''}
+                            name="리뷰쓰기"
+                        />
+                    }
+                    bottomComponent={<ReviewList reviewData={reviewData} />}
                     subTitle="리뷰"
                 />
             </TabsContent>
             <TabsContent value={tabs[2].name}>
                 <TabAndContentLayout
-                    topComponent={<QnABtn productSeq={id || ''} />}
+                    topComponent={
+                        <SendProductIdButton
+                            path="/qna/submit"
+                            productSeq={id || ''}
+                            name="문의하기"
+                        />
+                    }
                     bottomComponent={
                         <Suspense fallback={'dd'}>
                             <QnAList qnaData={qnaData} />
