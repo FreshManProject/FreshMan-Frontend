@@ -41,7 +41,7 @@ export default function FixedNav() {
     return (
         <nav
             className={
-                'fixed bottom-0 left-0 flex w-full justify-around bg-gray100 py-3'
+                'fixed bottom-0 left-0 right-0 mx-auto flex w-full max-w-default justify-around bg-gray100 py-3'
             }
         >
             {navList.map((item) => (

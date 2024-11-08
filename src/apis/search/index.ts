@@ -26,7 +26,7 @@ export async function getInfiniteSearchList({
     pageParam?: unknown;
 }): Promise<productListType> {
     // categorySeq: number, lowPrice?: number, highPrice?: number, sort?: string, keyword?: string
-    const url = new URL(`/products`, BASE_URL);
+    const url = new URL(`/products/search`, BASE_URL);
 
     Object.entries(params).forEach(([key, value]) => {
         if (value) {
@@ -34,10 +34,10 @@ export async function getInfiniteSearchList({
         }
     });
 
-    url.searchParams.append('pages', Number(pageParam).toString());
-
     try {
-        const response = await axiosAuth.get(url.toString());
+        const response = await axiosAuth.get(
+            `${url.toString()}&page=${pageParam}`,
+        );
         return response.data;
     } catch (error) {
         throw new Error('Failed to fetch search list');

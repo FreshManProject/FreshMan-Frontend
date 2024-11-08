@@ -1,11 +1,6 @@
 import { Slider } from '@/components/ui/slider';
 import { useState } from 'react';
-import {
-    useLocation,
-    useNavigate,
-    useParams,
-    useSearchParams,
-} from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
     Drawer,
     DrawerContent,
@@ -16,7 +11,6 @@ import {
 
 import { formatNumber } from '@/util/formatData';
 import { filterType } from '@/types/Product/productList';
-import { useGetProductList } from '@/hooks/query/product';
 import { useFilterStore } from '@/store/filter';
 import { GrayBorderButton, PrimaryBkButton } from '../common/Button';
 import FilterBtn from './FilterBtn';
@@ -34,28 +28,29 @@ export default function PriceBottomSheet({
 }: IFilterBottomSheetProps) {
     const navigate = useNavigate();
     const location = useLocation();
-    const [searchParams] = useSearchParams();
-    const keyword = searchParams.get('keyword');
-    console.log(location, keyword);
+    // const [searchParams] = useSearchParams();
+    // const keyword = searchParams.get('keyword');
+    // const { id } = useParams();
 
-    const { id } = useParams();
     const [range, setRange] = useState([1000, 10000000]);
     const [price, setPrice] = useState([1000, 10000000]);
 
-    const { filters, setFilterState } = useFilterStore();
+    const { filters, setFilterState, setEnableFilter } = useFilterStore();
 
-    const { productList } = useGetProductList(
-        { categorySeq: Number(id), lowPrice: price[0], highPrice: price[1] },
-        isOpenFilter,
-    );
+    // 상품 전체 개수 필요하면..? 데이터 미리 가져올 필요 있음
+    // const { productList } = useGetInfiniteProductList(
+    //     { categorySeq: Number(id), lowPrice: price[0], highPrice: price[1] },
+    //     isOpenFilter && location.pathname.split('/')[1] === 'categories',
+    // );
+    console.log(isOpenFilter);
     const handleChangePrice = (value: number[]) => {
         setRange(value);
     };
     const handleClickGotoProduct = () => {
         toggleFilter(filterName, false);
         const params = new URLSearchParams(location.search);
-        const sortValue = params.get('sort') ?? 'newest';
-        params.delete('sort');
+        // const sortValue = params.get('sort') ?? 'newest';
+        // params.delete('sort');
         params.set('lowPrice', String(price[0]));
         params.set('highPrice', String(price[1]));
 
@@ -69,10 +64,9 @@ export default function PriceBottomSheet({
                 value: `${formatNumber(range[0])}원~${formatNumber(range[1])}원`,
             },
         });
-
-        navigate(
-            `?${params.toString()}${sortValue ? `&sort=${sortValue}` : ''}${keyword ? `&keyword=${keyword}` : ''}`,
-        );
+        // 데이터 패칭
+        setEnableFilter(true);
+        navigate(`/search/result?${params.toString()}`);
     };
     const handleChangeEnd = (value: number[]) => {
         setPrice(value);
@@ -111,7 +105,8 @@ export default function PriceBottomSheet({
                             handleClick={handleClickGotoProduct}
                             type="button"
                         >
-                            {productList?.count} 상품보기
+                            {/* TODO: 전체 상품 갯수 가져오기 가능? */}
+                            상품보기
                         </PrimaryBkButton>
                     </DrawerFooter>
                 </DrawerContent>

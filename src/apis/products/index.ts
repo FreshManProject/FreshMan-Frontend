@@ -31,7 +31,6 @@ export async function getProductList2(
 ): Promise<productListType> {
     // categorySeq: number, lowPrice?: number, highPrice?: number, sort?: string
     const url = new URL(`/products`, BASE_URL);
-    console.log(pageParam, 'pageparam');
     Object.entries(params).forEach(([key, value]) => {
         if (value && key !== 'pageParam') {
             url.searchParams.append(key, value.toString());

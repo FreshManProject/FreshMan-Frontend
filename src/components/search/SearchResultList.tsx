@@ -13,13 +13,10 @@ export default function SearchResultList() {
     const sort = searchParams.get('sort') ?? 'newest';
 
     const { enableFilter } = useFilterStore();
-
     const result = useGetInfiniteSearchList({
         params: { keyword, lowPrice, highPrice, categorySeq, sort },
         status: enableFilter,
     });
-
-    if (!result) return <div>노 리절트</div>;
 
     return (
         <ProductInfiniteList result={result}>

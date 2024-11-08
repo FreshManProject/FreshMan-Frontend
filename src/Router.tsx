@@ -29,8 +29,13 @@ export default function Router() {
             errorElement: <GlobalError />,
             children: [
                 {
-                    path: '/',
-                    element: <HomePage />,
+                    element: <LayoutWithNav />,
+                    children: [
+                        {
+                            path: '/',
+                            element: <HomePage />,
+                        },
+                    ],
                 },
                 {
                     path: '/search',

@@ -5,6 +5,7 @@ import { FormEvent, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { IoSearchOutline } from 'react-icons/io5';
 import { useFilterStore } from '@/store/filter';
+import { useKeywordStore } from '@/store/keyword';
 import { SortBottomSheetContent, TopHeader } from '../common';
 import { Drawer, DrawerPortal, DrawerTrigger } from '../ui/drawer';
 
@@ -16,16 +17,19 @@ export default function SearchInput({ result }: IProps) {
     const [searchParams] = useSearchParams();
     const lowPrice = Number(searchParams.get('lowPrice'));
     const highPrice = Number(searchParams.get('highPrice'));
+    const categorySeq = Number(searchParams.get('categorySeq'));
     const sort = searchParams.get('sort') ?? 'newest';
     const keyword = searchParams.get('keyword') ?? '';
     const [inputKeyword, setInputKeyword] = useState('');
 
     const navigate = useNavigate();
 
-    const [searchFilter, setsearchFilter] = useState({ categorySeq: false });
+    const [searchFilter, setSearchFilter] = useState({ categorySeq: false });
     const { setEnableFilter } = useFilterStore();
+    const { setInsertKeywordList } = useKeywordStore();
+
     const toggleFilter = (filterName: string, open: boolean) => {
-        setsearchFilter({
+        setSearchFilter({
             ...searchFilter,
             [filterName]: open,
         });
@@ -39,6 +43,7 @@ export default function SearchInput({ result }: IProps) {
             lowPrice,
             highPrice,
             sort,
+            categorySeq,
         };
 
         let queries = `?keyword=${inputKeyword}`;
@@ -50,6 +55,7 @@ export default function SearchInput({ result }: IProps) {
         });
         navigate(`/search/result${queries}`);
         setEnableFilter(true);
+        setInsertKeywordList(inputKeyword);
 
         return null;
     };
@@ -107,13 +113,13 @@ export default function SearchInput({ result }: IProps) {
                             autoFocus
                             value={inputKeyword}
                             onChange={(e) => setInputKeyword(e.target.value)}
-                            className="order-transparent h-10 rounded-l-sm rounded-r-none bg-gray200 pl-3"
+                            className="order-transparent h-10 rounded-l-sm rounded-r-none border-transparent bg-gray200 pl-3 focus:border-transparent focus:outline-none focus:!ring-0"
                             placeholder="상품을 검색해주세요."
                         />
                         <Drawer
                             open={searchFilter.categorySeq}
                             onOpenChange={(open: boolean) =>
-                                setsearchFilter({
+                                setSearchFilter({
                                     ...searchFilter,
                                     categorySeq: open,
                                 })
